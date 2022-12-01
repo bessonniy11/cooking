@@ -2,53 +2,101 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { environment } from "../../environments/environment";
 import {NavigationService} from "./navigation.service";
+import {MainService} from "../core/main.service";
+import {AlertController, LoadingController} from "@ionic/angular";
+import {AppService} from "./app.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
-  protected baseUrl = environment.baseUrl;
-  protected apiUrl = environment.apiUrl;
-  protected newApiUrl = environment.newApiUrl;
-  loading = false;
-
+export class UserService extends MainService {
   user: any = null;
 
-  constructor(private http: HttpClient, private navigationService: NavigationService) { }
+  constructor(
+    http: HttpClient,
+    alert: AlertController,
+    loader: LoadingController,
+    appService: AppService,
+    navigationService: NavigationService
+  ) {
+    super(http, alert, loader, appService, navigationService);
+  }
 
-  postRequest(data: any, callback: any | undefined) {
-    this.loading = true;
-    this.http.post(this.baseUrl + data.link, { data: data }).subscribe(res => {
+
+  // получение базовых данных юзера
+  public getUser(callback: (status: boolean) => any, force = true) {
+    this.appService.loading = true;
+
+    const data = {
+      id: localStorage.getItem('userId'),
+      link: 'user'
+    };
+
+    this.postRequest(data, (res: any) => {
       if (res) {
-
-        // console.log('res postRequest', res);
-        this.loading = false;
+        this.appService.loading = false;
+        if (res.data.userData) {
+          this.user = res.data.user;
+          console.log('this.user', this.user);
+        }
       }
-      return callback(res)
     });
   }
 
-  getRequest(data: any, callback: any | undefined) {
-
-    this.http.get(this.baseUrl + data.link).subscribe(res => {
-
+  // логин
+  login(data: any, callback: any | undefined) {
+    this.appService.loading = true;
+    this.postRequest(data, (res: any) => {
       if (res) {
-        console.log('res getRequest', res);
-        this.loading = false;
+        this.appService.loading = false;
+        if (res.data.status) {
+          localStorage.setItem('token', res.data.token);
+          localStorage.setItem('userId', res.data.id);
+          this.user = res.data;
+          this.navigationService.goToUrl('home')
+        }
       }
-
-      return callback(res)
+      callback(res)
     });
   }
 
+  // выход из аккаунта
   public logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
     this.navigationService.goToUrl('login');
   }
 
-  // public isLogin() {
-  //   return this.user?.id?.toString() !== '0';
-  // }
+  // регистрация
+  registration(data: any, callback: any | undefined) {
+    this.appService.loading = true;
+    this.postRequest(data, (res: any) => {
+      if (res) {
+        this.appService.loading = true;
+
+        if (res.status) {
+          this.navigationService.goToUrl('login', {}, {stage: res.data.result});
+        }
+      }
+      callback(res);
+    });
+  }
+
+  // изменение пользователя
+  updateUser(data: any, callback: any | undefined) {
+    console.log('data', data);
+    this.appService.loading = true;
+    this.postRequest(data, (res: any) => {
+      if (res) {
+        console.log('res', res);
+        this.appService.loading = false;
+        if (res.data.status) {
+          this.user = res.data.newUser;
+          console.log('updateUser', this.user);
+        }
+      }
+      callback(res);
+    });
+  }
 
 }

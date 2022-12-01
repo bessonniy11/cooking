@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../../services/user.service";
 import {NavigationService} from "../../../services/navigation.service";
 import ValidateForm from "../../../helpers/validateform";
+import {AppService} from "../../../services/app.service";
 
 
 @Component({
@@ -11,6 +12,7 @@ import ValidateForm from "../../../helpers/validateform";
   styleUrls: ['page.scss']
 })
 export class LoginPage implements OnInit {
+  appService: AppService;
   userService: UserService;
 
   type: string = 'password';
@@ -23,25 +25,26 @@ export class LoginPage implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    appService: AppService,
     userService: UserService,
     private navigationService: NavigationService,
   ) {
+    this.appService = appService;
     this.userService = userService;
   }
 
   ionViewWillEnter() {
+    if (this.navigationService.data['stage']) {
+      this.loginForm.controls['email'].setValue(this.navigationService.data['stage'].email);
+      this.loginForm.controls['password'].setValue(this.navigationService.data['stage'].password);
+    }
   }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: [Validators.email, Validators.required],
+      email: ['', [Validators.email, Validators.required]],
+      password: ['', [Validators.required]],
     });
-
-    if (this.navigationService.data) {
-      console.log('this.navigationService.data', this.navigationService.data);
-      this.loginForm.controls['email'].setValue(this.navigationService.data['email']);
-      this.loginForm.controls['password'].setValue(this.navigationService.data['password']);
-    }
   }
 
   hideShowPass() {
@@ -60,21 +63,7 @@ export class LoginPage implements OnInit {
         link: 'login'
       };
 
-      this.userService.postRequest(data, (callback: any) => {
-        if (callback) {
-          console.log('callback', callback);
-          if (callback.data.status) {
-            localStorage.setItem('token', callback.data.password);
-            localStorage.setItem('userId', callback.data.id);
-            this.navigationService.goToUrl('/home')
-          } else {
-            this.errorLogin = callback.data.message;
-            console.log('this.errorLogin', this.errorLogin);
-          }
-        } else {
-          this.userService.loading = false;
-        }
-      });
+      this.userService.login(data, (callback: any) => {});
 
     } else {
       ValidateForm.validateAllFormFields(this.loginForm);
@@ -96,9 +85,7 @@ export class LoginPage implements OnInit {
 
   errorLoginValid() {
     // показывает ошибку, если пользователь ввёл невалидный логин
-    console.log('this.loginForm.controls', this.loginForm.controls);
     let valueEmail = this.loginForm.controls['email'].value;
-    console.log('valueEmail', valueEmail);
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let NoErrorLogin = re.test(valueEmail.trim()) || valueEmail === '';
     if (this.loginForm.controls['email'].value.length && !NoErrorLogin) {

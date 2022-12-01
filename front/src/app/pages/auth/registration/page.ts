@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/fo
 import ValidateForm from "../../../helpers/validateform";
 import { UserService } from "../../../services/user.service";
 import { NavigationService } from "../../../services/navigation.service";
+import {AppService} from "../../../services/app.service";
 
 @Component({
   selector: 'registration',
@@ -10,6 +11,7 @@ import { NavigationService } from "../../../services/navigation.service";
   styleUrls: ['page.scss']
 })
 export class SignupComponent implements OnInit {
+  appService: AppService;
   userService: UserService;
 
   typePassword: string = 'password';
@@ -22,10 +24,15 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    appService: AppService,
     userService: UserService,
     private navigationService: NavigationService,
   ) {
+    this.appService = appService;
     this.userService = userService;
+  }
+
+  ionViewWillEnter() {
   }
 
   ngOnInit(): void {
@@ -88,8 +95,10 @@ export class SignupComponent implements OnInit {
     }
   }
 
-  onSignup() {
+  registration() {
     if (this.signeUpForm.valid) {
+
+      this.appService.loading = true;
 
       const data = {
         username: this.signeUpForm.controls['username'].value,
@@ -99,12 +108,7 @@ export class SignupComponent implements OnInit {
         link: 'register'
       };
 
-      this.userService.postRequest(data, (callback: any) => {
-        console.log('callback', callback);
-        if (callback?.data?.status) {
-          this.navigationService.goToUrl('/login', {}, callback?.data?.result)
-        }
-      });
+      this.userService.registration(data, (callback: any) => {});
 
     } else {
       ValidateForm.validateAllFormFields(this.signeUpForm);

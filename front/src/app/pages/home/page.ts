@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {NavigationService} from "../../services/navigation.service";
 import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
+import {AppService} from "../../services/app.service";
 
 
 @Component({
@@ -11,6 +12,7 @@ import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
 })
 export class HomePage implements OnInit {
   currentPage = 1;
+  appService: AppService;
   userService: UserService;
   navigationService: NavigationService;
 
@@ -121,7 +123,9 @@ export class HomePage implements OnInit {
   constructor(
     userService: UserService,
     navigationService: NavigationService,
+    appService: AppService,
   ) {
+    this.appService = appService;
     this.userService = userService;
     this.navigationService = navigationService;
   }

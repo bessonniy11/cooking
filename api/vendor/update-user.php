@@ -12,6 +12,7 @@ if (isset($postdata) && !empty($postdata)) {
     $id = trim($request->data->id);
     $username = trim($request->data->username);
     $email = trim($request->data->email);
+    $avatar = trim($request->data->avatar);
 
     // если какое-то поле пустое
     if (
@@ -27,7 +28,7 @@ if (isset($postdata) && !empty($postdata)) {
     }
 
 
-    $updateUser = $db->prepare("UPDATE `users` SET `username` = '$username', `email` = '$email' WHERE `users`.`id` =  '$id'");
+    $updateUser = $db->prepare("UPDATE `users` SET `username` = '$username', `email` = '$email', `avatar` = '$avatar' WHERE `users`.`id` =  '$id'");
 
     $updateUser->execute([
         "id" => $id
@@ -37,16 +38,18 @@ if (isset($postdata) && !empty($postdata)) {
 
     $updateUserUsername = $updateUser['username'];
     $updateUserEmail = $updateUser['email'];
+    $updateUserAvatar = $updateUser['avatar'];
 
 
     $response = [
         'status'  => true,
         'message' => 'user data was successfully retrieved',
         'userData' => true,
-        'newUser' => [
+        'user' => [
             'id'  => $id,
-            'username'  => $username,
+            'username'  => $updateUserUsername,
             'email'  => $updateUserEmail,
+            'avatar'  => $updateUserAvatar,
         ]
     ];
     echo json_encode(['data' => $response]);

@@ -27,6 +27,7 @@ export class ProfileSettingsPage implements OnInit {
   profileForm!: FormGroup;
 
   user: any = {};
+
   avatar: string | null | undefined = '/assets/icons/profile_avatar.svg';
   modalWindow = false;
 
@@ -59,14 +60,20 @@ export class ProfileSettingsPage implements OnInit {
     this.fileModelService = fileModelService;
   }
 
-  ngOnInit(): void {
-    this.user = this.navigationService.data['user'] ? this.navigationService.data['user'] : {};
+  ionViewWillEnter() {
+    this.user = this.userService.user;
+    console.log('settings user', this.user);
+    if (this.user !== {}) {
+      this.profileForm.controls['username'].setValue(this.user.username);
+      this.profileForm.controls['email'].setValue(this.user.email);
+    }
+  }
 
+  ngOnInit(): void {
     this.profileForm = this.fb.group({
       username: [this.user.username, Validators.required],
       email: [this.user.email, [Validators.email, Validators.required]],
     });
-
   }
 
   ngAfterViewInit() {
@@ -92,7 +99,7 @@ export class ProfileSettingsPage implements OnInit {
 
   uploadAvatar(isDevice: any, event?: any) {
     if (isDevice) {
-      this.userService.loading = true;
+      this.appService.loading = true;
       // запускаем выбор фотио с галереи
       const options: CameraOptions = {
         quality: 100,
@@ -105,7 +112,7 @@ export class ProfileSettingsPage implements OnInit {
       };
       this.camera.getPicture(options).then((imageData) => {
         // console.log("MB: " + imageData.length / 1249956);
-        this.userService.loading = false;
+        this.appService.loading = false;
         if (imageData) {
           if (imageData.length / 1249956 < 5) {
             this.errorFormat = '';
@@ -151,7 +158,6 @@ export class ProfileSettingsPage implements OnInit {
   }
 
   base64ToFile(data: any, filename: any) {
-
     const arr = data.split(',');
     const mime = arr[0].match(/:(.*?);/)[1];
     const bstr = atob(arr[1]);
@@ -172,6 +178,7 @@ export class ProfileSettingsPage implements OnInit {
   }
 
   submit() {
+
     if (this.profileForm.valid) {
 
       const data = {
@@ -181,12 +188,16 @@ export class ProfileSettingsPage implements OnInit {
         link: 'update-user'
       };
 
-      this.userService.postRequest(data, (callback: any) => {
-        console.log('callback', callback);
-        if (callback?.data?.status) {
-          this.navigationService.goToUrl('/profile/main')
-        }
+      this.userService.updateUser(data, (callback: any) =>{
+
       });
+
+      // this.userService.postRequest(data, (callback: any) => {
+      //   console.log('callback', callback);
+      //   if (callback?.data?.status) {
+      //     this.navigationService.goToUrl('/profile/main')
+      //   }
+      // });
 
     } else {
       ValidateForm.validateAllFormFields(this.profileForm);
@@ -194,18 +205,16 @@ export class ProfileSettingsPage implements OnInit {
   }
 
   saveNewImg(img: any) {
+    this.appService.loading = true;
     this.isFileLoad = false;
-    console.log('img', img);
-    console.log('this.croppedImage', this.croppedImage);
     this.avatar = this.croppedImage;
-    // this.userService.loading = true;
 
     this.fileModelService.loadImage(img, (result: any) => {
-      // this.userService.loading = false;
-
-      console.log('result', result);
+      // временно здесь, т. к. пока не готов бек
+      this.appService.loading = false;
 
       if (result) {
+
         // сохраняем получившиеся фото в appService.avatar
         const avatar = [
           {

@@ -4,13 +4,13 @@
   >
 </app-header>
 
+<div class="loading-container" *ngIf="appService.loading">
+  <div class="loading-spinner"></div>
+</div>
+
 <ion-content>
 
   <div class="content">
-
-    <div class="loading-container" *ngIf="userService.loading">
-      <div class="loading-spinner"></div>
-    </div>
 
     <div class="profile-settings">
 

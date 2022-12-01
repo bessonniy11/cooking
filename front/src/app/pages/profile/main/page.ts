@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NavigationService} from '../../../services/navigation.service';
 import {UserService} from "../../../services/user.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AppService} from "../../../services/app.service";
 
 @Component({
   selector: 'blank',
@@ -10,6 +11,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 })
 export class ProfileMainPage implements OnInit {
   fb: FormBuilder;
+  appService: AppService;
   userService: UserService;
   navigationService: NavigationService;
 
@@ -20,36 +22,28 @@ export class ProfileMainPage implements OnInit {
     fb: FormBuilder,
     userService: UserService,
     navigationService: NavigationService,
+    appService: AppService,
   ) {
     this.fb = fb;
+    this.appService = appService;
     this.userService = userService;
     this.navigationService = navigationService;
   }
 
   ionViewWillEnter() {
-    console.log('ionViewWillEnter');
-    this.ngOnInit();
+    this.user = {};
+    this.user = this.userService.user;
+    console.log('profile user', this.user);
   }
 
   ngOnInit(): void {
-    const data = {
-      id: localStorage.getItem('userId'),
-      link: 'user'
-    };
-
-    this.userService.postRequest(data, (callback: any) => {
-      console.log('callback', callback);
-      if (callback.data.userData) {
-        this.user = callback.data.user;
-      }
-    });
   }
 
   ngAfterViewInit() {
   }
 
   goTo(link: string) {
-    this.navigationService.goToUrl(link, {}, {user: this.user})
+    this.navigationService.goToUrl(link);
   }
 
   logout() {

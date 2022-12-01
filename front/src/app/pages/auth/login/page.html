@@ -7,45 +7,50 @@
             <h3 class="pt-3 font-weight-bold">Вход</h3>
           </div>
 
-          <div class="loading-container" *ngIf="userService.loading">
+          <div class="loading-container" *ngIf="appService.loading">
             <div class="loading-spinner"></div>
           </div>
 
           <div class="panel-body p-3">
 
+<!--            TODO refactor styles-->
+
             <form [formGroup]="loginForm">
-              <div class="form-group pt-4">
-                <div class="input-field"
-                     [class.error]="errorText">
-                  <span class="fa fa-user p-2"></span>
-                  <input formControlName="email" type="text" placeholder="Email" (keydown)="keyLogin()">
-                </div>
-                <small
-                  class="text-danger">
-                  {{errorText}}
-                </small>
+
+              <div class="form-wrapper" style="position: relative; padding-bottom: 15px">
+
+                <ion-item fill="solid" style="--padding-start: 0px;padding-bottom: 15px;">
+                  <ion-label position="floating">Email</ion-label>
+                  <ion-input (keydown)="keyLogin()" type="text" formControlName="email"></ion-input>
+                  <ion-note
+                    style="position: absolute; left: 0; top: 70px;"
+                    *ngIf="!errorText?.length && loginForm.controls['password']?.value?.length"
+                    slot="error">это обязательное поле</ion-note>
+                  <ion-note
+                    style="position: absolute; left: 0; top: 70px;"
+                    slot="error">{{errorText}}</ion-note>
+                </ion-item>
+
+                <ion-item fill="solid" style="--padding-start: 0px;padding-bottom: 15px;">
+                  <ion-label position="floating">Пароль</ion-label>
+                  <ion-input [type]="type" formControlName="password">
+                  </ion-input>
+                  <span style="position: absolute; right: 0; top: 50px;" (click)="hideShowPass()" class="fa {{eyeIcon}}"></span>
+                  <ion-note
+                    *ngIf="loginForm.controls['email']?.value?.length && !loginForm.controls['email'].invalid"
+                    style="position: absolute; left: 0; top: 70px;"
+                    slot="error">
+                    это обязательное поле
+                  </ion-note>
+
+                </ion-item>
+
+                <ion-note style="position: absolute; left: 0; bottom: -5px;color: #eb445a; font-size: 12px;" slot="error">{{errorLogin}}</ion-note>
+
+
               </div>
 
-              <div class="form-group pt-4">
-                <div class="input-field"
-                     [class.error]="loginForm.controls['password'].dirty &&
-                    loginForm.hasError('required', 'password')">
-                  <span class="fa fa-lock p-2"></span>
-                  <input formControlName="password" [type]="type" placeholder="Пароль">
-                  <span (click)="hideShowPass()" class="fa {{eyeIcon}}"></span>
-                </div>
-                <small
-                  *ngIf="loginForm.controls['password'].dirty &&
-                  loginForm.hasError('required', 'password')"
-                  class="text-danger">
-                  это обязательное поле
-                </small>
-                <small
-                  *ngIf="errorLogin"
-                  class="text-danger">
-                  {{errorLogin}}
-                </small>
-              </div>
+
               <!--              <div class="form-inline fr mt-4">-->
               <!--                <a class="font-weight-bold forget">Forget Password?</a>-->
               <!--              </div>-->
