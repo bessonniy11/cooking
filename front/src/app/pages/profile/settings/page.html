@@ -94,5 +94,6 @@
     ></image-cropper>
   </div>
 
-  <ion-icon class="save-img" name="checkmark-circle-outline" (click)="saveNewImg(cropperImageReady)"></ion-icon>
 </div>
+
+<ion-icon *ngIf="isFileLoad" class="save-img" name="checkmark-circle-outline" (click)="saveNewImg(cropperImageReady)"></ion-icon>

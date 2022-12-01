@@ -63,7 +63,11 @@ export class LoginPage implements OnInit {
         link: 'login'
       };
 
-      this.userService.login(data, (callback: any) => {});
+      this.userService.login(data, (callback: any) => {
+        if (!callback.data.status) {
+          this.errorLogin = callback.data.message;
+        }
+      });
 
     } else {
       ValidateForm.validateAllFormFields(this.loginForm);

@@ -30,26 +30,15 @@ if (isset($postdata) && !empty($postdata)) {
 
     $updateUser = $db->prepare("UPDATE `users` SET `username` = '$username', `email` = '$email', `avatar` = '$avatar' WHERE `users`.`id` =  '$id'");
 
-    $updateUser->execute([
-        "id" => $id
-    ]);
-
-    $updateUser = $updateUser->fetch();
-
-    $updateUserUsername = $updateUser['username'];
-    $updateUserEmail = $updateUser['email'];
-    $updateUserAvatar = $updateUser['avatar'];
-
-
     $response = [
         'status'  => true,
         'message' => 'user data was successfully retrieved',
         'userData' => true,
         'user' => [
             'id'  => $id,
-            'username'  => $updateUserUsername,
-            'email'  => $updateUserEmail,
-            'avatar'  => $updateUserAvatar,
+            'username'  => $username,
+            'email'  => $email,
+            'avatar'  => $avatar,
         ]
     ];
     echo json_encode(['data' => $response]);

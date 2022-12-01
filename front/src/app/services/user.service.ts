@@ -84,15 +84,12 @@ export class UserService extends MainService {
 
   // изменение пользователя
   updateUser(data: any, callback: any | undefined) {
-    console.log('data', data);
     this.appService.loading = true;
     this.postRequest(data, (res: any) => {
       if (res) {
-        console.log('res', res);
         this.appService.loading = false;
         if (res.data.status) {
-          this.user = res.data.newUser;
-          console.log('updateUser', this.user);
+          this.user = res.data.user;
         }
       }
       callback(res);
