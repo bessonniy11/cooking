@@ -1,0 +1,46 @@
+<app-header
+  [title]="dish['title']"
+  [back]=true
+>
+</app-header>
+
+
+<ion-content>
+
+  <div class="content">
+
+    <div class="dish-item">
+      <div class="dish-item-gallery-swiper" [class.single-image]="dish['gallery']?.length <= 1  ">
+        <swiper [config]="swiperGalleryConfig">
+
+          <div class="dish-item-swiper-item swiper-slide" *ngFor="let img of dish['gallery']">
+            <div class="dish-item-img">
+              <img [src]="img">
+            </div>
+          </div>
+
+        </swiper>
+      </div>
+
+      <div class="dish-item-info">
+        <div class="dish-item__title">{{dish['title']}}</div>
+        <div class="dish-item__description">{{dish['desc']}}</div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="bottom_btn">
+
+    <button
+      [disabled]="false"
+      type="submit"
+      class="main-btn"
+    >
+      Кнопка
+    </button>
+
+  </div>
+
+</ion-content>

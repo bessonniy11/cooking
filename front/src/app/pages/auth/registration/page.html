@@ -1,0 +1,89 @@
+<div class="outer">
+  <div class="container">
+    <div class="row">
+      <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-vd-3">
+        <div class="panel border bg-white">
+          <div class="panel-heading">
+            <h3 class="pt-3 font-weight-bold">Регистрация</h3>
+          </div>
+          <div class="panel-body p-3">
+
+            <div class="loading-container" *ngIf="userService.loading">
+              <div class="loading-spinner"></div>
+            </div>
+
+            <form [formGroup]="signeUpForm">
+
+              <div class="form-group pt-4">
+                <div class="input-field"
+                     [class.error]="signeUpForm.controls['username'].dirty &&
+                       signeUpForm.hasError('required', 'username')">
+                  <span class="fa fa-user p-2"></span>
+                  <input formControlName="username" type="text" placeholder="Имя">
+                </div>
+                <small
+                  *ngIf="signeUpForm.controls['username'].dirty &&
+                    signeUpForm.hasError('required', 'username')"
+                  class="text-danger">
+                  это обязательное поле
+                </small>
+              </div>
+
+              <div class="form-group pt-4">
+                <div class="input-field"
+                     [class.error]="errorText">
+                  <span class="fa fa-user p-2"></span>
+                  <input formControlName="email" type="text" placeholder="Email" (keydown)="keyLogin()">
+                </div>
+                <small
+                  class="text-danger">
+                  {{errorText}}
+                </small>
+              </div>
+
+              <div class="form-group pt-4">
+                <div class="input-field"
+                     [class.error]="getPasswordError() === 'Пароли не совпадают'">
+                  <span class="fa fa-lock p-2"></span>
+                  <input formControlName="password" [type]="typePassword" placeholder="Пароль">
+                  <span (click)="hideShowPass('password')" class="fa {{typePassword === 'password' ? 'fa-eye-slash' : 'fa-eye'}}"></span>
+                </div>
+                <!--                <small-->
+                <!--                  class="text-danger">-->
+                <!--                  {{isError()}}-->
+                <!--                </small>-->
+              </div>
+
+              <div class="form-group pt-4">
+                <div class="input-field"
+                     [class.error]="getPasswordError() === 'Пароли не совпадают'">
+                  <span class="fa fa-lock p-2"></span>
+                  <input formControlName="passwordConfirm" [type]="typePasswordConfirm" placeholder="Подтвержение пароля">
+                  <span (click)="hideShowPass('passwordConfirm')" class="fa {{typePasswordConfirm === 'password' ? 'fa-eye-slash' : 'fa-eye' }}"></span>
+                </div>
+                <small
+                  class="text-danger">
+                  {{getPasswordError()}}
+                </small>
+              </div>
+
+              <button
+                [disabled]="signeUpForm.invalid"
+                (click)="onSignup()"
+                type="submit"
+                class="main-btn btn-primary btn-block mt-4 w-100"
+              >
+                Зарегистрироваться
+              </button>
+
+              <div class="text-center pt-4 text-muted">
+                Уже есть аккаунт? <a routerLink="/login" class="font-weight-bold forget">Войти</a>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<app-header
+  [title]="'Профиль'"
+  [back]=true
+  >
+</app-header>
+
+<ion-content>
+
+  <div class="content">
+
+    <div class="loading-container" *ngIf="userService.loading">
+      <div class="loading-spinner"></div>
+    </div>
+
+    <div class="profile-top" (click)="goTo('blank')">
+      <div class="avatar">
+        <img [src]="user.avatar ? user.avatar : avatar" alt="avatar">
+      </div>
+      <div class="profile-top-info">
+        <div class="profile-top-item">{{user.username ? user.username : 'загрузка имени...'}}</div>
+        <div class="profile-top-item">{{user.email ? user.email : 'загрузка email...'}}</div>
+      </div>
+    </div>
+
+    <div class="profile-bottom">
+      <div class="profile-bottom-item" (click)="goTo('blank')"><div>Мои рецепты</div><ion-icon name="chevron-forward-outline"></ion-icon></div>
+      <div class="profile-bottom-item" (click)="goTo('blank')"><div>Рейтинг</div><ion-icon name="chevron-forward-outline"></ion-icon></div>
+      <div class="profile-bottom-item" (click)="goTo('profile/settings')"><div>Настройки</div><ion-icon name="chevron-forward-outline"></ion-icon></div>
+    </div>
+
+  </div>
+
+  <div class="bottom_btn">
+
+    <button
+      (click)="logout()"
+      [disabled]="false"
+      type="submit"
+      class="main-btn out-profile"
+    >
+      Выйти из профиля
+    </button>
+
+  </div>
+
+</ion-content>

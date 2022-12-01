@@ -1,0 +1,60 @@
+<app-header
+  [title]="'Новый рецепт'"
+  [back]=true
+  >
+</app-header>
+
+<ion-content>
+
+  <div class="content">
+
+    <form [formGroup]="newDishForm">
+
+      <div class="form-group pt-4">
+        <div class="input-field"
+             [class.error]="newDishForm.invalid && errorText">
+          <label>
+            <input formControlName="name" type="text" placeholder="Название блюда" (keydown)="keyLogin()">
+          </label>
+        </div>
+        <small
+          *ngIf="newDishForm.invalid"
+          class="text-danger">
+         {{errorText}}
+        </small>
+      </div>
+
+      <div class="form-group pt-4">
+        <div class="input-field"
+             [class.error]="newDishForm.invalid && errorText">
+          <label>
+            <textarea formControlName="desc" type="text" placeholder="Описание"></textarea>
+          </label>
+        </div>
+        <small
+          *ngIf="newDishForm.invalid"
+          class="text-danger">
+          {{errorText}}
+        </small>
+      </div>
+
+    </form>
+
+  </div>
+
+  <div class="bottom_btn">
+
+    <button
+      (click)="onSubmit()"
+      [disabled]="newDishForm.invalid"
+      type="submit"
+      class="main-btn"
+    >
+      Создать
+    </button>
+
+  </div>
+
+
+
+</ion-content>
