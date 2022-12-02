@@ -66,6 +66,7 @@ export class ProfileSettingsPage implements OnInit {
     if (this.user !== {}) {
       this.profileForm?.controls['username']?.setValue(this.user?.username);
       this.profileForm?.controls['email']?.setValue(this.user?.email);
+      this.avatar = this.user.avatar;
     }
   }
 
@@ -190,7 +191,10 @@ export class ProfileSettingsPage implements OnInit {
       };
 
       this.userService.updateUser(data, (callback: any) =>{
-        console.log('callback', callback);
+        if (callback) {
+          this.user = this.userService.user;
+          console.log('this.user', this.user);
+        }
       });
 
 
@@ -202,7 +206,7 @@ export class ProfileSettingsPage implements OnInit {
   saveNewImg(img: any) {
     this.appService.loading = true;
     this.isFileLoad = false;
-    this.avatar = this.croppedImage;
+    // this.avatar = this.croppedImage;
     this.fileModelService.loadImage(img, (result: any) => {
       console.log('result', result);
       // временно здесь, т. к. пока не готов бек
@@ -218,6 +222,7 @@ export class ProfileSettingsPage implements OnInit {
         // ];
 
         this.avatar = this.userService.imagesUrl + result.data.avatarName;
+        this.user.avatar = this.userService.imagesUrl + result.data.avatarName;
 
         console.log('avatar', this.avatar);
         // this.appService.avatar = avatar;

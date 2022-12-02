@@ -114,5 +114,21 @@
   z-index: 1000;
 }
 
+.cropper {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 70px 0;
+  background: #fff;
+  z-index: 5;
+  image-cropper {
+    padding: 0 !important;
+  }
+}
 
 

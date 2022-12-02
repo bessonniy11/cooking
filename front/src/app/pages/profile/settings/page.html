@@ -79,8 +79,7 @@
   </div>
 </div>
 
-<div class="wrapper" *ngIf="isFileLoad"
-     style="position: fixed; width: 100%; height: 100vh; left: 0; top: 0; background: #fff; z-index: 5;">
+<div class="cropper" *ngIf="isFileLoad">
   <div class="cropper__image">
     <image-cropper
       [imageChangedEvent]="imageChangedEvent"

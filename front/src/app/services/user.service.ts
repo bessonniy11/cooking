@@ -90,6 +90,8 @@ export class UserService extends MainService {
         this.appService.loading = false;
         if (res.data.status) {
           this.user = res.data.user;
+          console.log('res.data.user', res.data.user);
+          console.log('this.user', this.user);
         }
       }
       callback(res);
