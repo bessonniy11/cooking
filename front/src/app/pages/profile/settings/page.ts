@@ -64,8 +64,8 @@ export class ProfileSettingsPage implements OnInit {
     this.user = this.userService.user;
     console.log('settings user', this.user);
     if (this.user !== {}) {
-      this.profileForm.controls['username'].setValue(this.user.username);
-      this.profileForm.controls['email'].setValue(this.user.email);
+      this.profileForm?.controls['username']?.setValue(this.user?.username);
+      this.profileForm?.controls['email']?.setValue(this.user?.email);
     }
   }
 
@@ -150,7 +150,7 @@ export class ProfileSettingsPage implements OnInit {
   // функция которая срабатывает при изменении фото в кроппере
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event?.base64;
-    const fileBeforeCrop = this.imageChangedEvent?.target?.files[0] ? this.imageChangedEvent?.target?.files[0] : 'name';
+    const fileBeforeCrop = this.imageChangedEvent?.target?.files[0] ? this.imageChangedEvent?.target?.files[0].name : 'name';
     this.cropperImageReady = this.base64ToFile(
       this.croppedImage,
       fileBeforeCrop
@@ -185,19 +185,14 @@ export class ProfileSettingsPage implements OnInit {
         id: this.user.id,
         username: this.profileForm.controls['username'].value,
         email: this.profileForm.controls['email'].value,
+        avatar: this.avatar,
         link: 'update-user'
       };
 
       this.userService.updateUser(data, (callback: any) =>{
-
+        console.log('callback', callback);
       });
 
-      // this.userService.postRequest(data, (callback: any) => {
-      //   console.log('callback', callback);
-      //   if (callback?.data?.status) {
-      //     this.navigationService.goToUrl('/profile/main')
-      //   }
-      // });
 
     } else {
       ValidateForm.validateAllFormFields(this.profileForm);
@@ -208,21 +203,23 @@ export class ProfileSettingsPage implements OnInit {
     this.appService.loading = true;
     this.isFileLoad = false;
     this.avatar = this.croppedImage;
-
     this.fileModelService.loadImage(img, (result: any) => {
+      console.log('result', result);
       // временно здесь, т. к. пока не готов бек
       this.appService.loading = false;
 
       if (result) {
 
         // сохраняем получившиеся фото в appService.avatar
-        const avatar = [
-          {
-            file: result.result.data[0]
-          }
-        ];
+        // const avatar = [
+        //   {
+        //     file: result?.result?.data[0]
+        //   }
+        // ];
 
-        console.log('avatar', avatar);
+        this.avatar = this.userService.imagesUrl + result.data.avatarName;
+
+        console.log('avatar', this.avatar);
         // this.appService.avatar = avatar;
         // this.appService.avatarWasChanged = true;
         // if (!this.appService.isCordova()) {

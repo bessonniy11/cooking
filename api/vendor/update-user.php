@@ -27,7 +27,6 @@ if (isset($postdata) && !empty($postdata)) {
         return http_response_code(400);
     }
 
-
     $updateUser = $db->prepare("UPDATE `users` SET `username` = '$username', `email` = '$email', `avatar` = '$avatar' WHERE `users`.`id` =  '$id'");
 
     $response = [

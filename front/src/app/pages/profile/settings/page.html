@@ -19,7 +19,7 @@
         <ion-icon name="trash-outline"></ion-icon>
 
         <div class="avatar">
-          <img [src]="user.avatar ? user.avatar : avatar" alt="avatar">
+          <img [src]="user?.avatar ? user?.avatar : avatar" alt="avatar">
         </div>
 
         <ion-icon name="create-outline" (click)="openModal()" ></ion-icon>

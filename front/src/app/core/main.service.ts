@@ -13,6 +13,7 @@ export abstract class MainService {
   protected baseUrl = environment.baseUrl;
   protected apiUrl = environment.apiUrl;
   protected newApiUrl = environment.newApiUrl;
+  imagesUrl = environment.imagesUrl;
   public useNewApi = false;
 
   protected http: HttpClient;
