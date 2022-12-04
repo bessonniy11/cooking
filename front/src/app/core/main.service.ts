@@ -45,10 +45,15 @@ export abstract class MainService {
   postRequest(data: any, callback: any | undefined) {
 
     this.http.post(this.baseUrl + data.link, { data: data }).subscribe(res => {
-      if (res) {
-
-      }
+      // if (res) {console.log('res', res);}
       return callback(res)
+    }, error => {
+      if (error.status === 0) {
+        setTimeout(()=> {
+          this.appService.loading = false;
+          console.log('Server Error');
+        }, 1000);
+      }
     });
   }
 
