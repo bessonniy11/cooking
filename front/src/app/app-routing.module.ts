@@ -11,6 +11,14 @@ const routes: Routes = [
     loadChildren: () => import('./pages/profile/main/page.module').then(m=>m.ProfileMainPageModule)
   },
   {
+    path: 'profile/recipes',
+    loadChildren: () => import('./pages/profile/recipes/page.module').then(m=>m.UserRecipesPageModule)
+  },
+  {
+    path: 'profile/recipes/create',
+    loadChildren: () => import('./pages/create/page.module').then(m=>m.CreatePageModule)
+  },
+  {
     path: 'profile/settings',
     loadChildren: () => import('./pages/profile/settings/page.module').then(m=>m.ProfileSettingsPageModule)
   },
@@ -29,10 +37,6 @@ const routes: Routes = [
   {
     path: 'dish/:id',
     loadChildren: () => import('./pages/dish/page.module').then(m=>m.DishPageModule)
-  },
-  {
-    path: 'create',
-    loadChildren: () => import('./pages/create/page.module').then(m=>m.CreatePageModule)
   },
   {
     path: '**',

@@ -19,7 +19,8 @@
 
       <ion-icon *ngIf="search" [class.open]="searchActive" class="searchBtn" (click)="searchToggle()" name="search-outline"></ion-icon>
       <ion-icon *ngIf="dice" class="diceBtn" (click)="goTo('blank')" name="dice-outline"></ion-icon>
-      <ion-icon *ngIf="create" class="createBtn" (click)="goTo('create')" name="add-circle-outline"></ion-icon>
+      <ion-icon *ngIf="create" class="createBtn" (click)="goTo('profile/recipes/create')" name="add-circle-outline"></ion-icon>
+      <ion-icon *ngIf="filter" class="filterBtn" (click)="goTo('blank')" name="options-outline"></ion-icon>
 
     </div>
   </div>

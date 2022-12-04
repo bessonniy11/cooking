@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
   @Input() create = false;
   @Input() profile = false;
   @Input() dice = false;
+  @Input() filter = false;
   @Input() homePage = false;
 
   searchActive: boolean = false;
