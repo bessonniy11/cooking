@@ -10,7 +10,11 @@
         >
       </label>
       <ion-icon *ngIf="back" name="arrow-back-circle-outline" class="backBtn" (click)="navigationService.goToBack()"></ion-icon>
-      <ion-icon *ngIf="profile" class="profileBtn" (click)="goTo('profile/main')" [class.homePage]="homePage" name="person-outline"></ion-icon>
+      <div *ngIf="profile" class="profileBtn" (click)="goTo('profile/main')" [class.homePage]="homePage">
+        <img *ngIf="!userService.user?.avatar" [src]="'assets/icons/profile_avatar.svg'" alt="">
+        <img *ngIf="userService.user?.avatar" [src]="userService.user.avatar" [class.round]="userService.viewsRoundAvatar" alt="">
+      </div>
+
       <ion-icon *ngIf="search" [class.open]="searchActive" class="searchBtn" (click)="searchToggle()" name="search-outline"></ion-icon>
       <ion-icon *ngIf="dice" class="diceBtn" (click)="goTo('blank')" name="dice-outline"></ion-icon>
       <ion-icon *ngIf="create" class="createBtn" (click)="goTo('create')" name="add-circle-outline"></ion-icon>

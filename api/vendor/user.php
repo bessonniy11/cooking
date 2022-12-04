@@ -23,6 +23,8 @@ if (isset($postdata) && !empty($postdata)) {
     $username = $user['username'];
     $email = $user['email'];
     $avatar = $user['avatar'];
+    $viewsRoundAvatar = $user['viewsRoundAvatar'];
+
 
 
 
@@ -35,6 +37,7 @@ if (isset($postdata) && !empty($postdata)) {
             'username'  => $username,
             'email'  => $email,
             'avatar'  => $avatar,
+            'viewsRoundAvatar'  => $viewsRoundAvatar,
         ]
     ];
     echo json_encode(['data' => $response]);

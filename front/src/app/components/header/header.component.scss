@@ -82,9 +82,19 @@ ion-header {
       }
       .profileBtn {
         position: absolute;
+        height: 30px;
+        width: 30px;
         left: 35px;
         top: 50%;
         transform: translate(0, -50%);
+        img {
+          width: 30px;
+          height: 30px;
+          border-radius: 15%;
+          &.round {
+            border-radius: 50%;
+          }
+        }
         &.homePage {
           left: 0;
         }

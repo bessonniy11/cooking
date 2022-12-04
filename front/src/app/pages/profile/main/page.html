@@ -13,12 +13,12 @@
   <div class="content">
 
     <div class="profile-top">
-      <div class="avatar">
-        <img [src]="user.avatar ? user.avatar : avatar" alt="avatar">
+      <div class="avatar" [class.round]="userService.viewsRoundAvatar">
+        <img [src]="user.avatar ? user.avatar : avatar" alt="">
       </div>
       <div class="profile-top-info">
-        <div class="profile-top-item">{{user.username ? user.username : 'загрузка имени...'}}</div>
-        <div class="profile-top-item">{{user.email ? user.email : 'загрузка email...'}}</div>
+        <div class="profile-top-item">{{user.username}}</div>
+        <div class="profile-top-item">{{user.email}}</div>
       </div>
     </div>
 

@@ -11,6 +11,8 @@ import {AppService} from "./app.service";
 })
 export class UserService extends MainService {
   user: any = null;
+  viewsRoundAvatar: boolean | string  = false;
+  avatar: string = '/assets/icons/profile_avatar.svg';
 
   constructor(
     http: HttpClient,
@@ -37,6 +39,8 @@ export class UserService extends MainService {
         this.appService.loading = false;
         if (res.data.userData) {
           this.user = res.data.user;
+          this.viewsRoundAvatar = res.data.user.viewsRoundAvatar !== '0';
+          this.avatar = res.data.user.avatar !== null ? res.data.user.avatar : '/assets/icons/profile_avatar.svg';
           console.log('this.user', this.user);
         }
       }
@@ -53,6 +57,7 @@ export class UserService extends MainService {
           localStorage.setItem('token', res.data.token);
           localStorage.setItem('userId', res.data.id);
           this.user = res.data;
+          this.viewsRoundAvatar = res.data.user.viewsRoundAvatar !== '0';
           this.navigationService.goToUrl('home')
         }
       }
@@ -90,6 +95,7 @@ export class UserService extends MainService {
         this.appService.loading = false;
         if (res.data.status) {
           this.user = res.data.user;
+          this.viewsRoundAvatar = res.data.user.viewsRoundAvatar;
           console.log('res.data.user', res.data.user);
           console.log('this.user', this.user);
         }

@@ -27,10 +27,10 @@ export class ProfileSettingsPage implements OnInit {
   profileForm!: FormGroup;
 
   user: any = {};
+  avatar: string = '/assets/icons/profile_avatar.svg';
+  viewsRoundAvatar: boolean | string = false;
 
-  avatar: string | null | undefined = '/assets/icons/profile_avatar.svg';
   modalWindow = false;
-
   imageChangedEvent: any = '';
   imageChangedBase64 = '';
   croppedImage: string | null | undefined = ''; // обрезанное превью фото
@@ -62,11 +62,11 @@ export class ProfileSettingsPage implements OnInit {
 
   ionViewWillEnter() {
     this.user = this.userService.user;
-    console.log('settings user', this.user);
     if (this.user !== {}) {
       this.profileForm?.controls['username']?.setValue(this.user?.username);
       this.profileForm?.controls['email']?.setValue(this.user?.email);
-      this.avatar = this.user.avatar;
+      this.avatar = this.user.avatar !== null ? this.user.avatar : '/assets/icons/profile_avatar.svg';
+      this.viewsRoundAvatar = this.userService.viewsRoundAvatar;
     }
   }
 
@@ -187,17 +187,15 @@ export class ProfileSettingsPage implements OnInit {
         username: this.profileForm.controls['username'].value,
         email: this.profileForm.controls['email'].value,
         avatar: this.avatar,
+        viewsRoundAvatar: this.viewsRoundAvatar,
         link: 'update-user'
       };
 
       this.userService.updateUser(data, (callback: any) =>{
         if (callback) {
           this.user = this.userService.user;
-          console.log('this.user', this.user);
         }
       });
-
-
     } else {
       ValidateForm.validateAllFormFields(this.profileForm);
     }
@@ -206,31 +204,23 @@ export class ProfileSettingsPage implements OnInit {
   saveNewImg(img: any) {
     this.appService.loading = true;
     this.isFileLoad = false;
-    // this.avatar = this.croppedImage;
     this.fileModelService.loadImage(img, (result: any) => {
-      console.log('result', result);
-      // временно здесь, т. к. пока не готов бек
-      this.appService.loading = false;
 
       if (result) {
+        this.appService.loading = false;
 
-        // сохраняем получившиеся фото в appService.avatar
-        // const avatar = [
-        //   {
-        //     file: result?.result?.data[0]
-        //   }
-        // ];
-
+        // сохраняем получившиеся фото
         this.avatar = this.userService.imagesUrl + result.data.avatarName;
         this.user.avatar = this.userService.imagesUrl + result.data.avatarName;
-
-        console.log('avatar', this.avatar);
-        // this.appService.avatar = avatar;
-        // this.appService.avatarWasChanged = true;
-        // if (!this.appService.isCordova()) {
-        //   this.cordovaFalse.first.nativeElement.value = '';
-        // }
       }
     });
+  }
+
+  removeAvatar() {
+    this.avatar = '/assets/icons/profile_avatar.svg';
+  }
+
+  changeViewAvatar(event: any) {
+    this.viewsRoundAvatar = event.detail.checked;
   }
 }

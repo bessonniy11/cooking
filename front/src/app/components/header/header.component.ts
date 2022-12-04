@@ -1,5 +1,6 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {NavigationService} from "../../services/navigation.service";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-header',
@@ -7,6 +8,7 @@ import {NavigationService} from "../../services/navigation.service";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  userService: UserService;
   navigationService: NavigationService;
 
   @ViewChild('searchInput') searchInput: any;
@@ -23,9 +25,13 @@ export class HeaderComponent implements OnInit {
   public searchText = '';
 
   constructor(
+    userService: UserService,
     navigationService: NavigationService,
 
-    ) {this.navigationService = navigationService}
+    ) {
+    this.userService = userService;
+    this.navigationService = navigationService
+  }
 
   ngOnInit(): void {
   }

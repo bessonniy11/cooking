@@ -1,3 +1,13 @@
+ion-checkbox {
+  --size: 20px;
+  --background-checked: #484848;
+}
+
+ion-checkbox::part(container) {
+  border-radius: 50px;
+  border: 2px solid #484848;
+}
+
 .profile-settings {
   display: flex;
   flex-direction: column;
@@ -17,6 +27,7 @@
       border-radius: 10px;
       overflow: hidden;
       box-shadow: 0px 2px 2px rgb(151 151 151 / 25%);
+      transition: 0.3s;
       img {
         position: absolute;
         left: 0;
@@ -26,7 +37,27 @@
         object-fit: cover;
       }
     }
+    .avatar.round {
+      border-radius: 50%;
+    }
   }
+
+  .avatar-settings {
+    margin-top: 15px;
+    .avatar-settings-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      .avatar-settings-item-info {
+
+      }
+      .avatar-settings-item-toggle {
+
+      }
+    }
+  }
+
 
   .profile-form {
     padding: 0 20px 0 0;
@@ -130,5 +161,3 @@
     padding: 0 !important;
   }
 }
-
-

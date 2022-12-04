@@ -16,15 +16,23 @@
 
       <div class="avatar-wrapper">
 
-        <ion-icon name="trash-outline"></ion-icon>
+        <ion-icon name="trash-outline" (click)="removeAvatar()"></ion-icon>
 
-        <div class="avatar">
-          <img [src]="user?.avatar ? user?.avatar : avatar" alt="avatar">
+        <div class="avatar" [class.round]="viewsRoundAvatar">
+          <img [src]="avatar" alt="">
         </div>
 
         <ion-icon name="create-outline" (click)="openModal()" ></ion-icon>
 
       </div>
+
+      <div class="avatar-settings">
+        <ion-item class="avatar-settings-item" lines="none">
+          <ion-checkbox [checked]="userService.viewsRoundAvatar" (ionChange)="changeViewAvatar($event)" slot="start"></ion-checkbox>
+          <div>Круглый аватар</div>
+        </ion-item>
+      </div>
+
 
       <form [formGroup]="profileForm" class="profile-form">
 
@@ -71,9 +79,8 @@
             #input
             type="file"
             accept="image/jpeg,image/png"
-            style="opacity: 0; width: 100%; height: 100%; display: none">
+            style="display: none">
       </button>
-      <button class="main-btn">Снять фото</button>
       <button class="main-btn" (click)="closeModal()">Отмена</button>
     </div>
   </div>
