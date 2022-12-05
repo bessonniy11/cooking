@@ -1,5 +1,6 @@
 <app-header
   [back]=true
+  [search]="dishes.length > 3"
   [title]="'Мои рецепты'"
   [create]="true"
   >
@@ -7,23 +8,69 @@
 
 <ion-content>
 
-  <div class="content">
+  <div class="content dishes-wrapper cart">
 
-    <h3 style="text-align: center">Пока пусто</h3>
+    <div class="dish" *ngFor="let dish of returnList(); index as index">
+
+      <div class="dish-item">
+
+        <div class="dish-item-gallery-swiper" [class.single-image]="dish.gallery.length <= 1  ">
+          <swiper [config]="swiperGalleryConfig">
+
+            <div class="dish-item-swiper-item swiper-slide" *ngFor="let img of dish.gallery">
+              <div class="dish-item-img" (click)="goToThisItem(dish.id, dish)">
+                <img [src]="img">
+              </div>
+            </div>
+
+          </swiper>
+        </div>
+
+        <div class="dish-item-info">
+
+          <div class="dish-item-title" (click)="goToThisItem(dish.id, dish)">
+            {{dish.title}}
+          </div>
+
+          <div class="dish-item-description-wrapper">
+            <div class="dish-item-description" [class.open]="openText === index" (click)="goToThisItem(dish.id, dish)">
+              {{dish.desc}}
+            </div>
+            <div class="dish-item-toggle"
+                 *ngIf="dish.desc.length > 140"
+                 (click)="toggleText(index)"
+            >
+              {{openText === index ? 'скрыть' : 'читать далее'}}
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="empty-dishes" *ngIf="!dishes.length">
+      <div class="empty-dishes__info">
+        <div class="info-text">
+          Здесь пока ничего нет, Вы можете добавить новый рецепт
+        </div>
+        <ion-icon class="createBtn" (click)="goTo('profile/recipes/create')" name="add-circle-outline"></ion-icon>
+      </div>
+    </div>
 
   </div>
 
-  <div class="bottom_btn">
+  <ion-infinite-scroll
+    threshold="100px"
+    (ionInfinite)="loadMore($event)"
+    [disabled]="scrollDisable"
+  >
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles">
 
-    <button
-      (click)="click()"
-      [disabled]="false"
-      type="submit"
-      class="main-btn"
-    >
-      Кнопка
-    </button>
+    </ion-infinite-scroll-content>
 
-  </div>
+  </ion-infinite-scroll>
 
 </ion-content>

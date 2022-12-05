@@ -41,7 +41,7 @@ export class UserService extends MainService {
           this.user = res.data.user;
           this.viewsRoundAvatar = res.data.user.viewsRoundAvatar !== '0';
           this.avatar = res.data.user.avatar !== null ? res.data.user.avatar : '/assets/icons/profile_avatar.svg';
-          console.log('this.user', this.user);
+          // console.log('this.user', this.user);
         }
       }
     });
@@ -96,8 +96,8 @@ export class UserService extends MainService {
         if (res.data.status) {
           this.user = res.data.user;
           this.viewsRoundAvatar = res.data.user.viewsRoundAvatar;
-          console.log('res.data.user', res.data.user);
-          console.log('this.user', this.user);
+          // console.log('res.data.user', res.data.user);
+          // console.log('this.user', this.user);
         }
       }
       callback(res);

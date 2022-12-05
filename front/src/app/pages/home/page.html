@@ -2,7 +2,7 @@
   [title]="'Все рецепты'"
   [homePage]=true
   [profile]=true
-  [search]=true
+  [search]="returnList().length > 3"
   [dice]=true
   [filter]=true
 >
@@ -16,43 +16,61 @@
 
   <div class="content dishes-wrapper cart">
 
-    <div class="dish" *ngFor="let dish of dishes; index as index">
-      <div class="dish-item-gallery-swiper" [class.single-image]="dish.gallery.length <= 1  ">
-        <swiper [config]="swiperGalleryConfig">
+    <div class="dish" *ngFor="let dish of returnList(); index as index">
 
-          <div class="dish-item-swiper-item swiper-slide" *ngFor="let img of dish.gallery">
-            <div class="dish-item-img" (click)="goToThisItem(dish.id, dish)">
-              <img [src]="img">
+      <div class="dish-item">
+
+        <div class="dish-item-gallery-swiper" [class.single-image]="dish.gallery.length <= 1  ">
+          <swiper [config]="swiperGalleryConfig">
+
+            <div class="dish-item-swiper-item swiper-slide" *ngFor="let img of dish.gallery">
+              <div class="dish-item-img" (click)="goToThisItem(dish.id, dish)">
+                <img [src]="img">
+              </div>
+            </div>
+
+          </swiper>
+        </div>
+
+        <div class="dish-item-info">
+
+          <div class="dish-item-title" (click)="goToThisItem(dish.id, dish)">
+            {{dish.title}}
+          </div>
+
+          <div class="dish-item-description-wrapper">
+            <div class="dish-item-description" [class.open]="openText === index" (click)="goToThisItem(dish.id, dish)">
+              {{dish.desc}}
+            </div>
+            <div class="dish-item-toggle"
+                 *ngIf="dish.desc.length > 140"
+                 (click)="toggleText(index)"
+            >
+              {{openText === index ? 'скрыть' : 'читать далее'}}
             </div>
           </div>
 
-        </swiper>
+        </div>
+
       </div>
 
-      <div class="dish-item-info">
+    </div>
 
-        <div class="dish-item-title" (click)="goToThisItem(dish.id, dish)">
-          {{dish.title}}
+    <div class="empty-dishes" *ngIf="!returnList().length">
+      <div class="empty-dishes__info">
+        <div class="info-text">
+          Здесь пока ничего нет
         </div>
-
-        <div class="dish-item-description-wrapper">
-          <div class="dish-item-description" [class.open]="openText === index" (click)="goToThisItem(dish.id, dish)">
-            {{dish.desc}}
-          </div>
-          <div class="dish-item-toggle"
-               *ngIf="dish.desc.length > 140"
-               (click)="toggleText(index)"
-          >
-            {{openText === index ? 'скрыть' : 'читать далее'}}
-          </div>
-        </div>
-
       </div>
     </div>
 
   </div>
 
-  <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+  <ion-infinite-scroll
+    threshold="100px"
+    (ionInfinite)="loadMore($event)"
+    [disabled]="scrollDisable"
+  >
     <ion-infinite-scroll-content
       loadingSpinner="bubbles">
 

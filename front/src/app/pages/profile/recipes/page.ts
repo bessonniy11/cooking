@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AppService} from "../../../services/app.service";
 import {NavigationService} from "../../../services/navigation.service";
 import {UserService} from "../../../services/user.service";
+import {SwiperConfigInterface} from "ngx-swiper-wrapper";
 
 
 @Component({
@@ -15,6 +16,35 @@ export class UserRecipesPage implements OnInit {
   appService: AppService;
   userService: UserService;
   navigationService: NavigationService;
+
+  swiperGalleryConfig: SwiperConfigInterface = {
+    slidesPerView: 1,
+    pagination: true,
+    mousewheel: true,
+    keyboard: true,
+    setWrapperSize: true,
+  };
+
+  dishes: any = [
+    // {
+    //   id:1,
+    //   title:'Банановые блинчики из рисовой муки',
+    //   gallery: [
+    //     'https://www.sechenov.ru/upload/medialibrary/abb/pitanie.jpg',
+    //     'https://www.sechenov.ru/upload/medialibrary/abb/pitanie.jpg',
+    //     'https://www.sechenov.ru/upload/medialibrary/abb/pitanie.jpg',
+    //   ],
+    //   desc:
+    //     'Вкусный, полезный, лёгкий завтрак для всей семьи! ' +
+    //     'Приготовим румяные банановые блинчики из рисовой муки, ' +
+    //     'на молоке. Блинчики понравятся тем, кто придерживается правильного питания.'
+    // },
+  ];
+
+  openText: any = null;
+  scrollDisable: boolean = false;
+  currentPage = 1;
+  perPage = 5;
 
   constructor(
     fb: FormBuilder,
@@ -37,5 +67,30 @@ export class UserRecipesPage implements OnInit {
 
   click() {
     console.log('click');
+  }
+
+  returnList() {
+    return this.dishes.slice(0, this.currentPage * this.perPage);
+  }
+
+  loadMore(event: any) {
+    // console.log('loadMore');
+    this.currentPage ++;
+    this.returnList();
+    this.scrollDisable = this.perPage!== this.returnList()?.length/this.currentPage;
+    event.target.complete();
+    // this.loadDishes(event);
+  }
+
+  goToThisItem(id: any, dish: any) {
+    this.navigationService.goToUrl('dish/' + id, {}, {store: dish});
+  }
+
+  toggleText(index: any) {
+    this.openText = this.openText === index ? null : index;
+  }
+
+  goTo(link: string) {
+    this.navigationService.goToUrl(link);
   }
 }
