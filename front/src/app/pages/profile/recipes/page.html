@@ -53,8 +53,9 @@
     <div class="empty-dishes" *ngIf="!returnList().length && !searchService.searchValue().length">
       <div class="empty-dishes__info">
         <div class="info-text">
-          Здесь пока ничего нет
+          Здесь пока ничего нет, но вы можете добавить новый рецепт
         </div>
+        <ion-icon class="createBtn" (click)="goTo('profile/recipes/create')" name="add-circle-outline"></ion-icon>
       </div>
     </div>
 
