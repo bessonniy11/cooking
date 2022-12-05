@@ -4,6 +4,7 @@ import {AppService} from "../../../services/app.service";
 import {NavigationService} from "../../../services/navigation.service";
 import {UserService} from "../../../services/user.service";
 import {SwiperConfigInterface} from "ngx-swiper-wrapper";
+import {SearchService} from "../../../services/search.service";
 
 
 @Component({
@@ -16,6 +17,7 @@ export class UserRecipesPage implements OnInit {
   appService: AppService;
   userService: UserService;
   navigationService: NavigationService;
+  searchService: SearchService;
 
   swiperGalleryConfig: SwiperConfigInterface = {
     slidesPerView: 1,
@@ -51,11 +53,13 @@ export class UserRecipesPage implements OnInit {
     appService: AppService,
     userService: UserService,
     navigationService: NavigationService,
+    searchService: SearchService
   ) {
     this.fb = fb;
     this.appService = appService;
     this.userService = userService;
     this.navigationService = navigationService;
+    this.searchService = searchService;
   }
 
   ngOnInit(): void {
@@ -70,7 +74,10 @@ export class UserRecipesPage implements OnInit {
   }
 
   returnList() {
-    return this.dishes.slice(0, this.currentPage * this.perPage);
+    let searchValue = this.searchService.searchValue();
+    return this.dishes.filter(
+      ((item: any) => item.title.toLowerCase().indexOf(searchValue.toLowerCase()) > -1))
+      .slice(0, this.currentPage * this.perPage);
   }
 
   loadMore(event: any) {

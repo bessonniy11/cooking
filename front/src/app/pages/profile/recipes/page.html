@@ -1,6 +1,6 @@
 <app-header
   [back]=true
-  [search]="dishes.length > 3"
+  [search]="true"
   [title]="'Мои рецепты'"
   [create]="true"
   >
@@ -50,12 +50,19 @@
 
     </div>
 
-    <div class="empty-dishes" *ngIf="!dishes.length">
+    <div class="empty-dishes" *ngIf="!returnList().length && !searchService.searchValue().length">
       <div class="empty-dishes__info">
         <div class="info-text">
-          Здесь пока ничего нет, Вы можете добавить новый рецепт
+          Здесь пока ничего нет
         </div>
-        <ion-icon class="createBtn" (click)="goTo('profile/recipes/create')" name="add-circle-outline"></ion-icon>
+      </div>
+    </div>
+
+    <div class="empty-dishes" *ngIf="!returnList().length && searchService.searchValue().length">
+      <div class="empty-dishes__info">
+        <div class="info-text">
+          По вашему запросу ничего не найдено
+        </div>
       </div>
     </div>
 

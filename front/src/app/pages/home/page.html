@@ -2,7 +2,7 @@
   [title]="'Все рецепты'"
   [homePage]=true
   [profile]=true
-  [search]="returnList().length > 3"
+  [search]="true"
   [dice]=true
   [filter]=true
 >
@@ -56,10 +56,18 @@
 
     </div>
 
-    <div class="empty-dishes" *ngIf="!returnList().length">
+    <div class="empty-dishes" *ngIf="!returnList().length && !searchService.searchValue().length">
       <div class="empty-dishes__info">
         <div class="info-text">
           Здесь пока ничего нет
+        </div>
+      </div>
+    </div>
+
+    <div class="empty-dishes" *ngIf="!returnList().length && searchService.searchValue().length">
+      <div class="empty-dishes__info">
+        <div class="info-text">
+          По вашему запросу ничего не найдено
         </div>
       </div>
     </div>

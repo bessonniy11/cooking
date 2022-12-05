@@ -4,8 +4,11 @@
       <label class="search" [class.active]="searchActive">
         <input
           #searchInput
+          [(ngModel)]="searchService.searchText"
           type="text"
           name="search"
+          autocomplete="off"
+          (keydown)="searchService.searchValue()"
           placeholder="Поиск"
         >
       </label>
