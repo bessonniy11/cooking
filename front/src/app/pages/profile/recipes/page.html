@@ -6,6 +6,11 @@
   >
 </app-header>
 
+<div class="loading-container" *ngIf="appService.loading">
+  <div class="loading-spinner"></div>
+</div>
+
+
 <ion-content>
 
   <div class="content dishes-wrapper cart">
@@ -30,6 +35,10 @@
 
           <div class="dish-item-title" (click)="goToThisItem(dish.id, dish)">
             {{dish.title}}
+          </div>
+
+          <div class="dish-item-author" (click)="goToThisItem(dish.id, dish)">
+            {{dish.author}}
           </div>
 
           <div class="dish-item-description-wrapper">

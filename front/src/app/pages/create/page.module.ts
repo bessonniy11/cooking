@@ -5,11 +5,13 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {CreatePage} from './page';
 import {ComponentsModule} from "../../components/components.module";
+import {ImageCropperModule} from "ngx-image-cropper";
 
 @NgModule({
   imports: [
     CommonModule,
     ComponentsModule,
+    ImageCropperModule,
     ReactiveFormsModule,
     IonicModule,
     RouterModule.forChild([

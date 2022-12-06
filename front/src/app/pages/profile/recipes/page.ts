@@ -66,6 +66,16 @@ export class UserRecipesPage implements OnInit {
 
   }
 
+  ionViewWillEnter() {
+    this.loadUserDishes();
+  }
+
+  loadUserDishes() {
+    this.userService.getDishes((callback: any) =>{
+      console.log('loadUserDishes callback', callback);
+    })
+  }
+
   ngAfterViewInit() {
   }
 

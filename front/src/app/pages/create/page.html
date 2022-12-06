@@ -1,42 +1,74 @@
 <app-header
-  [title]="'Новый рецепт'"
+  [title]="isFileLoad ? 'Редактирование фото' : 'Новый рецепт'"
   [back]=true
   >
 </app-header>
+
+<div class="loading-container" *ngIf="appService.loading">
+  <div class="loading-spinner"></div>
+</div>
 
 <ion-content>
 
   <div class="content">
 
+    <div class="img-wrapper">
+
+      <div class="img-header">
+        <ion-icon name="trash-outline" (click)="removeImg()"></ion-icon>
+
+        <button class="main-btn" (click)="changeImg()">
+          Выбрать фото
+          <input
+            (change)="uploadImg(false, $event)"
+            #input
+            type="file"
+            accept="image/jpeg,image/png"
+            style="display: none;">
+        </button>
+      </div>
+
+      <div class="img" [class.empty-photo]="img === '/assets/icons/image-outline.svg'" (click)="changeImg()">
+        <img [src]="img" alt="">
+      </div>
+
+      <small>{{errorFormat}}</small>
+
+    </div>
+
     <form [formGroup]="newDishForm">
 
-      <div class="form-group pt-4">
-        <div class="input-field"
-             [class.error]="newDishForm.invalid && errorText">
-          <label>
-            <input formControlName="name" type="text" placeholder="Название блюда" (keydown)="keyLogin()">
-          </label>
-        </div>
+      <ion-item style="--padding-start: 0px;padding-bottom: 15px;">
+        <ion-label position="floating">Введите название блюда</ion-label>
+        <ion-input
+          formControlName="name"
+          type="text"
+          placeholder="Название блюда"
+          [clearInput]="true"
+        >
+        </ion-input>
         <small
           *ngIf="newDishForm.invalid"
           class="text-danger">
          {{errorText}}
         </small>
-      </div>
+      </ion-item>
 
-      <div class="form-group pt-4">
-        <div class="input-field"
-             [class.error]="newDishForm.invalid && errorText">
-          <label>
-            <textarea formControlName="desc" type="text" placeholder="Описание"></textarea>
-          </label>
-        </div>
+      <ion-item style="--padding-start: 0px;padding-bottom: 15px;">
+        <ion-label position="floating">Введите описание блюда</ion-label>
+        <ion-textarea
+          formControlName="desc"
+          type="text"
+          placeholder="Описание"
+          [autoGrow]="true"
+        >
+        </ion-textarea>
         <small
           *ngIf="newDishForm.invalid"
           class="text-danger">
           {{errorText}}
         </small>
-      </div>
+      </ion-item>
 
     </form>
 
@@ -55,6 +87,22 @@
 
   </div>
 
-
-
 </ion-content>
+
+<div class="cropper" *ngIf="isFileLoad">
+  <div class="cropper__image">
+    <image-cropper
+      [imageChangedEvent]="imageChangedEvent"
+      [imageBase64]="imageChangedBase64"
+      [maintainAspectRatio]="false"
+      (loadImageFailed)="loadImageFailed()"
+      (imageCropped)="imageCropped($event)"
+      [roundCropper]="false"
+      [hideResizeSquares]="false"
+      [backgroundColor]="'#000'"
+    ></image-cropper>
+  </div>
+
+</div>
+
+<ion-icon *ngIf="isFileLoad" class="save-img" name="checkmark-circle-outline" (click)="saveNewImg(cropperImageReady)"></ion-icon>

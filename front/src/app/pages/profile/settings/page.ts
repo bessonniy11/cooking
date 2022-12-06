@@ -204,7 +204,7 @@ export class ProfileSettingsPage implements OnInit {
   saveNewImg(img: any) {
     this.appService.loading = true;
     this.isFileLoad = false;
-    this.fileModelService.loadImage(img, (result: any) => {
+    this.fileModelService.loadImage(img, '/file', (result: any) => {
 
       if (result) {
         this.appService.loading = false;

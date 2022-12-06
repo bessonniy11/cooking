@@ -19,7 +19,7 @@ export class FilesModelService {
     this.model = 'files';
   }
 
-  loadImage(file: File, callback: (result: any) => void) {
+  loadImage(file: File, link: string, callback: (result: any) => void) {
     const formData: FormData = new FormData();
     formData.append('file0', file, file.name);
     console.log(formData);
@@ -27,7 +27,7 @@ export class FilesModelService {
     headers.append('Content-Type', 'multipart/form-data');
     headers.append('Accept', 'application/json');
 
-    this.http.post<any>(environment.baseUrl + '/file', formData, {headers}).subscribe(result => {
+    this.http.post<any>(environment.baseUrl + link, formData, {headers}).subscribe(result => {
       callback(result);
       if (result?.status && result?.result?.data?.length > 0) {
         callback(result);

@@ -7,3 +7,84 @@ label {
     min-height: 150px;
   }
 }
+
+.img-wrapper {
+  .img-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    ion-icon {
+      width: 30px;
+      height: 30px;
+    }
+    button {
+      max-width: 138px;
+      border: 1px solid #000;
+    }
+  }
+
+  .img {
+    position: relative;
+    height: 180px;
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0px 2px 5px 2px rgb(151 151 151 / 25%);
+    margin-bottom: 15px;
+    img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .img.empty-photo {
+    img {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 50%;
+      height: 50%;
+      transform: translate(-50%, -50%);
+      object-fit: contain;
+    }
+  }
+
+  small {
+    display: flex;
+    text-align: center;
+    color: #484848;
+  }
+}
+
+// TODO в будущем перенести в header
+.save-img {
+  position: fixed;
+  top: 10px;
+  bottom: 30px;
+  right: 15px;
+  height: 30px;
+  width: 30px;
+  z-index: 1000;
+}
+
+.cropper {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 70px 0;
+  background: #fff;
+  z-index: 5;
+  image-cropper {
+    padding: 0 !important;
+  }
+}

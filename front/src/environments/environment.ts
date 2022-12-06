@@ -5,4 +5,5 @@ export const environment = {
   apiUrl: 'mobile/',
   newApiUrl: 'mobile/api/v1/',
   imagesUrl: 'http://cooking/api/images/',
+  dishesImagesUrl: 'http://cooking/api/dishesImages/',
 };

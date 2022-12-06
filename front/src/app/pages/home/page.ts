@@ -29,10 +29,11 @@ export class HomePage implements OnInit {
     {
       id:1,
       title:'Банановые блинчики из рисовой муки',
+      author:'Иванов Иван',
       gallery: [
         'https://www.sechenov.ru/upload/medialibrary/abb/pitanie.jpg',
-        'https://www.sechenov.ru/upload/medialibrary/abb/pitanie.jpg',
-        'https://www.sechenov.ru/upload/medialibrary/abb/pitanie.jpg',
+        // 'https://www.sechenov.ru/upload/medialibrary/abb/pitanie.jpg',
+        // 'https://www.sechenov.ru/upload/medialibrary/abb/pitanie.jpg',
       ],
       desc:
         'Вкусный, полезный, лёгкий завтрак для всей семьи! ' +
@@ -42,6 +43,7 @@ export class HomePage implements OnInit {
     {
       id:2,
       title:'Гренки с тыквой (в духовке)',
+      author:'Древний грек',
       gallery: [
         'https://img1.russianfood.com/dycontent/images_upl/628/sm_627282.jpg',
         'https://www.sechenov.ru/upload/medialibrary/abb/pitanie.jpg',
@@ -55,6 +57,7 @@ export class HomePage implements OnInit {
     {
       id:3,
       title:'Суп с цветной капустой, грибами, рисом и сливками',
+      author:'Древний грек',
       gallery: [
         'https://img1.russianfood.com/dycontent/images_upl/628/sm_627506.jpg',
         'https://www.sechenov.ru/upload/medialibrary/abb/pitanie.jpg',
@@ -68,6 +71,7 @@ export class HomePage implements OnInit {
     {
       id:4,
       title:'Рассольник с курицей и перловой крупой',
+      author:'Древний грек',
       gallery: [
         'https://img1.russianfood.com/dycontent/images_upl/628/sm_627155.jpg',
         'https://www.sechenov.ru/upload/medialibrary/abb/pitanie.jpg',
@@ -80,6 +84,7 @@ export class HomePage implements OnInit {
     {
       id: 5,
       title:'Жаркое из свинины с картошкой и капустой',
+      author:'Древний грек',
       gallery: [
         'https://img1.russianfood.com/dycontent/images_upl/625/sm_624280.jpg',
         'https://www.sechenov.ru/upload/medialibrary/abb/pitanie.jpg',
@@ -93,6 +98,7 @@ export class HomePage implements OnInit {
     {
       id:6,
       title:'Сырники с яблоками (без муки)',
+      author:'Древний грек',
       gallery: [
         'https://img1.russianfood.com/dycontent/images_upl/628/sm_627334.jpg',
         'https://www.sechenov.ru/upload/medialibrary/abb/pitanie.jpg',
@@ -106,6 +112,7 @@ export class HomePage implements OnInit {
     {
       id:7,
       title:'Тефтели в томатно-тыквенном соусе',
+      author:'Древний грек',
       gallery: [
         'https://www.sechenov.ru/upload/medialibrary/abb/pitanie.jpg',
         'https://www.sechenov.ru/upload/medialibrary/abb/pitanie.jpg',
@@ -150,7 +157,7 @@ export class HomePage implements OnInit {
     // console.log('loadMore');
     this.currentPage ++;
     this.returnList();
-    this.scrollDisable = this.perPage!== this.returnList()?.length/this.currentPage;
+    this.scrollDisable = this.perPage !== this.returnList()?.length/this.currentPage;
     event.target.complete();
     // this.loadDishes(event);
   }

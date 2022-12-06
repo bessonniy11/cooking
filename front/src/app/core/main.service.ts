@@ -14,6 +14,7 @@ export abstract class MainService {
   protected apiUrl = environment.apiUrl;
   protected newApiUrl = environment.newApiUrl;
   imagesUrl = environment.imagesUrl;
+  dishesImagesUrl = environment.dishesImagesUrl;
   public useNewApi = false;
 
   protected http: HttpClient;

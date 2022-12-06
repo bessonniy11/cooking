@@ -87,6 +87,44 @@ export class UserService extends MainService {
     });
   }
 
+  // создание рецепта
+  addDish(data: any, callback: any | undefined) {
+    this.appService.loading = true;
+    this.postRequest(data, (res: any) => {
+      console.log('addDish res', res);
+      if (res) {
+        this.appService.loading = false;
+
+        if (res.data.status) {
+          this.navigationService.goToUrl('/profile/recipes');
+        }
+      }
+      callback(res);
+    });
+  }
+
+  // получение блюд пользователя
+  getDishes(callback: any | undefined) {
+    this.appService.loading = true;
+
+    const data = {
+      userId: this.user.id,
+      link: 'dishes'
+    };
+
+    this.postRequest(data, (res: any) => {
+      console.log('getDishes res', res);
+      if (res) {
+        this.appService.loading = false;
+
+        if (res.status) {
+
+        }
+      }
+      callback(res);
+    });
+  }
+
   // изменение пользователя
   updateUser(data: any, callback: any | undefined) {
     this.appService.loading = true;

@@ -38,6 +38,10 @@
             {{dish.title}}
           </div>
 
+          <div class="dish-item-author" (click)="goToThisItem(dish.id, dish)">
+            Автор: {{dish.author}}
+          </div>
+
           <div class="dish-item-description-wrapper">
             <div class="dish-item-description" [class.open]="openText === index" (click)="goToThisItem(dish.id, dish)">
               {{dish.desc}}
