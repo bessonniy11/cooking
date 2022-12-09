@@ -26,7 +26,7 @@ export class CreatePage implements OnInit {
   newDishForm!: FormGroup;
   errorText: string = '';
 
-  img: string = '/assets/icons/image-outline.svg';
+  imgLoad: string = '/assets/icons/image-outline.svg';
   @ViewChild('input') input: any;
 
   imageChangedEvent: any = '';
@@ -36,6 +36,8 @@ export class CreatePage implements OnInit {
   errorFormat = '';
   isFileLoad = false; // выбран ли файл
   private fileModelService: any;
+
+  images: any = [];
 
   constructor(
     fb: FormBuilder,
@@ -167,10 +169,10 @@ export class CreatePage implements OnInit {
     if (this.newDishForm.valid) {
 
       const data = {
-        userId: this.userService.user.id,
+        userId: this.userService.user.userId,
         dishName: this.newDishForm.controls['name'].value,
         dishDesc: this.newDishForm.controls['desc'].value,
-        dishImg: this.img,
+        dishImg: this.images,
         link: 'add-dish'
       };
 
@@ -195,14 +197,16 @@ export class CreatePage implements OnInit {
         this.appService.loading = false;
 
         // сохраняем получившиеся фото
-        this.img = this.userService.dishesImagesUrl + result.data.imgName;
+        this.images.push(this.userService.dishesImagesUrl + result.data.imgName);
+
+        console.log('this.images', this.images);
         // this.userService.user.avatar = this.userService.dishesImagesUrl + result.data.imgName;
       }
     });
   }
 
-  removeImg() {
-    this.img = '/assets/icons/image-outline.svg';
+  removeImg(index: number) {
+    this.images.splice(index, 1);
   }
 
 }

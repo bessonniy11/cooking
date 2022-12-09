@@ -24,8 +24,7 @@ export class AppComponent implements OnInit {
   }
 
   getUser() {
-    this.userService.getUser((callback) =>{
-    })
+    this.userService.getUser((callback) =>{})
   }
 
   appReady() {

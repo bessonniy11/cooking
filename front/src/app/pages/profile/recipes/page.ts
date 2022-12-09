@@ -73,6 +73,29 @@ export class UserRecipesPage implements OnInit {
   loadUserDishes() {
     this.userService.getDishes((callback: any) =>{
       console.log('loadUserDishes callback', callback);
+      if (callback.data.status) {
+        const clean = callback.data.result.forEach((elem: any)=> {
+          console.log('elem.images', elem.images);
+        });
+
+        console.log('clean', clean);
+
+        this.dishes = callback.data.result;
+        // let items = callback.data.result;
+        // items.forEach((item: any)=> {
+        //  let dish = {
+        //    gallery: [item.dishImg],
+        //    title: item.dishName,
+        //    author: item.username,
+        //    desc: item.dishDesc,
+        //  };
+        //
+        //
+        //   this.dishes.push(dish)
+        // });
+
+        console.log('this.dishes', this.dishes);
+      }
     })
   }
 
@@ -86,7 +109,7 @@ export class UserRecipesPage implements OnInit {
   returnList() {
     let searchValue = this.searchService.searchValue();
     return this.dishes.filter(
-      ((item: any) => item.title.toLowerCase().indexOf(searchValue.toLowerCase()) > -1))
+      ((item: any) => item.dishName.toLowerCase().indexOf(searchValue.toLowerCase()) > -1))
       .slice(0, this.currentPage * this.perPage);
   }
 

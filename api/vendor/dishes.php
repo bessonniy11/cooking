@@ -11,34 +11,28 @@ if (isset($postdata) && !empty($postdata)) {
 
     $userId = trim($request->data->userId);
 
-    $dishes = $db->prepare("SELECT * FROM `dishes` WHERE `userId` = '$userId'");
+    $sth = $db->prepare(
+        "SELECT dishes.dish_id, dishes.userId, dishes.dishName, dishes.dishDesc, json_arrayagg(img) images
+        FROM `dishes`
+        INNER JOIN `dish_images` ON dishes.dish_id = dish_images.dish_id
+        WHERE `userId` = '$userId'
+        GROUP BY dishes.dish_id, dishes.dishName"
+    );
 
-    $dishes->execute([
-        "userId" => $userId
-    ]);
-
-    $dishes = $dishes->fetch();
-
-    $userId = $dishes['userId'];
-    $dishImg = $dishes['dishImg'];
-    $dishName = $dishes['dishName'];
-    $dishDesc = $dishes['dishDesc'];
-
+    $sth->execute([$userId]);
+    $dishes = $sth->fetchAll(PDO::FETCH_ASSOC);
 
     $response = [
-        'status'  => true,
+        'status' => true,
         'message' => 'return user dishes',
-        'dishes' => [
-            'userId'  => $userId,
-            'dishImg'  => $dishImg,
-            'dishName'  => $dishName,
-            'dishDesc'  => $dishDesc,
-        ]
+        'message' => 'return user dishes',
+        'result' => $dishes,
     ];
+
     echo json_encode(['data' => $response]);
+    // print_r(json_decode(json_encode(['data' => $response])));
+
     return http_response_code(400);
-
-
 }
 
 

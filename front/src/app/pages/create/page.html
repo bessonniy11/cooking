@@ -15,7 +15,6 @@
     <div class="img-wrapper">
 
       <div class="img-header">
-        <ion-icon name="trash-outline" (click)="removeImg()"></ion-icon>
 
         <button class="main-btn" (click)="changeImg()">
           Выбрать фото
@@ -28,8 +27,16 @@
         </button>
       </div>
 
-      <div class="img" [class.empty-photo]="img === '/assets/icons/image-outline.svg'" (click)="changeImg()">
-        <img [src]="img" alt="">
+      <div class="images">
+        <div class="img load-img" [class.empty-photo]="!images.length" (click)="changeImg()">
+          <img [src]="imgLoad" alt="">
+        </div>
+
+        <div class="img" *ngFor="let img of images; index as index">
+          <ion-icon name="trash-outline" (click)="removeImg(index)"></ion-icon>
+          <img [src]="img" alt="">
+        </div>
+
       </div>
 
       <small>{{errorFormat}}</small>

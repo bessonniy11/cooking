@@ -47,7 +47,7 @@ if (isset($postdata) && !empty($postdata)) {
     if (password_verify($password, $user["password"]) === true) {
         $response = [
             'status'  => true,
-            'id'  => $user["id"],
+            'userId'  => $user["userId"],
             'username'  => $user["username"],
             'avatar'  => $user["avatar"],
             'email'  => $user["email"],

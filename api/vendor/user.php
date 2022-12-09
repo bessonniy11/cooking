@@ -9,9 +9,9 @@ if (isset($postdata) && !empty($postdata)) {
     // Extract the data.
     $request = json_decode($postdata);
 
-    $id = trim($request->data->id);
+    $userId = trim($request->data->userId);
 
-    $user = $db->prepare("SELECT * FROM `users` WHERE `id` = '$id'");
+    $user = $db->prepare("SELECT * FROM `users` WHERE `userId` = '$userId'");
 
     $user->execute([
         "id" => $id
@@ -19,21 +19,18 @@ if (isset($postdata) && !empty($postdata)) {
 
     $user = $user->fetch();
 
-    $id = $user['id'];
+    $userId = $user['userId'];
     $username = $user['username'];
     $email = $user['email'];
     $avatar = $user['avatar'];
     $viewsRoundAvatar = $user['viewsRoundAvatar'];
-
-
-
 
     $response = [
         'status'  => true,
         'message' => 'user data was successfully retrieved',
         'userData' => true,
         'user' => [
-            'id'  => $id,
+            'userId'  => $userId,
             'username'  => $username,
             'email'  => $email,
             'avatar'  => $avatar,

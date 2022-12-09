@@ -30,7 +30,7 @@ export class UserService extends MainService {
     this.appService.loading = true;
 
     const data = {
-      id: localStorage.getItem('userId'),
+      userId: localStorage.getItem('userId'),
       link: 'user'
     };
 
@@ -55,7 +55,7 @@ export class UserService extends MainService {
         this.appService.loading = false;
         if (res.data.status) {
           localStorage.setItem('token', res.data.token);
-          localStorage.setItem('userId', res.data.id);
+          localStorage.setItem('userId', res.data.userId);
           this.user = res.data;
           this.viewsRoundAvatar = res.data.user.viewsRoundAvatar !== '0';
           this.navigationService.goToUrl('home')
@@ -108,7 +108,7 @@ export class UserService extends MainService {
     this.appService.loading = true;
 
     const data = {
-      userId: this.user.id,
+      userId: this.user.userId,
       link: 'dishes'
     };
 

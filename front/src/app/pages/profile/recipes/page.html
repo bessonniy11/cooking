@@ -18,12 +18,14 @@
     <div class="dish" *ngFor="let dish of returnList(); index as index">
 
       <div class="dish-item">
+        <img [src]="dish.images[0]" alt="">
 
-        <div class="dish-item-gallery-swiper" [class.single-image]="dish.gallery.length <= 1  ">
+        <div class="dish-item-gallery-swiper" [class.single-image]="dish.images.length <= 1  ">
           <swiper [config]="swiperGalleryConfig">
 
-            <div class="dish-item-swiper-item swiper-slide" *ngFor="let img of dish.gallery">
+            <div class="dish-item-swiper-item swiper-slide" *ngFor="let img of dish.images">
               <div class="dish-item-img" (click)="goToThisItem(dish.id, dish)">
+                {{'img' + img.splice(0, 1)}}
                 <img [src]="img">
               </div>
             </div>
@@ -34,19 +36,19 @@
         <div class="dish-item-info">
 
           <div class="dish-item-title" (click)="goToThisItem(dish.id, dish)">
-            {{dish.title}}
+            {{dish.dishName}}
           </div>
 
-          <div class="dish-item-author" (click)="goToThisItem(dish.id, dish)">
-            {{dish.author}}
-          </div>
+<!--          <div class="dish-item-author" (click)="goToThisItem(dish.id, dish)">-->
+<!--            {{dish.author}}-->
+<!--          </div>-->
 
           <div class="dish-item-description-wrapper">
             <div class="dish-item-description" [class.open]="openText === index" (click)="goToThisItem(dish.id, dish)">
-              {{dish.desc}}
+              {{dish.dishDesc}}
             </div>
             <div class="dish-item-toggle"
-                 *ngIf="dish.desc.length > 140"
+                 *ngIf="dish.dishDesc.length > 140"
                  (click)="toggleText(index)"
             >
               {{openText === index ? 'скрыть' : 'читать далее'}}
@@ -59,7 +61,7 @@
 
     </div>
 
-    <div class="empty-dishes" *ngIf="!returnList().length && !searchService.searchValue().length">
+    <div class="empty-dishes" *ngIf="!returnList().length && !searchService.searchValue().length && !appService.loading">
       <div class="empty-dishes__info">
         <div class="info-text">
           Здесь пока ничего нет, но вы можете добавить новый рецепт
@@ -68,7 +70,7 @@
       </div>
     </div>
 
-    <div class="empty-dishes" *ngIf="!returnList().length && searchService.searchValue().length">
+    <div class="empty-dishes" *ngIf="!returnList().length && searchService.searchValue().length && !appService.loading">
       <div class="empty-dishes__info">
         <div class="info-text">
           По вашему запросу ничего не найдено
