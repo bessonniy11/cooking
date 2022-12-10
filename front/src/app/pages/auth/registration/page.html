@@ -15,26 +15,31 @@
             <form [formGroup]="signeUpForm">
 
               <div class="form-group pt-4">
+
                 <div class="input-field"
                      [class.error]="signeUpForm.controls['username'].dirty &&
                        signeUpForm.hasError('required', 'username')">
                   <span class="fa fa-user p-2"></span>
                   <input formControlName="username" type="text" placeholder="Имя">
                 </div>
+
                 <small
                   *ngIf="signeUpForm.controls['username'].dirty &&
                     signeUpForm.hasError('required', 'username')"
                   class="text-danger">
                   это обязательное поле
                 </small>
+
               </div>
 
               <div class="form-group pt-4">
+
                 <div class="input-field"
                      [class.error]="errorText">
                   <span class="fa fa-user p-2"></span>
                   <input formControlName="email" type="text" placeholder="Email" (keydown)="keyLogin()">
                 </div>
+
                 <small
                   class="text-danger">
                   {{errorText}}
@@ -42,6 +47,7 @@
               </div>
 
               <div class="form-group pt-4">
+
                 <div class="input-field"
                      [class.error]="getPasswordError() === 'Пароли не совпадают'">
                   <span class="fa fa-lock p-2"></span>
