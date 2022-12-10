@@ -44,21 +44,6 @@
                 </div>
 
 
-
-<!--                <ion-item fill="solid" style="&#45;&#45;padding-start: 0px;padding-bottom: 15px;">
-                  <ion-label position="floating">Пароль</ion-label>
-                  <ion-input [type]="type" formControlName="password">
-                  </ion-input>
-                  <span style="position: absolute; right: 0; top: 50px;" (click)="hideShowPass()" class="fa {{eyeIcon}}"></span>
-                  <ion-note
-                    *ngIf="loginForm.controls['email']?.value?.length && !loginForm.controls['email'].invalid"
-                    style="position: absolute; left: 0; top: 70px;"
-                    slot="error">
-                    это обязательное поле
-                  </ion-note>
-
-                </ion-item>-->
-
                 <div class="form-group pt-4">
 
                   <div class="input-field">
@@ -66,6 +51,7 @@
                     <input formControlName="password" [type]="type" placeholder="Пароль">
                     <span (click)="hideShowPass()" class="fa {{type === 'password' ? 'fa-eye-slash' : 'fa-eye'}}"></span>
                   </div>
+
                   <small
                     *ngIf="
                     loginForm.controls['email']?.value?.length &&
@@ -77,8 +63,7 @@
 
                 </div>
 
-                <ion-note style="position: absolute; left: 0; bottom: -5px;color: #eb445a; font-size: 12px;" slot="error">{{errorLogin}}</ion-note>
-
+                <small style="position: absolute; left: 0; bottom: -20px;color: #eb445a; font-size: 12px;" slot="error">{{errorLogin}}</small>
 
               </div>
 

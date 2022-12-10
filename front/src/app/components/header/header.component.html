@@ -15,7 +15,7 @@
       <ion-icon *ngIf="back" name="arrow-back-circle-outline" class="backBtn" (click)="navigationService.goToBack()"></ion-icon>
       <div *ngIf="profile" class="profileBtn" (click)="goTo('profile/main')" [class.homePage]="homePage">
         <img *ngIf="!userService.user?.avatar" [src]="'assets/icons/profile_avatar.svg'" alt="">
-        <img *ngIf="userService.user?.avatar" [src]="userService.user.avatar" [class.round]="userService.viewsRoundAvatar" alt="">
+        <img *ngIf="userService.user?.avatar" [src]="userService.user.avatar" [class.round]="userService.user?.viewsRoundAvatar === '1'" alt="">
       </div>
 
       <h3 *ngIf="title">{{title}}</h3>

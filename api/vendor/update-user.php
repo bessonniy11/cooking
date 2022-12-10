@@ -9,7 +9,7 @@ if (isset($postdata) && !empty($postdata)) {
     // Extract the data.
     $request = json_decode($postdata);
 
-    $id = trim($request->data->id);
+    $userId= trim($request->data->userId);
     $username = trim($request->data->username);
     $email = trim($request->data->email);
     $avatar = trim($request->data->avatar);
@@ -29,10 +29,13 @@ if (isset($postdata) && !empty($postdata)) {
     }
 
 
-    $updateUser = $db->prepare("UPDATE `users` SET `username` = '$username', `email` = '$email', `avatar` = '$avatar', `viewsRoundAvatar` = '$viewsRoundAvatar' WHERE `users`.`id` =  '$id'");
+    $updateUser = $db->prepare(
+    "UPDATE `users`
+    SET `username` = '$username', `email` = '$email', `avatar` = '$avatar', `viewsRoundAvatar` = '$viewsRoundAvatar'
+    WHERE `users`.`userId` =  '$userId'");
 
     $updateUser->execute([
-        "id" => $id
+        "userId" => $userId
     ]);
 
     $updateUser = $updateUser->fetch();
@@ -42,7 +45,7 @@ if (isset($postdata) && !empty($postdata)) {
         'message' => 'user data was successfully retrieved',
         'userData' => $updateUser,
         'user' => [
-            'id'  => $id,
+            'userId'  => $userId,
             'username'  => $username,
             'email'  => $email,
             'avatar'  => $avatar,

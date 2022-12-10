@@ -11,7 +11,7 @@ if (isset($postdata) && !empty($postdata)) {
 
     $userId = trim($request->data->userId);
 
-    $user = $db->prepare("SELECT * FROM `users` WHERE `userId` = '$userId'");
+    $user = $db->prepare("SELECT * FROM `users` WHERE `userId` = $userId");
 
     $user->execute([$userId]);
 

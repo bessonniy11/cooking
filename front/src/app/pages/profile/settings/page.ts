@@ -66,7 +66,7 @@ export class ProfileSettingsPage implements OnInit {
       this.profileForm?.controls['username']?.setValue(this.user?.username);
       this.profileForm?.controls['email']?.setValue(this.user?.email);
       this.avatar = this.user.avatar !== null ? this.user.avatar : '/assets/icons/profile_avatar.svg';
-      this.viewsRoundAvatar = this.userService.viewsRoundAvatar;
+      this.viewsRoundAvatar = this.userService.user.viewsRoundAvatar === '1' ? true : false;
     }
   }
 
@@ -183,13 +183,15 @@ export class ProfileSettingsPage implements OnInit {
     if (this.profileForm.valid) {
 
       const data = {
-        id: this.user.userId,
+        userId: this.user.userId,
         username: this.profileForm.controls['username'].value,
         email: this.profileForm.controls['email'].value,
         avatar: this.avatar,
         viewsRoundAvatar: this.viewsRoundAvatar,
         link: 'update-user'
       };
+
+      console.log('profileForm.valid data', data);
 
       this.userService.updateUser(data, (callback: any) =>{
         if (callback) {

@@ -49,8 +49,9 @@ if (isset($postdata) && !empty($postdata)) {
             'status'  => true,
             'userId'  => $user["userId"],
             'username'  => $user["username"],
-            'avatar'  => $user["avatar"],
             'email'  => $user["email"],
+            'avatar'  => $user["avatar"],
+            'viewsRoundAvatar'  => $user["viewsRoundAvatar"],
             'token'  => $user["password"],
             'message' => 'successful authorization',
         ];

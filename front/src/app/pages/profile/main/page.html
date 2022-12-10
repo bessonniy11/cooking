@@ -13,7 +13,7 @@
   <div class="content">
 
     <div class="profile-top">
-      <div class="avatar" [class.round]="userService.viewsRoundAvatar">
+      <div class="avatar" [class.round]="userService.user?.viewsRoundAvatar === '1'">
         <img [src]="userService.user?.avatar ? userService.user?.avatar : avatar" alt="">
       </div>
       <div class="profile-top-info">
