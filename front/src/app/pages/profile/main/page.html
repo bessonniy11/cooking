@@ -4,21 +4,21 @@
   >
 </app-header>
 
-<div class="loading-container" *ngIf="appService.loading">
-  <div class="loading-spinner"></div>
-</div>
-
 <ion-content>
+
+  <div class="loading-container" *ngIf="appService.loading">
+    <div class="loading-spinner"></div>
+  </div>
 
   <div class="content">
 
     <div class="profile-top">
       <div class="avatar" [class.round]="userService.viewsRoundAvatar">
-        <img [src]="user?.avatar ? user?.avatar : avatar" alt="">
+        <img [src]="userService.user?.avatar ? userService.user?.avatar : avatar" alt="">
       </div>
       <div class="profile-top-info">
-        <div class="profile-top-item">{{user?.username ? user?.username : 'нет данных...'}}</div>
-        <div class="profile-top-item">{{user?.email ? user?.email : 'нет данных...'}}</div>
+        <div class="profile-top-item">{{userService.user?.username ? userService.user?.username : 'нет данных...'}}</div>
+        <div class="profile-top-item">{{userService.user?.email ? userService.user?.email : 'нет данных...'}}</div>
       </div>
     </div>
 

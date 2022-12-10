@@ -6,26 +6,23 @@
   >
 </app-header>
 
-<div class="loading-container" *ngIf="appService.loading">
-  <div class="loading-spinner"></div>
-</div>
-
-
 <ion-content>
+
+  <div class="loading-container" *ngIf="appService.loading">
+    <div class="loading-spinner"></div>
+  </div>
 
   <div class="content dishes-wrapper cart">
 
     <div class="dish" *ngFor="let dish of returnList(); index as index">
 
       <div class="dish-item">
-        <img [src]="dish.images[0]" alt="">
 
-        <div class="dish-item-gallery-swiper" [class.single-image]="dish.images.length <= 1  ">
+        <div class="dish-item-gallery-swiper" [class.single-image]="dish.images?.length <= 1  ">
           <swiper [config]="swiperGalleryConfig">
 
             <div class="dish-item-swiper-item swiper-slide" *ngFor="let img of dish.images">
-              <div class="dish-item-img" (click)="goToThisItem(dish.id, dish)">
-                {{'img' + img.splice(0, 1)}}
+              <div class="dish-item-img" (click)="goToThisItem(dish.dish_id, dish)">
                 <img [src]="img">
               </div>
             </div>
@@ -35,7 +32,7 @@
 
         <div class="dish-item-info">
 
-          <div class="dish-item-title" (click)="goToThisItem(dish.id, dish)">
+          <div class="dish-item-title" (click)="goToThisItem(dish.dish_id, dish)">
             {{dish.dishName}}
           </div>
 

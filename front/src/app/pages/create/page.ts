@@ -36,6 +36,7 @@ export class CreatePage implements OnInit {
   errorFormat = '';
   isFileLoad = false; // выбран ли файл
   private fileModelService: any;
+  dishWasCreated: boolean = false;
 
   images: any = [];
 
@@ -181,6 +182,9 @@ export class CreatePage implements OnInit {
       this.userService.addDish(data, (callback: any) =>{
         if (callback) {
           console.log('callback', callback);
+          if (callback.data.status) {
+            this.dishWasCreated = true;
+          }
         }
       });
     } else {
@@ -209,4 +213,10 @@ export class CreatePage implements OnInit {
     this.images.splice(index, 1);
   }
 
+  createNextRecipe() {
+    this.images = [];
+    this.newDishForm?.controls['name']?.setValue('');
+    this.newDishForm?.controls['desc']?.setValue('');
+    this.dishWasCreated = false;
+  }
 }

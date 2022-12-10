@@ -31,7 +31,6 @@ export class ProfileMainPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.user = this.userService.user;
   }
 
   ngOnInit(): void {

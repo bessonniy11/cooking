@@ -10,10 +10,10 @@
   <div class="content">
 
     <div class="dish-item">
-      <div class="dish-item-gallery-swiper" [class.single-image]="dish['gallery']?.length <= 1  ">
+      <div class="dish-item-gallery-swiper" [class.single-image]="dish.images?.length <= 1  ">
         <swiper [config]="swiperGalleryConfig">
 
-          <div class="dish-item-swiper-item swiper-slide" *ngFor="let img of dish['gallery']">
+          <div class="dish-item-swiper-item swiper-slide" *ngFor="let img of dish.images">
             <div class="dish-item-img">
               <img [src]="img">
             </div>
@@ -23,8 +23,8 @@
       </div>
 
       <div class="dish-item-info">
-        <div class="dish-item__title">{{dish['title']}}</div>
-        <div class="dish-item__description">{{dish['desc']}}</div>
+        <div class="dish-item__title">{{dish.dishName}}</div>
+        <div class="dish-item__description">{{dish.dishDesc}}</div>
       </div>
 
     </div>

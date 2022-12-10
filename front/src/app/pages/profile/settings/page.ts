@@ -183,7 +183,7 @@ export class ProfileSettingsPage implements OnInit {
     if (this.profileForm.valid) {
 
       const data = {
-        id: this.user.id,
+        id: this.user.userId,
         username: this.profileForm.controls['username'].value,
         email: this.profileForm.controls['email'].value,
         avatar: this.avatar,

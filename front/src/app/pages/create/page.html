@@ -4,95 +4,109 @@
   >
 </app-header>
 
-<div class="loading-container" *ngIf="appService.loading">
-  <div class="loading-spinner"></div>
-</div>
-
 <ion-content>
 
-  <div class="content">
+  <div class="loading-container" *ngIf="appService.loading">
+    <div class="loading-spinner"></div>
+  </div>
 
-    <div class="img-wrapper">
+  <div class="content" *ngIf="!appService.loading">
 
-      <div class="img-header">
+    <div class="create-dish" *ngIf="!dishWasCreated">
 
-        <button class="main-btn" (click)="changeImg()">
-          Выбрать фото
-          <input
-            (change)="uploadImg(false, $event)"
-            #input
-            type="file"
-            accept="image/jpeg,image/png"
-            style="display: none;">
+      <div class="img-wrapper">
+
+        <div class="img-header">
+
+          <button class="main-btn" (click)="changeImg()">
+            Выбрать фото
+            <input
+              (change)="uploadImg(false, $event)"
+              #input
+              type="file"
+              accept="image/jpeg,image/png"
+              style="display: none;">
+          </button>
+        </div>
+
+        <div class="images">
+          <div class="img load-img" [class.empty-photo]="!images.length" (click)="changeImg()">
+            <img [src]="imgLoad" alt="">
+          </div>
+
+          <div class="img" *ngFor="let img of images; index as index">
+            <ion-icon name="trash-outline" (click)="removeImg(index)"></ion-icon>
+            <img [src]="img" alt="">
+          </div>
+
+        </div>
+
+        <small>{{errorFormat}}</small>
+
+      </div>
+
+      <form [formGroup]="newDishForm">
+
+        <ion-item style="--padding-start: 0px;padding-bottom: 15px;">
+          <ion-label position="floating">Введите название блюда</ion-label>
+          <ion-input
+            formControlName="name"
+            type="text"
+            placeholder="Название блюда"
+            [clearInput]="true"
+          >
+          </ion-input>
+          <small
+            *ngIf="newDishForm.invalid"
+            class="text-danger">
+            {{errorText}}
+          </small>
+        </ion-item>
+
+        <ion-item style="--padding-start: 0px;padding-bottom: 15px;">
+          <ion-label position="floating">Введите описание блюда</ion-label>
+          <ion-textarea
+            formControlName="desc"
+            type="text"
+            placeholder="Описание"
+            [autoGrow]="true"
+          >
+          </ion-textarea>
+          <small
+            *ngIf="newDishForm.invalid"
+            class="text-danger">
+            {{errorText}}
+          </small>
+        </ion-item>
+
+      </form>
+
+      <div class="bottom_btn">
+
+        <button
+          (click)="onSubmit()"
+          [disabled]="newDishForm.invalid"
+          type="submit"
+          class="main-btn"
+        >
+          Создать
         </button>
-      </div>
-
-      <div class="images">
-        <div class="img load-img" [class.empty-photo]="!images.length" (click)="changeImg()">
-          <img [src]="imgLoad" alt="">
-        </div>
-
-        <div class="img" *ngFor="let img of images; index as index">
-          <ion-icon name="trash-outline" (click)="removeImg(index)"></ion-icon>
-          <img [src]="img" alt="">
-        </div>
 
       </div>
-
-      <small>{{errorFormat}}</small>
-
     </div>
 
-    <form [formGroup]="newDishForm">
-
-      <ion-item style="--padding-start: 0px;padding-bottom: 15px;">
-        <ion-label position="floating">Введите название блюда</ion-label>
-        <ion-input
-          formControlName="name"
-          type="text"
-          placeholder="Название блюда"
-          [clearInput]="true"
-        >
-        </ion-input>
-        <small
-          *ngIf="newDishForm.invalid"
-          class="text-danger">
-         {{errorText}}
-        </small>
-      </ion-item>
-
-      <ion-item style="--padding-start: 0px;padding-bottom: 15px;">
-        <ion-label position="floating">Введите описание блюда</ion-label>
-        <ion-textarea
-          formControlName="desc"
-          type="text"
-          placeholder="Описание"
-          [autoGrow]="true"
-        >
-        </ion-textarea>
-        <small
-          *ngIf="newDishForm.invalid"
-          class="text-danger">
-          {{errorText}}
-        </small>
-      </ion-item>
-
-    </form>
+    <div class="empty-dishes" *ngIf="dishWasCreated">
+      <div class="empty-dishes__info">
+        <div class="info-text">
+          Отлично, рецепт добавлен! Вы можете добавить новый рецепт
+        </div>
+        <ion-icon class="createBtn" (click)="createNextRecipe()" name="add-circle-outline"></ion-icon>
+      </div>
+    </div>
 
   </div>
 
-  <div class="bottom_btn">
 
-    <button
-      (click)="onSubmit()"
-      [disabled]="newDishForm.invalid"
-      type="submit"
-      class="main-btn"
-    >
-      Создать
-    </button>
-
-  </div>
 
 </ion-content>
 

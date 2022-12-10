@@ -41,7 +41,7 @@ export class UserService extends MainService {
           this.user = res.data.user;
           this.viewsRoundAvatar = res.data.user.viewsRoundAvatar !== '0';
           this.avatar = res.data.user.avatar !== null ? res.data.user.avatar : '/assets/icons/profile_avatar.svg';
-          // console.log('this.user', this.user);
+          console.log('this.user', this.user);
         }
       }
     });
@@ -96,7 +96,7 @@ export class UserService extends MainService {
         this.appService.loading = false;
 
         if (res.data.status) {
-          this.navigationService.goToUrl('/profile/recipes');
+          // this.navigationService.goToUrl('/profile/recipes');
         }
       }
       callback(res);
@@ -104,11 +104,11 @@ export class UserService extends MainService {
   }
 
   // получение блюд пользователя
-  getDishes(callback: any | undefined) {
+  getDishes(allUsers = true, callback: any | undefined) {
     this.appService.loading = true;
 
     const data = {
-      userId: this.user.userId,
+      userId: allUsers ? 'all' : this.user.userId,
       link: 'dishes'
     };
 

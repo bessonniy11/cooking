@@ -13,9 +13,7 @@ if (isset($postdata) && !empty($postdata)) {
 
     $user = $db->prepare("SELECT * FROM `users` WHERE `userId` = '$userId'");
 
-    $user->execute([
-        "id" => $id
-    ]);
+    $user->execute([$userId]);
 
     $user = $user->fetch();
 

@@ -8,23 +8,23 @@
 >
 </app-header>
 
-<div class="loading-container" *ngIf="appService.loading">
-  <div class="loading-spinner"></div>
-</div>
-
 <ion-content>
 
-  <div class="content dishes-wrapper cart">
+  <div class="loading-container" *ngIf="appService.loading">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <div class="content dishes-wrapper cart" *ngIf="!appService.loading">
 
     <div class="dish" *ngFor="let dish of returnList(); index as index">
 
       <div class="dish-item">
 
-        <div class="dish-item-gallery-swiper" [class.single-image]="dish.gallery.length <= 1  ">
+        <div class="dish-item-gallery-swiper" [class.single-image]="dish.images?.length <= 1  ">
           <swiper [config]="swiperGalleryConfig">
 
-            <div class="dish-item-swiper-item swiper-slide" *ngFor="let img of dish.gallery">
-              <div class="dish-item-img" (click)="goToThisItem(dish.id, dish)">
+            <div class="dish-item-swiper-item swiper-slide" *ngFor="let img of dish.images">
+              <div class="dish-item-img">
                 <img [src]="img">
               </div>
             </div>
@@ -34,20 +34,20 @@
 
         <div class="dish-item-info">
 
-          <div class="dish-item-title" (click)="goToThisItem(dish.id, dish)">
-            {{dish.title}}
+          <div class="dish-item-title" (click)="goToThisItem(dish.dish_id, dish)">
+            {{dish.dishName}}
           </div>
 
-          <div class="dish-item-author" (click)="goToThisItem(dish.id, dish)">
-            Автор: {{dish.author}}
+          <div class="dish-item-author" (click)="goToThisItem(dish.dish_id, dish)">
+            Автор: {{dish.username}}
           </div>
 
           <div class="dish-item-description-wrapper">
-            <div class="dish-item-description" [class.open]="openText === index" (click)="goToThisItem(dish.id, dish)">
-              {{dish.desc}}
+            <div class="dish-item-description" [class.open]="openText === index" (click)="goToThisItem(dish.dish_id, dish)">
+              {{dish.dishDesc}}
             </div>
             <div class="dish-item-toggle"
-                 *ngIf="dish.desc.length > 140"
+                 *ngIf="dish.dishDesc?.length > 140"
                  (click)="toggleText(index)"
             >
               {{openText === index ? 'скрыть' : 'читать далее'}}
@@ -60,13 +60,13 @@
 
     </div>
 
-    <div class="empty-dishes" *ngIf="!returnList().length && !searchService.searchValue().length">
-      <div class="empty-dishes__info">
-        <div class="info-text">
-          Здесь пока ничего нет
-        </div>
-      </div>
-    </div>
+<!--    <div class="empty-dishes" *ngIf="!returnList().length && !searchService.searchValue().length">-->
+<!--      <div class="empty-dishes__info">-->
+<!--        <div class="info-text">-->
+<!--          Здесь пока ничего нет-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
 
     <div class="empty-dishes" *ngIf="!returnList().length && searchService.searchValue().length">
       <div class="empty-dishes__info">
