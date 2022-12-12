@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { environment } from "../../environments/environment";
 import {NavigationService} from "./navigation.service";
 import {MainService} from "../core/main.service";
 import {AlertController, LoadingController} from "@ionic/angular";
@@ -11,7 +10,6 @@ import {AppService} from "./app.service";
 })
 export class UserService extends MainService {
   user: any = null;
-  viewsRoundAvatar: number = 0;
   avatar: string = '/assets/icons/profile_avatar.svg';
 
   constructor(
@@ -39,8 +37,7 @@ export class UserService extends MainService {
         this.appService.loading = false;
         if (res.data.userData) {
           this.user = res.data.user;
-          this.viewsRoundAvatar = res.data.user.viewsRoundAvatar;
-          this.avatar = res.data.user.avatar !== null ? res.data.user.avatar : '/assets/icons/profile_avatar.svg';
+          this.avatar = res.data.user?.avatar !== null ? res.data.user.avatar : '/assets/icons/profile_avatar.svg';
           console.log('this.user', this.user);
         }
       }
@@ -58,7 +55,6 @@ export class UserService extends MainService {
           localStorage.setItem('token', res.data.token);
           localStorage.setItem('userId', res.data.userId);
           this.user = res.data;
-          this.viewsRoundAvatar = res.data.user?.viewsRoundAvatar;
           this.navigationService.goToUrl('home')
         }
       }
@@ -105,11 +101,12 @@ export class UserService extends MainService {
   }
 
   // получение блюд пользователя
-  getDishes(allUsers = true, callback: any | undefined) {
+  getDishes(allUsers: boolean, callback: any | undefined) {
+    console.log('this.user.userId', this.user?.userId);
     this.appService.loading = true;
 
     const data = {
-      userId: allUsers ? 'all' : this.user.userId,
+      userId: allUsers ? 'all' : this.user?.userId,
       link: 'dishes'
     };
 
@@ -136,7 +133,6 @@ export class UserService extends MainService {
         if (res.data.status) {
           console.log('updateUser.data', res.data);
           this.user = res.data.user;
-          this.viewsRoundAvatar = res.data.user?.viewsRoundAvatar;
           // console.log('res.data.user', res.data.user);
           // console.log('this.user', this.user);
         }

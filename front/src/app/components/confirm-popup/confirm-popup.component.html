@@ -1,0 +1,10 @@
+<div class="modal-window" [class.active]="modalWindow">
+  <div class="modal-wrapper" (click)="closeModal()">
+    <div class="modal-content">
+      <button class="main-btn" (click)="confirm()">
+        {{confirmBtn}}
+      </button>
+      <button class="main-btn" (click)="closeModal()">{{closeBtn}}</button>
+    </div>
+  </div>
+</div>

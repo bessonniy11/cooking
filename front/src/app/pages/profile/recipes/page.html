@@ -18,6 +18,8 @@
 
       <div class="dish-item">
 
+<!--        <ion-icon class="remove-img" name="trash-outline" (click)="removeImg(index)"></ion-icon>-->
+
         <div class="dish-item-gallery-swiper" [class.single-image]="dish.images?.length <= 1  ">
           <swiper [config]="swiperGalleryConfig">
 
@@ -90,3 +92,5 @@
   </ion-infinite-scroll>
 
 </ion-content>
+
+<!--<app-confirm-popup [modalWindow]="modalWindow" [closeBtn]="'test'" [confirmBtn]="'test'"></app-confirm-popup>-->

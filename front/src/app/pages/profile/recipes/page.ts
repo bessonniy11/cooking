@@ -5,6 +5,7 @@ import {NavigationService} from "../../../services/navigation.service";
 import {UserService} from "../../../services/user.service";
 import {SwiperConfigInterface} from "ngx-swiper-wrapper";
 import {SearchService} from "../../../services/search.service";
+import {ConfirmPopupComponent} from "../../../components/confirm-popup/confirm-popup.component";
 
 
 @Component({
@@ -45,6 +46,11 @@ export class UserRecipesPage implements OnInit {
 
   openText: any = null;
   scrollDisable: boolean = false;
+
+  modalWindow = false;
+  confirmBtn: string = 'test';
+  closeBtn: string = 'test';
+
   currentPage = 1;
   perPage = 5;
 
@@ -53,7 +59,8 @@ export class UserRecipesPage implements OnInit {
     appService: AppService,
     userService: UserService,
     navigationService: NavigationService,
-    searchService: SearchService
+    searchService: SearchService,
+    private confirmPopupComponent: ConfirmPopupComponent,
   ) {
     this.fb = fb;
     this.appService = appService;
@@ -114,4 +121,6 @@ export class UserRecipesPage implements OnInit {
   goTo(link: string) {
     this.navigationService.goToUrl(link);
   }
+
+
 }

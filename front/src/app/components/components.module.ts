@@ -5,11 +5,13 @@ import {IonicModule} from "@ionic/angular";
 import {RouterModule} from "@angular/router";
 import {HeaderComponent} from "./header/header.component";
 import {FormsModule} from '@angular/forms';
+import {ConfirmPopupComponent} from './confirm-popup/confirm-popup.component';
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
+    ConfirmPopupComponent,
   ],
   imports: [
     CommonModule,
@@ -20,6 +22,7 @@ import {FormsModule} from '@angular/forms';
   ],
   exports: [
     HeaderComponent,
+    ConfirmPopupComponent,
   ]
 })
 
