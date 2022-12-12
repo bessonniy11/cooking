@@ -28,7 +28,7 @@ export class ProfileSettingsPage implements OnInit {
 
   user: any = {};
   avatar: string = '/assets/icons/profile_avatar.svg';
-  viewsRoundAvatar: boolean | string = false;
+  viewsRoundAvatar: string = '0';
 
   modalWindow = false;
   imageChangedEvent: any = '';
@@ -66,7 +66,7 @@ export class ProfileSettingsPage implements OnInit {
       this.profileForm?.controls['username']?.setValue(this.user?.username);
       this.profileForm?.controls['email']?.setValue(this.user?.email);
       this.avatar = this.user.avatar !== null ? this.user.avatar : '/assets/icons/profile_avatar.svg';
-      this.viewsRoundAvatar = this.userService.user.viewsRoundAvatar === '1' ? true : false;
+      this.viewsRoundAvatar = this.userService.user.viewsRoundAvatar === '1' ? '1' : '0';
     }
   }
 
@@ -223,6 +223,6 @@ export class ProfileSettingsPage implements OnInit {
   }
 
   changeViewAvatar(event: any) {
-    this.viewsRoundAvatar = event.detail.checked;
+    this.viewsRoundAvatar = event.detail.checked ? '1' : '0';
   }
 }

@@ -32,13 +32,11 @@ if (isset($postdata) && !empty($postdata)) {
     $updateUser = $db->prepare(
     "UPDATE `users`
     SET `username` = '$username', `email` = '$email', `avatar` = '$avatar', `viewsRoundAvatar` = '$viewsRoundAvatar'
-    WHERE `users`.`userId` =  '$userId'");
+    WHERE `users`.`userId` = '$userId'");
 
-    $updateUser->execute([
-        "userId" => $userId
-    ]);
+    $updateUser->execute([]);
 
-    $updateUser = $updateUser->fetch();
+    $updateUser->fetch();
 
     $response = [
         'status'  => true,

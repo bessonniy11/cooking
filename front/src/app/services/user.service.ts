@@ -11,7 +11,7 @@ import {AppService} from "./app.service";
 })
 export class UserService extends MainService {
   user: any = null;
-  viewsRoundAvatar: boolean | string  = false;
+  viewsRoundAvatar: number = 0;
   avatar: string = '/assets/icons/profile_avatar.svg';
 
   constructor(
@@ -39,7 +39,7 @@ export class UserService extends MainService {
         this.appService.loading = false;
         if (res.data.userData) {
           this.user = res.data.user;
-          this.viewsRoundAvatar = res.data.user.viewsRoundAvatar !== 0;
+          this.viewsRoundAvatar = res.data.user.viewsRoundAvatar;
           this.avatar = res.data.user.avatar !== null ? res.data.user.avatar : '/assets/icons/profile_avatar.svg';
           console.log('this.user', this.user);
         }
@@ -58,7 +58,7 @@ export class UserService extends MainService {
           localStorage.setItem('token', res.data.token);
           localStorage.setItem('userId', res.data.userId);
           this.user = res.data;
-          this.viewsRoundAvatar = res.data.user?.viewsRoundAvatar !== 0;
+          this.viewsRoundAvatar = res.data.user?.viewsRoundAvatar;
           this.navigationService.goToUrl('home')
         }
       }
@@ -129,13 +129,14 @@ export class UserService extends MainService {
   // изменение пользователя
   updateUser(data: any, callback: any | undefined) {
     this.appService.loading = true;
+    console.log('updateUser data start', data);
     this.postRequest(data, (res: any) => {
       if (res) {
         this.appService.loading = false;
         if (res.data.status) {
           console.log('updateUser.data', res.data);
           this.user = res.data.user;
-          this.viewsRoundAvatar = res.data.user?.viewsRoundAvatar !== 0;
+          this.viewsRoundAvatar = res.data.user?.viewsRoundAvatar;
           // console.log('res.data.user', res.data.user);
           // console.log('this.user', this.user);
         }

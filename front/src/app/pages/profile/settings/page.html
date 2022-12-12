@@ -18,7 +18,7 @@
 
         <ion-icon name="trash-outline" (click)="removeAvatar()"></ion-icon>
 
-        <div class="avatar" [class.round]="viewsRoundAvatar">
+        <div class="avatar" [class.round]="viewsRoundAvatar === '1'">
           <img [src]="avatar" alt="">
         </div>
 
@@ -28,7 +28,7 @@
 
       <div class="avatar-settings">
         <ion-item class="avatar-settings-item" lines="none">
-          <ion-checkbox [checked]="viewsRoundAvatar" (ionChange)="changeViewAvatar($event)" slot="start"></ion-checkbox>
+          <ion-checkbox [checked]="viewsRoundAvatar === '1'" (ionChange)="changeViewAvatar($event)" slot="start"></ion-checkbox>
           <div>Круглый аватар</div>
         </ion-item>
       </div>
