@@ -6,11 +6,11 @@
   >
 </app-header>
 
-<ion-content>
+<div class="loading-container" *ngIf="appService.loading">
+  <div class="loading-spinner"></div>
+</div>
 
-  <div class="loading-container" *ngIf="appService.loading">
-    <div class="loading-spinner"></div>
-  </div>
+<ion-content>
 
   <div class="content dishes-wrapper cart">
 
@@ -18,7 +18,7 @@
 
       <div class="dish-item">
 
-<!--        <ion-icon class="remove-img" name="trash-outline" (click)="removeImg(index)"></ion-icon>-->
+        <ion-icon class="remove-img" name="trash-outline" (click)="removeRecipeModal(index, dish.dish_id)"></ion-icon>
 
         <div class="dish-item-gallery-swiper" [class.single-image]="dish.images?.length <= 1  ">
           <swiper [config]="swiperGalleryConfig">
@@ -59,7 +59,7 @@
       </div>
 
     </div>
-
+    
     <div class="empty-dishes" *ngIf="!returnList().length && !searchService.searchValue().length && !appService.loading">
       <div class="empty-dishes__info">
         <div class="info-text">
@@ -93,4 +93,14 @@
 
 </ion-content>
 
-<!--<app-confirm-popup [modalWindow]="modalWindow" [closeBtn]="'test'" [confirmBtn]="'test'"></app-confirm-popup>-->
+<app-confirm-popup
+  [modalWindow]="modalWindow"
+  [title]="recipeName"
+  [index]="recipeIndex"
+  [confirmBtn]="confirmBtn"
+  [closeBtn]="closeBtn"
+  (confirmClick)="removeRecipe()"
+  (cancelClick)="cancelModal()"
+>
+
+</app-confirm-popup>

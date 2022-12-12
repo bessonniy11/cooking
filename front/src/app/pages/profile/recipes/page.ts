@@ -28,28 +28,17 @@ export class UserRecipesPage implements OnInit {
     setWrapperSize: true,
   };
 
-  dishes: any = [
-    // {
-    //   id:1,
-    //   title:'Банановые блинчики из рисовой муки',
-    //   gallery: [
-    //     'https://www.sechenov.ru/upload/medialibrary/abb/pitanie.jpg',
-    //     'https://www.sechenov.ru/upload/medialibrary/abb/pitanie.jpg',
-    //     'https://www.sechenov.ru/upload/medialibrary/abb/pitanie.jpg',
-    //   ],
-    //   desc:
-    //     'Вкусный, полезный, лёгкий завтрак для всей семьи! ' +
-    //     'Приготовим румяные банановые блинчики из рисовой муки, ' +
-    //     'на молоке. Блинчики понравятся тем, кто придерживается правильного питания.'
-    // },
-  ];
+  dishes: any = [];
 
   openText: any = null;
   scrollDisable: boolean = false;
 
   modalWindow = false;
-  confirmBtn: string = 'test';
-  closeBtn: string = 'test';
+  recipeName: string = '';
+  recipeIndex: string = '';
+  confirmBtn: string = 'Удалить';
+  closeBtn: string = 'Отмена';
+  removeDishId: any = null;
 
   currentPage = 1;
   perPage = 5;
@@ -123,4 +112,37 @@ export class UserRecipesPage implements OnInit {
   }
 
 
+  removeRecipeModal(index: any, removeDishId: any) {
+    console.log('removeDishId', removeDishId);
+    this.recipeName = `Вы действительно хотите удалить рецепт "${this.dishes[index].dishName}"?`;
+    this.removeDishId = removeDishId;
+    this.modalWindow = true;
+  }
+
+  removeRecipe() {
+    console.log('removeRecipe', this.recipeIndex);
+    this.modalWindow = false;
+
+    const data = {
+      dishId: this.removeDishId,
+      link: 'remove-dish'
+    };
+
+    this.userService.removeDish(data,(callback: any) =>{
+      console.log('removeRecipe callback', callback);
+      if (callback.data.status) {
+        this.userService.getDishes(true,(callback: any) =>{
+          console.log('removeDish callback', callback);
+          if (callback.data.status) {
+            this.dishes = callback.data.result;
+            console.log('this.dishes', this.dishes);
+          }
+        })
+      }
+    })
+  }
+
+  cancelModal() {
+    this.modalWindow = false;
+  }
 }

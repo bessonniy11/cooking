@@ -46,10 +46,14 @@ ion-toast-controller,
     border-radius: 15px;
     background: #fff;
     border: 2px solid #232323;
+    //outline: none;
+    //border: none;
+    //box-shadow: 0 0 2px 0px #000;
     transition: 0.3s;
     &:active {
       transition: 0.3s;
       background: #cfdeff;
+      box-shadow: 0 0 4px 0px #000;
     }
   }
 }
@@ -61,11 +65,15 @@ ion-toast-controller,
   font-weight: 600;
   border-radius: 15px;
   background: #fff;
-  border: 2px solid #232323;
+  /* border: 2px solid #232323; */
   transition: 0.3s;
+  outline: none;
+  border: none;
+  box-shadow: 0 0 2px 0px #000;
   &:active {
     transition: 0.3s;
     background: #cfdeff;
+    box-shadow: 0 0 3px 0px #000;
   }
   &:disabled {
     opacity: 0.4;
@@ -74,6 +82,7 @@ ion-toast-controller,
 
 // LOADER {
 .loading-container {
+  // background-color: rgba(#757F9A, 0.5);
   background-color: rgba(255, 255, 255, 0.529);
   backdrop-filter: blur(3px);
   display: flex;
@@ -380,6 +389,28 @@ input[type='password'] {
     opacity: 0;
     visibility: hidden;
     transition: 0.4s;
+    .modal-content-info {
+      width: 100%;
+      padding: 0 15px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.5s;
+      .modal-content-title {
+        padding: 10px 10px;
+        width: 100%;
+        color: #000;
+        font-weight: 600;
+        border-radius: 15px;
+        background: #fff;
+        box-shadow: 0 0 3px 0px #000;
+        /* margin-bottom: 25px; */
+        text-align: center;
+      }
+    }
     .modal-content {
       position: absolute;
       bottom: -225px;
@@ -400,6 +431,10 @@ input[type='password'] {
   .modal-wrapper {
     opacity: 1;
     visibility: visible;
+    .modal-content-info {
+      opacity: 1;
+      visibility: visible;
+    }
     .modal-content {
       opacity: 1;
       visibility: visible;

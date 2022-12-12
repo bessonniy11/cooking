@@ -100,6 +100,22 @@ export class UserService extends MainService {
     });
   }
 
+  // удаление рецепта
+  removeDish(data: any, callback: any | undefined) {
+    this.appService.loading = true;
+    this.postRequest(data, (res: any) => {
+      console.log('removeDish res', res);
+      if (res) {
+        this.appService.loading = false;
+
+        if (res.data.status) {
+          // this.navigationService.goToUrl('/profile/recipes');
+        }
+      }
+      callback(res);
+    });
+  }
+
   // получение блюд пользователя
   getDishes(allUsers: boolean, callback: any | undefined) {
     console.log('this.user.userId', this.user?.userId);
