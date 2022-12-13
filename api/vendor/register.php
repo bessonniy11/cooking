@@ -41,15 +41,17 @@ if (isset($postdata) && !empty($postdata)) {
         return http_response_code(400);
     }
 
-
-
-    $store_user = $db->prepare("INSERT INTO `users` (`username`, `email`, `password`) VALUES (:username, :email, :password)");
+    $store_user = $db->prepare(
+    "INSERT INTO `users` (`username`, `email`, `password`) VALUES (:username, :email, :password)"
+    );
 
     $store_user->execute([
         "username" => $username,
         "email" => $email,
         "password"  => password_hash($password, PASSWORD_DEFAULT)
     ]);
+
+    // $user = $store_user->fetchAll(PDO::FETCH_ASSOC);
 
     if ($store_user) {
         $response = [
@@ -58,24 +60,10 @@ if (isset($postdata) && !empty($postdata)) {
             'result' => [
                 'username' => $username,
                 'email'    => $email,
+                'store_user'    => $store_user,
             ]
-
         ];
         echo json_encode(['data' => $response]);
         return http_response_code(400);
     }
-
-
-    // if (trim($request->data->username) === 'hey') {
-    //     $response = [
-    //         'status'  => false,
-    //         'username '  => $username,
-    //         'email '  => $email,
-    //         'password '  => $password,
-    //         'passwordConfirm '  => $passwordConfirm,
-    //         'message' => 'username failed',
-    //     ];
-    //     echo json_encode(['data' => $response]);
-    //     return http_response_code(400);
-    // }
 }

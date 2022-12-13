@@ -80,6 +80,17 @@ ion-toast-controller,
   }
 }
 
+.out-profile {
+  border: none !important;
+  color: #fff;
+  background: #757F9A;
+  width: auto !important;
+  &:active {
+    color: #000;
+  }
+}
+
+
 // LOADER {
 .loading-container {
   // background-color: rgba(#757F9A, 0.5);

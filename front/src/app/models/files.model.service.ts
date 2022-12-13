@@ -13,7 +13,7 @@ export class FilesModelService {
 
   constructor(
     protected http: HttpClient,
-    appService: AppService
+    private appService: AppService
   ) {
 
     this.model = 'files';
@@ -32,6 +32,9 @@ export class FilesModelService {
       if (result?.status && result?.result?.data?.length > 0) {
         callback(result);
       }
+    }, error => {
+      console.log('error file load');
+      this.appService.loading = false;
     });
 
   }

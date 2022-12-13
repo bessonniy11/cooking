@@ -196,7 +196,6 @@ export class CreatePage implements OnInit {
     this.appService.loading = true;
     this.isFileLoad = false;
     this.fileModelService.loadImage(img, '/fileDishes', (result: any) => {
-      console.log('result', result);
       if (result) {
         this.appService.loading = false;
 

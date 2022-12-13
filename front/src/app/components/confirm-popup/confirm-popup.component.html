@@ -1,6 +1,6 @@
 <div class="modal-window" [class.active]="modalWindow">
   <div class="modal-wrapper" (click)="closeModal()">
-    <div class="modal-content-info">
+    <div class="modal-content-info" *ngIf="title.length">
       <div class="modal-content-title">{{title}}</div>
     </div>
     <div class="modal-content">

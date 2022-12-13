@@ -49,12 +49,8 @@ export abstract class MainService {
       // if (res) {console.log('res', res);}
       return callback(res)
     }, error => {
-      if (error.status === 0) {
-        setTimeout(()=> {
-          this.appService.loading = false;
-          console.log('Server Error');
-        }, 1000);
-      }
+      this.appService.loading = false;
+      console.log('Server Error');
     });
   }
 
