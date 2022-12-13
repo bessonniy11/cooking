@@ -104,6 +104,19 @@ export class HomePage implements OnInit {
   }
 
   urlVideo(index: any) {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(this.dishes[index].dishVideo.replace('watch?v=','embed/'))
+    // обработка видео, чтобы выводить разные варианты ссылок
+    let srcLink = this.dishes[index].dishVideo;
+
+    if (srcLink.startsWith('https://www.youtube.com/watch?v=')) {
+      let embedLink = srcLink.replace('watch?v=', 'embed/');
+      return this.sanitizer.bypassSecurityTrustResourceUrl(embedLink);
+
+    } else if (srcLink.startsWith('https://youtu.be')) {
+      let embedLink = srcLink.replace('https://youtu.be', 'https://www.youtube.com/embed/');
+      return this.sanitizer.bypassSecurityTrustResourceUrl(embedLink);
+
+    } else {
+      return this.sanitizer.bypassSecurityTrustResourceUrl(this.dishes[index].dishVideo);
+    }
   }
 }
