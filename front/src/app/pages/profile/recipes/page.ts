@@ -6,6 +6,7 @@ import {UserService} from "../../../services/user.service";
 import {SwiperConfigInterface} from "ngx-swiper-wrapper";
 import {SearchService} from "../../../services/search.service";
 import {ConfirmPopupComponent} from "../../../components/confirm-popup/confirm-popup.component";
+import {DomSanitizer} from "@angular/platform-browser";
 
 
 @Component({
@@ -29,6 +30,7 @@ export class UserRecipesPage implements OnInit {
   };
 
   dishes: any = [];
+  dishHeaderType: number | null = null;
 
   openText: any = null;
   scrollDisable: boolean = false;
@@ -43,6 +45,8 @@ export class UserRecipesPage implements OnInit {
   currentPage = 1;
   perPage = 5;
 
+  loading: boolean = false;
+
   constructor(
     fb: FormBuilder,
     appService: AppService,
@@ -50,6 +54,7 @@ export class UserRecipesPage implements OnInit {
     navigationService: NavigationService,
     searchService: SearchService,
     private confirmPopupComponent: ConfirmPopupComponent,
+    private sanitizer: DomSanitizer
   ) {
     this.fb = fb;
     this.appService = appService;
@@ -67,11 +72,13 @@ export class UserRecipesPage implements OnInit {
   }
 
   loadUserDishes() {
+    this.loading = true;
     this.userService.getDishes(false,(callback: any) =>{
-      console.log('loadUserDishes callback', callback);
-      if (callback.data.status) {
-        this.dishes = callback.data.result;
-        console.log('this.dishes', this.dishes);
+      if (callback) {
+        this.loading = false;
+        if (callback.data.status) {
+          this.dishes = callback.data.result;
+        }
       }
     })
   }
@@ -120,7 +127,7 @@ export class UserRecipesPage implements OnInit {
   }
 
   removeRecipe() {
-    console.log('removeRecipe', this.recipeIndex);
+    this.loading = true;
     this.modalWindow = false;
 
     const data = {
@@ -129,20 +136,28 @@ export class UserRecipesPage implements OnInit {
     };
 
     this.userService.removeDish(data,(callback: any) =>{
-      console.log('removeRecipe callback', callback);
-      if (callback.data.status) {
-        this.userService.getDishes(true,(callback: any) =>{
-          console.log('removeDish callback', callback);
-          if (callback.data.status) {
-            this.dishes = callback.data.result;
-            console.log('this.dishes', this.dishes);
-          }
-        })
+      if (callback) {
+        if (callback.data.status) {
+          this.userService.getDishes(true,(callback: any) =>{
+            this.loading = false;
+            if (callback.data.status) {
+              this.dishes = callback.data.result;
+            }
+          })
+        }
       }
     })
   }
 
   cancelModal() {
     this.modalWindow = false;
+  }
+
+  checkVideoPhoto(index: any) {
+    this.dishHeaderType = this.dishHeaderType !== index ? index : null;
+  }
+
+  urlVideo(index: any) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(this.dishes[index].dishVideo.replace('watch?v=','embed/'))
   }
 }

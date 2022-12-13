@@ -8,11 +8,11 @@
           </div>
           <div class="panel-body p-3">
 
-            <div class="loading-container" *ngIf="appService.loading">
+            <div class="loading-container" *ngIf="loading">
               <div class="loading-spinner"></div>
             </div>
 
-            <form [formGroup]="signeUpForm">
+            <form [formGroup]="signeUpForm" *ngIf="!loading">
 
               <div class="form-group pt-4">
 
@@ -36,7 +36,7 @@
 
                 <div class="input-field"
                      [class.error]="errorText">
-                  <span class="fa fa-user p-2"></span>
+                  <span class="fa fa-envelope p-2"></span>
                   <input formControlName="email" type="text" placeholder="Email" (keydown)="keyLogin()">
                 </div>
 

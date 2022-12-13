@@ -13,7 +13,16 @@ if (isset($postdata) && !empty($postdata)) {
 
     if($userId == 'all') {
     $sth = $db->prepare(
-        "SELECT dishes.dish_id, dishes.userId, dishes.dishName, dishes.dishDesc, dishes.dish_create_date, users.username, json_arrayagg(img) images
+        "SELECT
+        dishes.dish_id,
+        dishes.userId,
+        dishes.dishVideo,
+        dishes.dishName,
+        dishes.dishDesc,
+        dishes.dish_create_date,
+        users.username,
+        users.avatar,
+        json_arrayagg(img) images
         FROM `dishes`
         INNER JOIN `dish_images` ON dishes.dish_id = dish_images.dish_id
         INNER JOIN `users` ON dishes.userId = users.userId
@@ -25,7 +34,14 @@ if (isset($postdata) && !empty($postdata)) {
     } else {
 
     $sth = $db->prepare(
-        "SELECT dishes.dish_id, dishes.userId, dishes.dishName, dishes.dishDesc, dishes.dish_create_date, json_arrayagg(img) images
+        "SELECT
+        dishes.dish_id,
+        dishes.userId,
+        dishes.dishVideo,
+        dishes.dishName,
+        dishes.dishDesc,
+        dishes.dish_create_date,
+        json_arrayagg(img) images
         FROM `dishes`
         INNER JOIN `dish_images` ON dishes.dish_id = dish_images.dish_id
         WHERE `userId` = $userId

@@ -23,6 +23,8 @@ export class LoginPage implements OnInit {
   errorText: string = '';
   errorLogin: string = '';
 
+  loading: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     appService: AppService,
@@ -57,6 +59,8 @@ export class LoginPage implements OnInit {
 
     if (this.loginForm.valid) {
 
+      this.loading = true;
+
       const data = {
         email: this.loginForm.controls['email'].value,
         password: this.loginForm.controls['password'].value,
@@ -64,8 +68,11 @@ export class LoginPage implements OnInit {
       };
 
       this.userService.login(data, (callback: any) => {
-        if (!callback.data.status) {
-          this.errorLogin = callback.data.message;
+        if (callback) {
+          this.loading = false;
+          if (!callback.data.status) {
+            this.errorLogin = callback.data.message;
+          }
         }
       });
 

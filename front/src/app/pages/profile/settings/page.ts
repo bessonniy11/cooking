@@ -25,6 +25,9 @@ export class ProfileSettingsPage implements OnInit {
   actionSheetController: ActionSheetController;
   camera: Camera;
   profileForm!: FormGroup;
+  errorText: string = '';
+  errorLogin: string = '';
+  confirmDelay: any = null;
 
   user: any = {};
   avatar: string = '/assets/icons/profile_avatar.svg';
@@ -39,6 +42,7 @@ export class ProfileSettingsPage implements OnInit {
   isFileLoad = false; // выбран ли файл
   private fileModelService: any;
 
+  loading: boolean = false;
 
   constructor(
     fb: FormBuilder,
@@ -100,7 +104,7 @@ export class ProfileSettingsPage implements OnInit {
 
   uploadAvatar(isDevice: any, event?: any) {
     if (isDevice) {
-      this.appService.loading = true;
+      this.loading = true;
       // запускаем выбор фотио с галереи
       const options: CameraOptions = {
         quality: 100,
@@ -113,7 +117,7 @@ export class ProfileSettingsPage implements OnInit {
       };
       this.camera.getPicture(options).then((imageData) => {
         // console.log("MB: " + imageData.length / 1249956);
-        this.appService.loading = false;
+        this.loading = false;
         if (imageData) {
           if (imageData.length / 1249956 < 5) {
             this.errorFormat = '';
@@ -204,12 +208,12 @@ export class ProfileSettingsPage implements OnInit {
   }
 
   saveNewImg(img: any) {
-    this.appService.loading = true;
+    this.loading = true;
     this.isFileLoad = false;
     this.fileModelService.loadImage(img, '/file', (result: any) => {
 
       if (result) {
-        this.appService.loading = false;
+        this.loading = false;
 
         // сохраняем получившиеся фото
         this.avatar = this.userService.imagesUrl + result.data.avatarName;
@@ -224,5 +228,30 @@ export class ProfileSettingsPage implements OnInit {
 
   changeViewAvatar(event: any) {
     this.viewsRoundAvatar = event.detail.checked ? '1' : '0';
+  }
+
+  keyLogin() {
+    // отслеживает ввод символов в поле логин
+    // показывает ошибку, если пользователь ввёл невалидный логин,
+    // но с задерждкой в 1 секунду, чтобы ошибки не было видно во время самого вввода
+    if (this.confirmDelay != null) {
+      this.errorText = '';
+      clearTimeout(this.confirmDelay);
+    }
+    this.confirmDelay = setTimeout(() => {
+      this.errorLoginValid();
+    }, 1000);
+  }
+
+  errorLoginValid() {
+    // показывает ошибку, если пользователь ввёл невалидный логин
+    let valueEmail = this.profileForm.controls['email'].value;
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let NoErrorLogin = re.test(valueEmail.trim()) || valueEmail === '';
+    if (this.profileForm.controls['email'].value.length && !NoErrorLogin) {
+      this.errorText = 'Проверьте правильность введённых данных.';
+    } else {
+      this.errorText = '';
+    }
   }
 }

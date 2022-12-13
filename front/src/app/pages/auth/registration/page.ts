@@ -22,6 +22,8 @@ export class SignupComponent implements OnInit {
   passInvalid: boolean = false;
   isValid: boolean = false;
 
+  loading: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     appService: AppService,
@@ -98,7 +100,7 @@ export class SignupComponent implements OnInit {
   registration() {
     if (this.signeUpForm.valid) {
 
-      this.appService.loading = true;
+      this.loading = true;
 
       const data = {
         username: this.signeUpForm.controls['username'].value,
@@ -108,7 +110,9 @@ export class SignupComponent implements OnInit {
         link: 'register'
       };
 
-      this.userService.registration(data, (callback: any) => {});
+      this.userService.registration(data, (callback: any) => {
+        if (callback) {this.loading = false;}
+      });
 
     } else {
       ValidateForm.validateAllFormFields(this.signeUpForm);

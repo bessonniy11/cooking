@@ -18,6 +18,8 @@ export class ProfileMainPage implements OnInit {
   user: any = {};
   avatar = '/assets/icons/profile_avatar.svg';
 
+  loading: boolean = false;
+
   constructor(
     fb: FormBuilder,
     userService: UserService,

@@ -34,7 +34,6 @@ export class FilesModelService {
       }
     }, error => {
       console.log('error file load');
-      this.appService.loading = false;
     });
 
   }

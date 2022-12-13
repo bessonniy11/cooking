@@ -12,6 +12,7 @@ if (isset($postdata) && !empty($postdata)) {
 
     $user_id = trim($request->data->userId);
     $dish_images = $request->data->dishImg;
+    $dish_video = trim($request->data->dishVideo);
     $dish_name = trim($request->data->dishName);
     $dish_description = trim($request->data->dishDesc);
 
@@ -29,7 +30,9 @@ if (isset($postdata) && !empty($postdata)) {
         return http_response_code(400);
     }
 
-    $store_dish = $db->prepare("INSERT INTO `dishes` (`userId`,`dishName`,`dishDesc`) VALUES ('$user_id', '$dish_name', '$dish_description')");
+    $store_dish = $db->prepare(
+    "INSERT INTO `dishes` (`userId`, `dishVideo`, `dishName`,`dishDesc`)
+    VALUES ('$user_id', '$dish_video', '$dish_name', '$dish_description')");
 
     $store_dish->execute([
          "userId" => $userId,
@@ -57,6 +60,7 @@ if (isset($postdata) && !empty($postdata)) {
             'result' => [
                 'user_id' => $user_id,
                 'dish_images'    => $dish_images,
+                'dish_video'    => $dish_video,
                 'dish_name'    => $dish_name,
                 'dish_description'    => $dish_description,
                 'max_id'    => $cur_auto_id,

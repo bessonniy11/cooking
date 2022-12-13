@@ -7,11 +7,11 @@
             <h3 class="pt-3 font-weight-bold">Вход</h3>
           </div>
 
-          <div class="loading-container" *ngIf="appService.loading">
+          <div class="loading-container" *ngIf="loading">
             <div class="loading-spinner"></div>
           </div>
 
-          <div class="panel-body p-3">
+          <div class="panel-body p-3" *ngIf="!loading">
 
 <!--            TODO refactor styles-->
 

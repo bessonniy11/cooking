@@ -6,30 +6,63 @@
   >
 </app-header>
 
-<div class="loading-container" *ngIf="appService.loading">
+<div class="loading-container" *ngIf="loading">
   <div class="loading-spinner"></div>
 </div>
 
 <ion-content>
 
-  <div class="content dishes-wrapper cart">
+  <div class="content dishes-wrapper cart" *ngIf="!loading">
 
     <div class="dish" *ngFor="let dish of returnList(); index as index">
 
       <div class="dish-item">
 
-        <ion-icon class="remove-img" name="trash-outline" (click)="removeRecipeModal(index, dish.dish_id)"></ion-icon>
+        <div class="dish-header" [class.video]="dishHeaderType === index && dish.dishName.length > 22">
 
-        <div class="dish-item-gallery-swiper" [class.single-image]="dish.images?.length <= 1  ">
-          <swiper [config]="swiperGalleryConfig">
+          <ion-icon
+            [class.video-del]="dishHeaderType === index"
+            class="dish-item-icon"
+            name="trash-outline"
+            (click)="removeRecipeModal(index, dish.dish_id)">
+          </ion-icon>
 
-            <div class="dish-item-swiper-item swiper-slide" *ngFor="let img of dish.images">
-              <div class="dish-item-img" (click)="goToThisItem(dish.dish_id, dish)">
-                <img [src]="img">
+          <ion-icon class="dish-item-icon bottom-right"
+            [class.video]="dishHeaderType === index"
+            *ngIf="dish.dishVideo?.length"
+            [name]="dishHeaderType === index ? 'images-outline' : 'videocam-outline'"
+            (click)="checkVideoPhoto(index)">
+          </ion-icon>
+
+          <div class="dish-item-gallery-swiper"
+               *ngIf="dishHeaderType !== index"
+               [class.single-image]="dish.images?.length <= 1 ">
+            <swiper [config]="swiperGalleryConfig">
+
+              <div class="dish-item-swiper-item swiper-slide" *ngFor="let img of dish.images">
+                <div class="dish-item-img">
+                  <img [src]="img">
+                </div>
               </div>
-            </div>
 
-          </swiper>
+            </swiper>
+          </div>
+
+          <div class="dish-item-video" *ngIf="dishHeaderType === index">
+
+            <iframe width="752" height="480"
+                [src]="urlVideo(index)"
+                frameborder="0"
+                allow="accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture" allowfullscreen>
+            </iframe>
+
+          </div>
+
         </div>
 
         <div class="dish-item-info">
@@ -59,8 +92,8 @@
       </div>
 
     </div>
-    
-    <div class="empty-dishes" *ngIf="!returnList().length && !searchService.searchValue().length && !appService.loading">
+
+    <div class="empty-dishes" *ngIf="!returnList().length && !searchService.searchValue().length">
       <div class="empty-dishes__info">
         <div class="info-text">
           Здесь пока ничего нет, но вы можете добавить новый рецепт
@@ -69,7 +102,7 @@
       </div>
     </div>
 
-    <div class="empty-dishes" *ngIf="!returnList().length && searchService.searchValue().length && !appService.loading">
+    <div class="empty-dishes" *ngIf="!returnList().length && searchService.searchValue().length">
       <div class="empty-dishes__info">
         <div class="info-text">
           По вашему запросу ничего не найдено

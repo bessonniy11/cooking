@@ -8,29 +8,58 @@
 >
 </app-header>
 
-<div class="loading-container" *ngIf="appService.loading">
+<div class="loading-container" *ngIf="loading">
   <div class="loading-spinner"></div>
 </div>
 
 <ion-content>
 
-  <div class="content dishes-wrapper cart" *ngIf="!appService.loading">
+  <div class="content dishes-wrapper cart" *ngIf="!loading">
 
     <div class="dish" *ngFor="let dish of returnList(); index as index">
 
       <div class="dish-item">
 
-        <div class="dish-item-gallery-swiper" [class.single-image]="dish.images?.length <= 1  ">
-          <swiper [config]="swiperGalleryConfig">
+        <div class="dish-header" [class.video]="dishHeaderType === index && dish.dishName.length > 22">
 
-            <div class="dish-item-swiper-item swiper-slide" *ngFor="let img of dish.images">
-              <div class="dish-item-img">
-                <img [src]="img">
+          <ion-icon class="dish-item-icon bottom-right"
+            [class.video]="dishHeaderType === index"
+            *ngIf="dish.dishVideo?.length"
+            [name]="dishHeaderType === index ? 'images-outline' : 'videocam-outline'"
+            (click)="checkVideoPhoto(index)">
+          </ion-icon>
+
+          <div class="dish-item-gallery-swiper"
+                *ngIf="dishHeaderType !== index"
+               [class.single-image]="dish.images?.length <= 1 ">
+            <swiper [config]="swiperGalleryConfig">
+
+              <div class="dish-item-swiper-item swiper-slide" *ngFor="let img of dish.images">
+                <div class="dish-item-img">
+                  <img [src]="img">
+                </div>
               </div>
-            </div>
 
-          </swiper>
+            </swiper>
+          </div>
+
+          <div class="dish-item-video" *ngIf="dishHeaderType === index">
+
+            <iframe width="752" height="480"
+                [src]="urlVideo(index)"
+                frameborder="0"
+                allow="accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture" allowfullscreen>
+            </iframe>
+
+          </div>
+
         </div>
+
 
         <div class="dish-item-info">
 
@@ -39,7 +68,13 @@
           </div>
 
           <div class="dish-item-author" (click)="goToThisItem(dish.dish_id, dish)">
-            Автор: {{dish.username}}
+            <div class="author-title">Автор: </div>
+            <div class="author-img">
+              <img [src]="dish.avatar" alt="">
+            </div>
+            <span class="author-name">
+              {{dish.username}}
+            </span>
           </div>
 
           <div class="dish-item-description-wrapper">

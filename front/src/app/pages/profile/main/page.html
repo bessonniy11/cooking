@@ -6,11 +6,11 @@
 
 <ion-content>
 
-  <div class="loading-container" *ngIf="appService.loading">
+  <div class="loading-container" *ngIf="loading">
     <div class="loading-spinner"></div>
   </div>
 
-  <div class="content">
+  <div class="content" *ngIf="!loading">
 
     <div class="profile-top">
       <div class="avatar" [class.round]="userService.user?.viewsRoundAvatar === '1'">
@@ -46,18 +46,18 @@
 
     </div>
 
-  </div>
+    <div class="bottom_btn">
 
-  <div class="bottom_btn">
+      <button
+        (click)="logout()"
+        [disabled]="false"
+        type="submit"
+        class="main-btn out-profile"
+      >
+        Выйти из профиля
+      </button>
 
-    <button
-      (click)="logout()"
-      [disabled]="false"
-      type="submit"
-      class="main-btn out-profile"
-    >
-      Выйти из профиля
-    </button>
+    </div>
 
   </div>
 

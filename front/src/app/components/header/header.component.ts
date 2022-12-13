@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   navigationService: NavigationService;
   searchService: SearchService;
 
-  @Input() title = '';
+  @Input() title: any = '' || false;
   @Input() back = false;
   @Input() search = false;
   @Input() create = false;

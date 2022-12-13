@@ -4,14 +4,14 @@
   >
 </app-header>
 
-<div class="loading-container" *ngIf="appService.loading">
+<div class="loading-container" *ngIf="loading">
   <div class="loading-spinner"></div>
 </div>
 
 
 <ion-content>
 
-  <div class="content" *ngIf="!appService.loading">
+  <div class="content" *ngIf="!loading">
 
     <div class="create-dish" *ngIf="!dishWasCreated">
 
@@ -48,37 +48,71 @@
 
       <form [formGroup]="newDishForm">
 
-        <ion-item style="--padding-start: 0px;padding-bottom: 15px;">
-          <ion-label position="floating">Введите название блюда</ion-label>
-          <ion-input
-            formControlName="name"
-            type="text"
-            placeholder="Название блюда"
-            [clearInput]="true"
-          >
-          </ion-input>
-          <small
-            *ngIf="newDishForm.invalid"
-            class="text-danger">
-            {{errorText}}
-          </small>
-        </ion-item>
+        <div class="form-group pt-4">
 
-        <ion-item style="--padding-start: 0px;padding-bottom: 15px;">
-          <ion-label position="floating">Введите описание блюда</ion-label>
-          <ion-textarea
-            formControlName="desc"
-            type="text"
-            placeholder="Описание"
-            [autoGrow]="true"
-          >
-          </ion-textarea>
+          <div class="input-field">
+            <span class="fa fa-video-camera p-2"></span>
+            <input formControlName="video" type="text" placeholder="Ссылка на видео из ютуба">
+          </div>
+        </div>
+
+        <div class="form-group pt-4">
+
+          <div class="input-field"
+               [class.error]="newDishForm.controls['name'].dirty &&
+                       newDishForm.hasError('required', 'name')">
+            <span class="fa fa-pencil p-2"></span>
+            <input formControlName="name" type="text" placeholder="Название блюда">
+          </div>
+
           <small
-            *ngIf="newDishForm.invalid"
+            *ngIf="newDishForm.controls['name'].dirty &&
+                    newDishForm.hasError('required', 'name')"
             class="text-danger">
-            {{errorText}}
+            это обязательное поле
           </small>
-        </ion-item>
+
+        </div>
+
+        <div class="form-group pt-4">
+
+          <div class="input-field"
+               [class.error]="newDishForm.controls['desc'].dirty &&
+                       newDishForm.hasError('required', 'desc')">
+            <span class="fa fa-file-text p-2"></span>
+            <textarea
+              formControlName="desc"
+              type="text"
+              placeholder="Введите описание блюда">
+            </textarea>
+          </div>
+
+          <small
+            *ngIf="newDishForm.controls['desc'].dirty &&
+                    newDishForm.hasError('required', 'desc')"
+            class="text-danger">
+            {{'это обязательное поле'}}
+          </small>
+
+        </div>
+
+
+
+<!--        <ion-item style="&#45;&#45;padding-start: 0px;padding-bottom: 15px;">-->
+<!--          <ion-label position="floating">Введите описание блюда</ion-label>-->
+<!--          <ion-textarea-->
+<!--            formControlName="desc"-->
+<!--            type="text"-->
+<!--            placeholder="Описание"-->
+<!--            [autoGrow]="true"-->
+<!--          >-->
+<!--          </ion-textarea>-->
+<!--          <small-->
+<!--            *ngIf="newDishForm.invalid"-->
+<!--            class="text-danger">-->
+<!--            {{errorText}}-->
+<!--          </small>-->
+<!--        </ion-item>-->
 
       </form>
 

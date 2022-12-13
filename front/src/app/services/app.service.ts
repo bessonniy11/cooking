@@ -20,9 +20,6 @@ export class AppService {
   actionSheetController: ActionSheetController;
   camera: Camera;
 
-  loading: boolean = false;
-
-
   constructor(
     platform: Platform,
     actionSheetController: ActionSheetController,

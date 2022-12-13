@@ -25,8 +25,6 @@ export class UserService extends MainService {
 
   // получение базовых данных юзера
   public getUser(callback: (status: boolean) => any, force = true) {
-    this.appService.loading = true;
-
     const data = {
       userId: localStorage.getItem('userId'),
       link: 'user'
@@ -34,7 +32,6 @@ export class UserService extends MainService {
 
     this.postRequest(data, (res: any) => {
       if (res) {
-        this.appService.loading = false;
         if (res.data.userData) {
           this.user = res.data.user;
           this.avatar = res.data.user?.avatar !== null ? res.data.user.avatar : '/assets/icons/profile_avatar.svg';
@@ -46,11 +43,9 @@ export class UserService extends MainService {
 
   // логин
   login(data: any, callback: any | undefined) {
-    this.appService.loading = true;
     this.postRequest(data, (res: any) => {
       if (res) {
         console.log('res', res);
-        this.appService.loading = false;
         if (res.data.status) {
           localStorage.setItem('token', res.data.token);
           localStorage.setItem('userId', res.data.userId);
@@ -71,11 +66,8 @@ export class UserService extends MainService {
 
   // регистрация
   registration(data: any, callback: any | undefined) {
-    this.appService.loading = true;
     this.postRequest(data, (res: any) => {
       if (res) {
-        this.appService.loading = false;
-
         if (res.data.status) {
           this.navigationService.goToUrl('login', {}, {stage: res.data.result});
         }
@@ -86,12 +78,9 @@ export class UserService extends MainService {
 
   // создание рецепта
   addDish(data: any, callback: any | undefined) {
-    this.appService.loading = true;
     this.postRequest(data, (res: any) => {
       console.log('addDish res', res);
       if (res) {
-        this.appService.loading = false;
-
         if (res.data.status) {
           // this.navigationService.goToUrl('/profile/recipes');
         }
@@ -102,12 +91,9 @@ export class UserService extends MainService {
 
   // удаление рецепта
   removeDish(data: any, callback: any | undefined) {
-    this.appService.loading = true;
     this.postRequest(data, (res: any) => {
       console.log('removeDish res', res);
       if (res) {
-        this.appService.loading = false;
-
         if (res.data.status) {
           // this.navigationService.goToUrl('/profile/recipes');
         }
@@ -119,8 +105,6 @@ export class UserService extends MainService {
   // получение блюд пользователя
   getDishes(allUsers: boolean, callback: any | undefined) {
     console.log('this.user.userId', this.user?.userId);
-    this.appService.loading = true;
-
     const data = {
       userId: allUsers ? 'all' : this.user?.userId,
       link: 'dishes'
@@ -129,8 +113,6 @@ export class UserService extends MainService {
     this.postRequest(data, (res: any) => {
       console.log('getDishes res', res);
       if (res) {
-        this.appService.loading = false;
-
         if (res.status) {
 
         }
@@ -141,11 +123,9 @@ export class UserService extends MainService {
 
   // изменение пользователя
   updateUser(data: any, callback: any | undefined) {
-    this.appService.loading = true;
     console.log('updateUser data start', data);
     this.postRequest(data, (res: any) => {
       if (res) {
-        this.appService.loading = false;
         if (res.data.status) {
           console.log('updateUser.data', res.data);
           this.user = res.data.user;

@@ -39,6 +39,7 @@ export class CreatePage implements OnInit {
   dishWasCreated: boolean = false;
 
   images: any = [];
+  loading: boolean = false;
 
   constructor(
     fb: FormBuilder,
@@ -62,6 +63,7 @@ export class CreatePage implements OnInit {
 
   ngOnInit(): void {
     this.newDishForm = this.fb.group({
+      video: ['', ''],
       name: ['', Validators.required],
       desc: ['', Validators.required],
     });
@@ -87,7 +89,7 @@ export class CreatePage implements OnInit {
 
   uploadImg(isDevice: any, event?: any) {
     if (isDevice) {
-      this.appService.loading = true;
+      this.loading = true;
       // запускаем выбор фотио с галереи
       const options: CameraOptions = {
         quality: 100,
@@ -100,7 +102,7 @@ export class CreatePage implements OnInit {
       };
       this.camera.getPicture(options).then((imageData) => {
         // console.log("MB: " + imageData.length / 1249956);
-        this.appService.loading = false;
+        this.loading = false;
         if (imageData) {
           if (imageData.length / 1249956 < 5) {
             this.errorFormat = '';
@@ -168,9 +170,11 @@ export class CreatePage implements OnInit {
   submit() {
 
     if (this.newDishForm.valid) {
+      this.loading = true;
 
       const data = {
         userId: this.userService.user.userId,
+        dishVideo: this.newDishForm.controls['video'].value,
         dishName: this.newDishForm.controls['name'].value,
         dishDesc: this.newDishForm.controls['desc'].value,
         dishImg: this.images,
@@ -181,6 +185,7 @@ export class CreatePage implements OnInit {
 
       this.userService.addDish(data, (callback: any) =>{
         if (callback) {
+          this.loading = false;
           console.log('callback', callback);
           if (callback.data.status) {
             this.dishWasCreated = true;
@@ -193,11 +198,11 @@ export class CreatePage implements OnInit {
   }
 
   saveNewImg(img: any) {
-    this.appService.loading = true;
+    this.loading = true;
     this.isFileLoad = false;
     this.fileModelService.loadImage(img, '/fileDishes', (result: any) => {
       if (result) {
-        this.appService.loading = false;
+        this.loading = false;
 
         // сохраняем получившиеся фото
         this.images.push(this.userService.dishesImagesUrl + result.data.imgName);
@@ -214,6 +219,7 @@ export class CreatePage implements OnInit {
 
   createNextRecipe() {
     this.images = [];
+    this.newDishForm?.controls['video']?.setValue('');
     this.newDishForm?.controls['name']?.setValue('');
     this.newDishForm?.controls['desc']?.setValue('');
     this.dishWasCreated = false;

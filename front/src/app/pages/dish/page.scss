@@ -5,6 +5,18 @@
   border: 1px solid #F4F0EA;
   background: #F4F0EA;
   position: relative;
+  .dish-item-icon {
+    position: absolute !important;
+    right: 5px;
+    top: 5px;
+    width: 15px;
+    height: 15px;
+    z-index: 2;
+    background: #fff;
+    padding: 5px;
+    border: 1px solid #006;
+    border-radius: 50%;
+  }
   .remove-img {
     position: absolute !important;
     right: 5px;
