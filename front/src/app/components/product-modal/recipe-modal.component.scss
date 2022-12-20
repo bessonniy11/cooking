@@ -1,0 +1,370 @@
+
+//.modal-window.active {
+//  .recipe-modal-content {
+//    transform: translateY(0);
+//  }
+//}
+
+.popup-close {
+  position: fixed;
+  right: 10px;
+  top: 10px;
+  width: 30px;
+  height: 30px;
+  background: #fff;
+  border-radius: 50%;
+  z-index: 99999999;
+}
+
+.popup {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  // padding: 0 14px;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  transition: 0.2s ease;
+  &_overlay {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 1001;
+  }
+
+  &_scroll-container {
+    min-height: 100%;
+    align-self: flex-start;
+    display: flex;
+    // align-items: center;
+    width: 100%;
+    // max-width: 300px;
+    // margin-top: 50px;
+    // border-radius: 20px 20px 0 0 !important;
+  }
+
+  &_body {
+    width: 100%;
+    z-index: 1004;
+    // margin: 40px 0;
+    padding: 0;
+    background: #FFFFFF;
+    -webkit-box-shadow: 0 5px 40px rgba(50, 60, 72, 0.5);
+    box-shadow: 0 5px 40px rgba(50, 60, 72, 0.5);
+    // border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    // text-align: center;
+  }
+
+  &_content {
+    //padding: 16px 14px 5px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    //align-items: center;
+    //text-align: center;
+    width: 100%;
+    //border-radius: 20px 20px 0 0 !important;
+  }
+
+  &_close {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
+
+//.recipe-modal-content {
+//  //height: 95%;
+//  //margin-top: 10% !important;
+//  //position: absolute;
+//  //bottom: 0 !important;
+//  //padding: 0 !important;
+//  //border-radius: 20px 20px 0 0 !important;
+//  //background: #fff;
+//  //transform: translateY(100%);
+//  //transition: 0.9s;
+//  //.recipe-content-header {
+//  //  width: 100%;
+//  //  border-radius: 20px 20px 0 0 !important;
+//  //  position: relative;
+//  //  ion-icon {
+//  //    position: absolute;
+//  //    right: 5px;
+//  //    top: 5px;
+//  //    height: 25px;
+//  //    width: 25px;
+//  //    z-index: 99;
+//  //  }
+//  //}
+//
+//  //.modal-content-header {
+//  //  position: relative;
+//  //  width: 100%;
+//  //  // background: #757F9A;
+//  //  height: 50px;
+//  //  border-radius: 20px 20px 0 0 !important;
+//  //  // border-bottom: 0.5px solid rgba(117, 127, 154, 0.49);
+//  //  &:after {
+//  //    content: '';
+//  //    width: 35px;
+//  //    height: 5px;
+//  //    position: absolute;
+//  //    left: 50%;
+//  //    top: 10px;
+//  //    transform: translateX(-50%);
+//  //    background: #757F9A;
+//  //    border-radius: 5px;
+//  //    z-index: 100;
+//  //  }
+//  //}
+//
+//  .dish-item-info {
+//    padding: 15px 15px;
+//    .dish-item-title {
+//
+//    }
+//
+//    .dish-item-author {
+//      font-weight: 400;
+//      font-size: 12px;
+//      line-height: 18px;
+//      margin-bottom: 15px;
+//      display: flex;
+//      align-items: center;
+//      .author-title {
+//        margin-right: 10px;
+//      }
+//      .author-img {
+//        position: relative;
+//        width: 30px;
+//        height: 30px;
+//        border-radius: 50%;
+//        overflow: hidden;
+//        margin-right: 10px;
+//        img {
+//          position: absolute;
+//          left: 0;
+//          top: 0;
+//          height: 100%;
+//          width: 100%;
+//          object-fit: cover;
+//        }
+//      }
+//      .author-name {
+//
+//      }
+//    }
+//
+//    .dish-item-description-wrapper {
+//
+//    }
+//  }
+//
+//}
+//
+//.recipe-content-header {
+//  width: 100%;
+//  border-radius: 20px 20px 0 0 !important;
+//  position: relative;
+//  ion-icon {
+//    position: absolute;
+//    right: 5px;
+//    top: 5px;
+//    height: 25px;
+//    width: 25px;
+//    z-index: 99;
+//  }
+//}
+
+//.modal-content-header {
+//  position: relative;
+//  width: 100%;
+//  // background: #757F9A;
+//  height: 50px;
+//  border-radius: 20px 20px 0 0 !important;
+//  // border-bottom: 0.5px solid rgba(117, 127, 154, 0.49);
+//  &:after {
+//    content: '';
+//    width: 35px;
+//    height: 5px;
+//    position: absolute;
+//    left: 50%;
+//    top: 10px;
+//    transform: translateX(-50%);
+//    background: #757F9A;
+//    border-radius: 5px;
+//  }
+//}
+
+.dish-item-info {
+  padding: 15px 15px;
+  .dish-item-title {
+
+  }
+
+  .dish-item-author {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    .author-title {
+      margin-right: 10px;
+    }
+    .author-img {
+      position: relative;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 10px;
+      img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+    .author-name {
+
+    }
+  }
+
+  .dish-item-description-wrapper {
+
+  }
+}
+
+.dish-header {
+  position: relative;
+  width: 100%;
+  //height: 100%;
+  margin-bottom: 0px;
+  transition: 0.5s;
+  //.dish-item-img {
+  //  height: 220px;
+  //}
+  //&:after {
+  //  content: '';
+  //  width: 35px;
+  //  height: 5px;
+  //  position: absolute;
+  //  left: 50%;
+  //  top: 10px;
+  //  transform: translateX(-50%);
+  //  background: #fff;
+  //  border-radius: 5px;
+  //  z-index: 100;
+  //}
+  &.video {
+    margin-bottom: 30px;
+  }
+  .dish-item-icon {
+    position: absolute !important;
+    right: 5px;
+    top: 5px;
+    width: 15px;
+    height: 15px;
+    z-index: 2;
+    background: #fff;
+    padding: 5px;
+    border: 1px solid #006;
+    border-radius: 50%;
+    transition: 0.5s;
+    &.bottom-right {
+      bottom: 5px;
+      right: 5px;
+      top: auto;
+    }
+    &.video {
+      bottom: -35px;
+    }
+    &.video-del {
+      right: 75px;
+      top: 208px;
+    }
+  }
+
+  .dish-item-video, .dish-item-img {
+    cursor: pointer;
+    position: relative;
+    height: 200px;
+    // border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0px 2px 2px rgb(151 151 151 / 25%);
+    img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    iframe {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+  }
+}
+
+.dish-item-info {
+  padding: 15px 15px;
+  // background: #757F9A;
+  overflow-y: auto;
+  height: 100%;
+  max-height: 100vh;
+  .dish-item-title {
+    text-align: center;
+    margin: 10px 0;
+  }
+
+  .dish-item-author {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    .author-title {
+      margin-right: 10px;
+    }
+    .author-img {
+      position: relative;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 10px;
+      img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+    .author-name {
+
+    }
+  }
+
+  .dish-item-description-wrapper {
+
+  }
+}

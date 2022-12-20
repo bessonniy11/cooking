@@ -185,6 +185,7 @@ export class ProfileSettingsPage implements OnInit {
   submit() {
 
     if (this.profileForm.valid) {
+      this.loading = true;
 
       const data = {
         userId: this.user.userId,
@@ -199,6 +200,7 @@ export class ProfileSettingsPage implements OnInit {
 
       this.userService.updateUser(data, (callback: any) =>{
         if (callback) {
+          this.loading = false;
           this.user = this.userService.user;
         }
       });

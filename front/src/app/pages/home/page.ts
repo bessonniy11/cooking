@@ -5,6 +5,8 @@ import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
 import {AppService} from "../../services/app.service";
 import {SearchService} from "../../services/search.service";
 import {DomSanitizer} from "@angular/platform-browser";
+import {ModalController} from "@ionic/angular";
+import {RecipeModalComponent} from "../../components/product-modal/recipe-modal.component";
 
 
 
@@ -36,12 +38,14 @@ export class HomePage implements OnInit {
   perPage = 5;
   loading: boolean = false;
 
+  recipeModal: boolean = false;
+  openDish: any = {};
+
   constructor(
     userService: UserService,
     navigationService: NavigationService,
     appService: AppService,
     searchService: SearchService,
-    private sanitizer: DomSanitizer
   ) {
     this.appService = appService;
     this.userService = userService;
@@ -70,6 +74,17 @@ export class HomePage implements OnInit {
     })
   }
 
+  openDishModal(id: any, dish: any) {
+    const props = {
+      dish: dish,
+      initialBreakpoint: 0.9
+    };
+
+    this.appService.openModal(RecipeModalComponent, props, (data: any) => {
+      console.log('data', data);
+    })
+  }
+
   returnList() {
     let searchValue = this.searchService.searchValue();
     return this.dishes?.filter(
@@ -86,11 +101,6 @@ export class HomePage implements OnInit {
     // this.loadDishes(event);
   }
 
-
-  goToThisItem(id: any, dish: any) {
-    this.navigationService.goToUrl('dish/' + id, {}, {store: dish});
-  }
-
   toggleText(index: any) {
     this.openText = this.openText === index ? null : index;
   }
@@ -103,20 +113,5 @@ export class HomePage implements OnInit {
     this.dishHeaderType = this.dishHeaderType !== index ? index : null;
   }
 
-  urlVideo(index: any) {
-    // обработка видео, чтобы выводить разные варианты ссылок
-    let srcLink = this.dishes[index].dishVideo;
 
-    if (srcLink.startsWith('https://www.youtube.com/watch?v=')) {
-      let embedLink = srcLink.replace('watch?v=', 'embed/');
-      return this.sanitizer.bypassSecurityTrustResourceUrl(embedLink);
-
-    } else if (srcLink.startsWith('https://youtu.be')) {
-      let embedLink = srcLink.replace('https://youtu.be', 'https://www.youtube.com/embed/');
-      return this.sanitizer.bypassSecurityTrustResourceUrl(embedLink);
-
-    } else {
-      return this.sanitizer.bypassSecurityTrustResourceUrl(this.dishes[index].dishVideo);
-    }
-  }
 }

@@ -1,18 +1,26 @@
-<div class="modal-window" [class.active]="modalWindow">
-  <div class="modal-wrapper" (click)="closeModal()">
-    <div class="modal-content-info" *ngIf="title.length">
-      <div class="modal-content-title">{{title}}</div>
-    </div>
-    <div class="modal-content">
+<div class="popup popup_confirm">
 
-      <button class="main-btn" (click)="confirm()">
-        {{confirmBtn}}
-      </button>
+  <div class="popup_overlay"></div>
+  <div class="popup_scroll-container">
+    <div class="popup_body">
+      <div class="popup_content">
 
-      <button class="main-btn" (click)="closeModal()">
-        {{closeBtn}}
-      </button>
+        <div class="popup_content-info" *ngIf="title.length">
+          <div class="popup_content-title">{{title}}</div>
+        </div>
+        <div class="popup_content-btns">
 
+          <button class="main-btn" (click)="confirm()">
+            {{confirmBtn}}
+          </button>
+
+          <button class="main-btn" (click)="closeModal()">
+            {{closeBtn}}
+          </button>
+
+        </div>
+
+      </div>
     </div>
   </div>
 </div>

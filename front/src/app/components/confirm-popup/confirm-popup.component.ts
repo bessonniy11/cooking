@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Injectable, Input, OnInit, Output} from '@angular/core';
+import {AppService} from "../../services/app.service";
 
 @Injectable({
   providedIn:'root'
@@ -10,23 +11,28 @@ import {Component, EventEmitter, Injectable, Input, OnInit, Output} from '@angul
   styleUrls: ['./confirm-popup.component.scss']
 })
 export class ConfirmPopupComponent implements OnInit {
-  @Input() modalWindow = false;
+  appService: AppService;
+
   @Input() title = '';
-  @Input() index = '';
+  @Input() dishName = '';
+  @Input() dishId = null;
   @Input() confirmBtn = '';
   @Input() closeBtn = '';
 
-  @Output() confirmClick: EventEmitter<any> = new EventEmitter<any>();
-  @Output() cancelClick: EventEmitter<any> = new EventEmitter<any>();
+  constructor(
+    appService: AppService,
+  ) {
+    this.appService = appService;
+  }
 
   ngOnInit(): void {
   }
 
   confirm() {
-    this.confirmClick.emit();
+    this.appService.closeModal({action: 'delete', dishId: this.dishId, dishName: this.dishName});
   }
 
   closeModal() {
-    this.cancelClick.emit();
+    this.appService.closeModal();
   }
 }

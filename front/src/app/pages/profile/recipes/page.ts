@@ -7,6 +7,7 @@ import {SwiperConfigInterface} from "ngx-swiper-wrapper";
 import {SearchService} from "../../../services/search.service";
 import {ConfirmPopupComponent} from "../../../components/confirm-popup/confirm-popup.component";
 import {DomSanitizer} from "@angular/platform-browser";
+import {RecipeModalComponent} from "../../../components/product-modal/recipe-modal.component";
 
 
 @Component({
@@ -34,13 +35,6 @@ export class UserRecipesPage implements OnInit {
 
   openText: any = null;
   scrollDisable: boolean = false;
-
-  modalWindow = false;
-  recipeName: string = '';
-  recipeIndex: string = '';
-  confirmBtn: string = 'Удалить';
-  closeBtn: string = 'Отмена';
-  removeDishId: any = null;
 
   currentPage = 1;
   perPage = 5;
@@ -106,8 +100,21 @@ export class UserRecipesPage implements OnInit {
     // this.loadDishes(event);
   }
 
-  goToThisItem(id: any, dish: any) {
-    this.navigationService.goToUrl('dish/' + id, {}, {store: dish});
+  openDishModal(id: any, dish: any) {
+    const props = {
+      dish: dish,
+      dishId: dish.dishId,
+      dishName: dish.dishName,
+      initialBreakpoint: 0.9,
+      userRecipes: true
+    };
+
+    this.appService.openModal(RecipeModalComponent, props, (data: any) => {
+      console.log('data', data);
+      if (data.action === 'delete') {
+        this.removeRecipe(data.dishName, data.dishId);
+      }
+    })
   }
 
   toggleText(index: any) {
@@ -118,59 +125,46 @@ export class UserRecipesPage implements OnInit {
     this.navigationService.goToUrl(link);
   }
 
+  removeRecipe(dishName: any, removeDishId: any) {
 
-  removeRecipeModal(index: any, removeDishId: any) {
-    console.log('removeDishId', removeDishId);
-    this.recipeName = `Вы действительно хотите удалить рецепт "${this.dishes[index].dishName}"?`;
-    this.removeDishId = removeDishId;
-    this.modalWindow = true;
-  }
-
-  removeRecipe() {
-    this.loading = true;
-    this.modalWindow = false;
-
-    const data = {
-      dishId: this.removeDishId,
+    const props = {
+      dishId: removeDishId,
+      title: `Вы действительно хотите удалить рецепт "${dishName}"?`,
+      dishName: dishName,
+      confirmBtn: 'Удалить',
+      closeBtn: 'Отмена',
+      initialBreakpoint: 0.4,
       link: 'remove-dish'
     };
 
-    this.userService.removeDish(data,(callback: any) =>{
-      if (callback) {
-        if (callback.data.status) {
-          this.userService.getDishes(true,(callback: any) =>{
-            this.loading = false;
+    this.appService.openModal(ConfirmPopupComponent, props, (callback: any) =>{
+      console.log('callback', callback);
+
+      if (callback.action === 'delete') {
+        this.loading = true;
+
+        const data = {
+          dishId: callback.dishId,
+          link: 'remove-dish'
+        };
+
+        this.userService.removeDish(data,(callback: any) =>{
+          if (callback) {
             if (callback.data.status) {
-              this.dishes = callback.data.result;
+              this.userService.getDishes(true,(callback: any) =>{
+                this.loading = false;
+                if (callback.data.status) {
+                  this.dishes = callback.data.result;
+                }
+              })
             }
-          })
-        }
+          }
+        });
       }
     })
   }
 
-  cancelModal() {
-    this.modalWindow = false;
-  }
-
   checkVideoPhoto(index: any) {
     this.dishHeaderType = this.dishHeaderType !== index ? index : null;
-  }
-
-  urlVideo(index: any) {
-    // обработка видео, чтобы выводить разные варианты ссылок
-    let srcLink = this.dishes[index].dishVideo;
-
-    if (srcLink.startsWith('https://www.youtube.com/watch?v=')) {
-      let embedLink = srcLink.replace('watch?v=', 'embed/');
-      return this.sanitizer.bypassSecurityTrustResourceUrl(embedLink);
-
-    } else if (srcLink.startsWith('https://youtu.be')) {
-      let embedLink = srcLink.replace('https://youtu.be', 'https://www.youtube.com/embed/');
-      return this.sanitizer.bypassSecurityTrustResourceUrl(embedLink);
-
-    } else {
-      return this.sanitizer.bypassSecurityTrustResourceUrl(this.dishes[index].dishVideo);
-    }
   }
 }

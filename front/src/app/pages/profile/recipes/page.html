@@ -24,7 +24,7 @@
             [class.video-del]="dishHeaderType === index"
             class="dish-item-icon"
             name="trash-outline"
-            (click)="removeRecipeModal(index, dish.dish_id)">
+            (click)="removeRecipe(dish.dishName, dish.dish_id)">
           </ion-icon>
 
           <ion-icon class="dish-item-icon bottom-right"
@@ -51,7 +51,7 @@
           <div class="dish-item-video" *ngIf="dishHeaderType === index">
 
             <iframe width="752" height="480"
-                [src]="urlVideo(index)"
+                [src]="appService.urlVideo(index, dishes)"
                 frameborder="0"
                 allow="accelerometer;
                 autoplay;
@@ -67,7 +67,7 @@
 
         <div class="dish-item-info">
 
-          <div class="dish-item-title" (click)="goToThisItem(dish.dish_id, dish)">
+          <div class="dish-item-title" (click)="openDishModal(dish.dish_id, dish)">
             {{dish.dishName}}
           </div>
 
@@ -76,7 +76,7 @@
 <!--          </div>-->
 
           <div class="dish-item-description-wrapper">
-            <div class="dish-item-description" [class.open]="openText === index" (click)="goToThisItem(dish.id, dish)">
+            <div class="dish-item-description" [class.open]="openText === index" (click)="openDishModal(dish.dish_id, dish)">
               {{dish.dishDesc}}
             </div>
             <div class="dish-item-toggle"
@@ -126,14 +126,3 @@
 
 </ion-content>
 
-<app-confirm-popup
-  [modalWindow]="modalWindow"
-  [title]="recipeName"
-  [index]="recipeIndex"
-  [confirmBtn]="confirmBtn"
-  [closeBtn]="closeBtn"
-  (confirmClick)="removeRecipe()"
-  (cancelClick)="cancelModal()"
->
-
-</app-confirm-popup>

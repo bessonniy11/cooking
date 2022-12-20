@@ -1,11 +1,14 @@
 import {
+  ComponentFactoryResolver,
   Injectable,
 } from '@angular/core';
 import {
+  ModalController,
   Platform
 } from '@ionic/angular';
 import {ActionSheetController} from '@ionic/angular';
 import {Camera} from '@ionic-native/camera/ngx';
+import {DomSanitizer} from "@angular/platform-browser";
 
 function _window(): any {
   return window;
@@ -18,16 +21,27 @@ export class AppService {
 
   platform: Platform;
   actionSheetController: ActionSheetController;
+  factory: ComponentFactoryResolver;
+  modalController: ModalController;
   camera: Camera;
+  openDish: any = {};
+
+  private modalWindow: any;
+  isOpenPickerModal = false;
 
   constructor(
     platform: Platform,
     actionSheetController: ActionSheetController,
     camera: Camera,
+    factory: ComponentFactoryResolver,
+    modalController: ModalController,
+    private sanitizer: DomSanitizer,
   ) {
     this.platform = platform;
     this.actionSheetController = actionSheetController;
     this.camera = camera;
+    this.factory = factory;
+    this.modalController = modalController;
   }
 
 
@@ -58,4 +72,58 @@ export class AppService {
   getWindow() {
     return _window();
   }
+
+  closeModal(data: any = {action: 'close'}) {
+    if (this.modalWindow) {
+      this.modalController.dismiss(data);
+    }
+  }
+
+
+  async openModal(component: any, props: any, callback: any, swipeToClose: boolean = true) {
+    const {selector} = this.factory.resolveComponentFactory(component);
+    this.modalWindow = await this.modalController.create({
+      component,
+      componentProps: props,
+      swipeToClose,
+      cssClass: 'app-modal modal-' + selector,
+      // breakpoints: [0, 0.25, 0.5, 0.9],
+      initialBreakpoint: props.initialBreakpoint
+    });
+
+    await this.modalWindow.present().then(() => {
+      this.isOpenPickerModal = true;
+
+    });
+
+    await this.modalWindow.onDidDismiss().then((res: any) => {
+
+      if (res.data && callback) {
+        callback(res.data);
+      }
+
+      this.isOpenPickerModal = false;
+      this.modalWindow = null;
+    });
+
+    return this.modalWindow;
+  }
+
+  urlVideo(index?: any, dishes?: any, dish?: any) {
+    // обработка видео, чтобы выводить разные варианты ссылок
+    let srcLink = dishes ? dishes[index].dishVideo : dish.dishVideo;
+
+    if (srcLink.startsWith('https://www.youtube.com/watch?v=')) {
+      let embedLink = srcLink.replace('watch?v=', 'embed/');
+      return this.sanitizer.bypassSecurityTrustResourceUrl(embedLink);
+
+    } else if (srcLink.startsWith('https://youtu.be')) {
+      let embedLink = srcLink.replace('https://youtu.be', 'https://www.youtube.com/embed/');
+      return this.sanitizer.bypassSecurityTrustResourceUrl(embedLink);
+
+    } else {
+      return this.sanitizer.bypassSecurityTrustResourceUrl(dishes[index].dishVideo);
+    }
+  }
+
 }

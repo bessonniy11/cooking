@@ -269,11 +269,11 @@ input[type='password'] {
   .dish-item {
     border-radius: 5px;
     overflow: hidden;
-    box-shadow: 0px 2px 2px rgb(151 151 151 / 25%);
-    border: 1px solid #F4F0EA;
-    background: #F4F0EA;
+    //box-shadow: 0px 2px 2px rgb(151 151 151 / 25%);
+    //border: 1px solid #F4F0EA;
+    //background: #F4F0EA;
     position: relative;
-    .dish-header {
+      .dish-header {
       position: relative;
       width: 100%;
       height: 100%;
@@ -345,7 +345,6 @@ input[type='password'] {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
-
 
 .dish {
   border-radius: 5px;
@@ -473,80 +472,149 @@ input[type='password'] {
 
 //MODALWINDOW
 
-.modal-window {
-  position: fixed;
-  left: 0;
-  top: 0;
+//.app-modal::part(content) {
+//  height: 92%;
+//  margin-top: 8% !important;
+//  position: absolute;
+//  bottom: 0;
+//  border-radius: 20px 20px 0 0 !important;
+//}
+
+.app-modal {
+  //padding-top: 20%;
+  //border-radius: 20px 20px 0 0 !important;
+  //height: 80%;
+}
+//
+.modal-recipe-modal:before {
+  content: "";
   width: 100%;
   height: 100%;
-  z-index: 999999;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  opacity: 0;
-  visibility: hidden;
-  transition: 0.1s;
-  .modal-wrapper {
-    position: relative;
-    background-color: rgba(#757F9A, 0.5);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
-    width: 100%;
-    height: 100%;
-    z-index: 999999;
-    opacity: 0;
-    visibility: hidden;
-    transition: 0.4s;
-    .modal-content-info {
-      width: 100%;
-      padding: 0 15px;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      opacity: 0;
-      visibility: hidden;
-      transition: 0.5s;
-      .modal-content-title {
-        padding: 10px 10px;
-        width: 100%;
-        color: #000;
-        font-weight: 600;
-        border-radius: 15px;
-        background: #fff;
-        box-shadow: 0 0 3px 0px #000;
-        /* margin-bottom: 25px; */
-        text-align: center;
-      }
-    }
-    .modal-content {
-      position: absolute;
-      bottom: -225px;
-      padding: 0 15px;
-      opacity: 0;
-      visibility: hidden;
-      transition: 0.5s;
-      button:not(:last-child) {
-        margin-bottom: 15px;
-      }
-    }
-  }
+  position: absolute;
+  left: 0;
+  top: 0px;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.529);
+  backdrop-filter: blur(3px);
+  pointer-events: none;
 }
 
-.modal-window.active {
-  opacity: 1;
-  visibility: visible;
-  .modal-wrapper {
-    opacity: 1;
-    visibility: visible;
-    .modal-content-info {
-      opacity: 1;
-      visibility: visible;
-    }
-    .modal-content {
-      opacity: 1;
-      visibility: visible;
-      bottom: 25px;
-    }
-  }
+.modal-recipe-modal:after {
+  content: "";
+  background: url(/assets/icons/close-outline.svg);
+  border-radius: 50%;
+  background-color: #fff;
+  border: 1px solid #000;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  right: 18px;
+  top: 13px;
+  z-index: 3;
+  pointer-events: none;
 }
+
+.modal-recipe-modal::part(content) {
+  border-radius: 20px 20px 0 0 !important;
+  // height: 92%;
+  padding-top: 5%;
+  position: absolute;
+  bottom: 0;
+}
+
+.modal-app-confirm-popup::part(content) {
+  background: transparent;
+  padding: 5px 0 25px 0;
+  height: 100%;
+}
+
+.modal-app-confirm-popup:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0px;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.529);
+  backdrop-filter: blur(3px);
+  pointer-events: none;
+}
+
+//.modal-window {
+//  position: fixed;
+//  left: 0;
+//  top: 0;
+//  width: 100%;
+//  height: 100%;
+//  z-index: 999999;
+//  display: flex;
+//  flex-direction: column;
+//  justify-content: flex-end;
+//  opacity: 0;
+//  visibility: hidden;
+//  transition: 0.1s;
+//  .modal-wrapper {
+//    position: relative;
+//    background-color: rgba(#757F9A, 0.5);
+//    -webkit-backdrop-filter: blur(8px);
+//    backdrop-filter: blur(8px);
+//    width: 100%;
+//    height: 100%;
+//    z-index: 999999;
+//    opacity: 0;
+//    visibility: hidden;
+//    transition: 0.4s;
+//    .modal-content-info {
+//      width: 100%;
+//      padding: 0 15px;
+//      position: absolute;
+//      left: 50%;
+//      top: 50%;
+//      transform: translate(-50%, -50%);
+//      opacity: 0;
+//      visibility: hidden;
+//      transition: 0.5s;
+//      .modal-content-title {
+//        padding: 10px 10px;
+//        width: 100%;
+//        color: #000;
+//        font-weight: 600;
+//        border-radius: 15px;
+//        background: #fff;
+//        box-shadow: 0 0 3px 0px #000;
+//        /* margin-bottom: 25px; */
+//        text-align: center;
+//      }
+//    }
+//    .modal-content {
+//      position: absolute;
+//      bottom: -225px;
+//      padding: 0 15px;
+//      opacity: 0;
+//      visibility: hidden;
+//      transition: 0.5s;
+//      button:not(:last-child) {
+//        margin-bottom: 15px;
+//      }
+//    }
+//  }
+//}
+//
+//.modal-window.active {
+//  opacity: 1;
+//  visibility: visible;
+//  .modal-wrapper {
+//    opacity: 1;
+//    visibility: visible;
+//    .modal-content-info {
+//      opacity: 1;
+//      visibility: visible;
+//    }
+//    .modal-content {
+//      opacity: 1;
+//      visibility: visible;
+//      bottom: 25px;
+//    }
+//  }
+//}

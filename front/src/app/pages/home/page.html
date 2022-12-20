@@ -46,7 +46,7 @@
           <div class="dish-item-video" *ngIf="dishHeaderType === index">
 
             <iframe width="752" height="480"
-                [src]="urlVideo(index)"
+                [src]="appService.urlVideo(index, dishes)"
                 frameborder="0"
                 allow="accelerometer;
                 autoplay;
@@ -63,11 +63,11 @@
 
         <div class="dish-item-info">
 
-          <div class="dish-item-title" (click)="goToThisItem(dish.dish_id, dish)">
+          <div class="dish-item-title" (click)="openDishModal(dish.dish_id, dish)">
             {{dish.dishName}}
           </div>
 
-          <div class="dish-item-author" (click)="goToThisItem(dish.dish_id, dish)">
+          <div class="dish-item-author" (click)="openDishModal(dish.dish_id, dish)">
             <div class="author-title">Автор: </div>
             <div class="author-img">
               <img [src]="dish.avatar" alt="">
@@ -78,7 +78,7 @@
           </div>
 
           <div class="dish-item-description-wrapper">
-            <div class="dish-item-description" [class.open]="openText === index" (click)="goToThisItem(dish.dish_id, dish)">
+            <div class="dish-item-description" [class.open]="openText === index" (click)="openDishModal(dish.dish_id, dish)">
               {{dish.dishDesc}}
             </div>
             <div class="dish-item-toggle"
@@ -126,3 +126,9 @@
   </ion-infinite-scroll>
 
 </ion-content>
+
+<!--<recipe-modal-->
+<!--  [modalWindow]="recipeModal"-->
+<!--  [dish]="openDish"-->
+<!--  (cancelClick)="cancelModal()"-->
+<!--&gt;</recipe-modal>-->
