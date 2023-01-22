@@ -91,7 +91,6 @@ export class AppService {
       cssClass: 'app-modal modal-' + selector,
       // initialBreakpoint: 0.9,
       breakpoints: [0, 0.25, 0.5, 0.9],
-
       showBackdrop: true,
     });
 
