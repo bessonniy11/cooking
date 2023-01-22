@@ -77,7 +77,8 @@ export class HomePage implements OnInit {
   openDishModal(id: any, dish: any) {
     const props = {
       dish: dish,
-      initialBreakpoint: 0.9
+      breakpoints: [0.5, 0.9],
+      // initialBreakpoint: 1
     };
 
     this.appService.openModal(RecipeModalComponent, props, (data: any) => {

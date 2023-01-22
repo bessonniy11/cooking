@@ -66,7 +66,6 @@ if (isset($postdata) && !empty($postdata)) {
         $dishes[$key]["images"] = $pics_arr;
     }
 
-
    $response = [
       'status' => true,
       'message' => 'return user dishes',
@@ -77,6 +76,7 @@ if (isset($postdata) && !empty($postdata)) {
     // print_r(json_decode(json_encode(['data' => $response])));
 
     return http_response_code(400);
+
 }
 
 

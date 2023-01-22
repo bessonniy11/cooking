@@ -8,13 +8,15 @@ import {FormsModule} from '@angular/forms';
 import {ConfirmPopupComponent} from './confirm-popup/confirm-popup.component';
 import {RecipeModalComponent} from "./product-modal/recipe-modal.component";
 import {SwiperModule} from "ngx-swiper-wrapper";
+import {InfoPopupComponent} from "./info-popup/info-popup.component";
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
     ConfirmPopupComponent,
-    RecipeModalComponent
+    RecipeModalComponent,
+    InfoPopupComponent
   ],
   imports: [
     CommonModule,

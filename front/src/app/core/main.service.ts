@@ -5,6 +5,8 @@ import {LoadingController} from '@ionic/angular';
 import {environment} from "../../environments/environment";
 import {AppService} from "../services/app.service";
 import {NavigationService} from "../services/navigation.service";
+import {ConfirmPopupComponent} from "../components/confirm-popup/confirm-popup.component";
+import {InfoPopupComponent} from "../components/info-popup/info-popup.component";
 
 
 @Injectable()
@@ -50,6 +52,18 @@ export abstract class MainService {
       return callback(res)
     }, error => {
       console.log('Server Error');
+      const props = {
+        dishId: 2,
+        title: `Нет связи с сервером`,
+        dishName: 'dishName',
+        confirmBtn: 'Ок',
+        closeBtn: 'Отмена',
+        initialBreakpoint: 0.4,
+        link: '/'
+      };
+      this.appService.openModal(InfoPopupComponent, props, (callback: any) => {
+        console.log('callback', callback);
+      })
     });
   }
 

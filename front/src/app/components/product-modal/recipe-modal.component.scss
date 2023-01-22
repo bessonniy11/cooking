@@ -27,7 +27,7 @@
   // padding: 0 14px;
   align-items: center;
   justify-content: center;
-  overflow: auto;
+  overflow: hidden;
   transition: 0.2s ease;
   &_overlay {
     position: fixed;
@@ -255,18 +255,18 @@
   //.dish-item-img {
   //  height: 220px;
   //}
-  //&:after {
-  //  content: '';
-  //  width: 35px;
-  //  height: 5px;
-  //  position: absolute;
-  //  left: 50%;
-  //  top: 10px;
-  //  transform: translateX(-50%);
-  //  background: #fff;
-  //  border-radius: 5px;
-  //  z-index: 100;
-  //}
+  &:after {
+    content: '';
+    width: 35px;
+    height: 5px;
+    position: absolute;
+    left: 50%;
+    top: 10px;
+    transform: translateX(-50%);
+    background: #fff;
+    border-radius: 5px;
+    z-index: 100;
+  }
   &.video {
     margin-bottom: 30px;
   }

@@ -80,15 +80,19 @@ export class AppService {
   }
 
 
-  async openModal(component: any, props: any, callback: any, swipeToClose: boolean = true) {
+  async openModal(component: any, props: any, callback: any) {
     const {selector} = this.factory.resolveComponentFactory(component);
     this.modalWindow = await this.modalController.create({
       component,
       componentProps: props,
-      swipeToClose,
+      swipeToClose: true,
+      // mode: 'ios',
+      canDismiss: true,
       cssClass: 'app-modal modal-' + selector,
-      // breakpoints: [0, 0.25, 0.5, 0.9],
-      initialBreakpoint: props.initialBreakpoint
+      // initialBreakpoint: 0.9,
+      breakpoints: [0, 0.25, 0.5, 0.9],
+
+      showBackdrop: true,
     });
 
     await this.modalWindow.present().then(() => {

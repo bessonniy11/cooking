@@ -139,9 +139,6 @@ ion-toast-controller,
 }
 
 
-// }
-
-
 
 .outer {
   height: 100vh;
@@ -472,13 +469,14 @@ input[type='password'] {
 
 //MODALWINDOW
 
-//.app-modal::part(content) {
-//  height: 92%;
-//  margin-top: 8% !important;
-//  position: absolute;
-//  bottom: 0;
-//  border-radius: 20px 20px 0 0 !important;
-//}
+.app-modal::part(content) {
+  //height: 92%;
+  margin-top: 15% !important;
+  //position: absolute;
+  //bottom: 0;
+  overflow-y: hidden;
+  border-radius: 20px 20px 0 0 !important;
+}
 
 .app-modal {
   //padding-top: 20%;
@@ -486,60 +484,60 @@ input[type='password'] {
   //height: 80%;
 }
 //
-.modal-recipe-modal:before {
-  content: "";
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0px;
-  z-index: 2;
-  background-color: rgba(255, 255, 255, 0.529);
-  backdrop-filter: blur(3px);
-  pointer-events: none;
-}
-
-.modal-recipe-modal:after {
-  content: "";
-  background: url(/assets/icons/close-outline.svg);
-  border-radius: 50%;
-  background-color: #fff;
-  border: 1px solid #000;
-  width: 25px;
-  height: 25px;
-  position: absolute;
-  right: 18px;
-  top: 13px;
-  z-index: 3;
-  pointer-events: none;
-}
-
-.modal-recipe-modal::part(content) {
-  border-radius: 20px 20px 0 0 !important;
-  // height: 92%;
-  padding-top: 5%;
-  position: absolute;
-  bottom: 0;
-}
-
-.modal-app-confirm-popup::part(content) {
-  background: transparent;
-  padding: 5px 0 25px 0;
-  height: 100%;
-}
-
-.modal-app-confirm-popup:before {
-  content: "";
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0px;
-  z-index: 2;
-  background-color: rgba(255, 255, 255, 0.529);
-  backdrop-filter: blur(3px);
-  pointer-events: none;
-}
+//.modal-recipe-modal:before {
+//  content: "";
+//  width: 100%;
+//  height: 100%;
+//  position: absolute;
+//  left: 0;
+//  top: 0px;
+//  z-index: 2;
+//  background-color: rgba(255, 255, 255, 0.529);
+//  backdrop-filter: blur(3px);
+//  pointer-events: none;
+//}
+//
+//.modal-recipe-modal:after {
+//  content: "";
+//  background: url(/assets/icons/close-outline.svg);
+//  border-radius: 50%;
+//  background-color: #fff;
+//  border: 1px solid #000;
+//  width: 25px;
+//  height: 25px;
+//  position: absolute;
+//  right: 18px;
+//  top: 13px;
+//  z-index: 3;
+//  pointer-events: none;
+//}
+//
+//.modal-recipe-modal::part(content) {
+//  border-radius: 20px 20px 0 0 !important;
+//  // height: 92%;
+//  padding-top: 5%;
+//  position: absolute;
+//  bottom: 0;
+//}
+//
+//.modal-app-confirm-popup::part(content) {
+//  background: transparent;
+//  padding: 5px 0 25px 0;
+//  height: 100%;
+//}
+//
+//.modal-app-confirm-popup:before {
+//  content: "";
+//  width: 100%;
+//  height: 100%;
+//  position: absolute;
+//  left: 0;
+//  top: 0px;
+//  z-index: 2;
+//  background-color: rgba(255, 255, 255, 0.529);
+//  backdrop-filter: blur(3px);
+//  pointer-events: none;
+//}
 
 //.modal-window {
 //  position: fixed;

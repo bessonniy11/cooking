@@ -105,8 +105,12 @@ export class UserRecipesPage implements OnInit {
       dish: dish,
       dishId: dish.dishId,
       dishName: dish.dishName,
-      initialBreakpoint: 0.9,
-      userRecipes: true
+      // breakpoints: [0.5],
+      initialBreakpoint: 1,
+      // userRecipes: true,
+      // handle: true,
+      // showBackdrop: true,
+      swipeToClose: true
     };
 
     this.appService.openModal(RecipeModalComponent, props, (data: any) => {

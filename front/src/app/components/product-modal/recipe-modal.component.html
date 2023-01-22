@@ -1,88 +1,91 @@
 <!--<ion-icon class="popup-close" name="close-circle-outline" (click)="closeModal()"></ion-icon>-->
 
-<div class="popup popup_recipe">
+<ion-content>
 
-  <div class="popup_overlay"></div>
-  <div class="popup_scroll-container">
-    <div class="popup_body">
-      <div class="popup_content">
+  <div class="popup popup_recipe">
 
-        <div class="dish-header" [class.video]="dishHeaderType && dish.dishName.length > 22">
+    <div class="popup_overlay"></div>
+    <div class="popup_scroll-container">
+      <div class="popup_body">
+        <div class="popup_content">
 
-          <ion-icon
-            *ngIf="userRecipes"
-            [class.video-del]="dishHeaderType"
-            class="dish-item-icon"
-            name="trash-outline"
-            (click)="removeRecipe( dish.dish_id)">
-          </ion-icon>
+          <div class="dish-header" [class.video]="dishHeaderType && dish.dishName.length > 22">
 
-          <ion-icon class="dish-item-icon bottom-right"
-                    [class.video]="dishHeaderType"
-                    *ngIf="dish.dishVideo?.length"
-                    [name]="dishHeaderType? 'images-outline' : 'videocam-outline'"
-                    (click)="checkVideoPhoto()">
-          </ion-icon>
+            <ion-icon
+              *ngIf="userRecipes"
+              [class.video-del]="dishHeaderType"
+              class="dish-item-icon"
+              name="trash-outline"
+              (click)="removeRecipe( dish.dish_id)">
+            </ion-icon>
 
-          <div class="dish-item-gallery-swiper"
-               *ngIf="!dishHeaderType"
-               [class.single-image]="dish.images?.length <= 1 ">
-            <swiper [config]="swiperGalleryConfig">
+            <ion-icon class="dish-item-icon bottom-right"
+                      [class.video]="dishHeaderType"
+                      *ngIf="dish.dishVideo?.length"
+                      [name]="dishHeaderType? 'images-outline' : 'videocam-outline'"
+                      (click)="checkVideoPhoto()">
+            </ion-icon>
 
-              <div class="dish-item-swiper-item swiper-slide" *ngFor="let img of dish.images">
-                <div class="dish-item-img">
-                  <img [src]="img">
+            <div class="dish-item-gallery-swiper"
+                 *ngIf="!dishHeaderType"
+                 [class.single-image]="dish.images?.length <= 1 ">
+              <swiper [config]="swiperGalleryConfig">
+
+                <div class="dish-item-swiper-item swiper-slide" *ngFor="let img of dish.images">
+                  <div class="dish-item-img">
+                    <img [src]="img">
+                  </div>
                 </div>
+
+              </swiper>
+            </div>
+
+            <div class="dish-item-video" *ngIf="dishHeaderType">
+
+              <iframe width="752" height="480"
+                      [src]="appService.urlVideo(null, null, dish)"
+                      frameborder="0"
+                      allow="accelerometer;
+                      autoplay;
+                      clipboard-write;
+                      encrypted-media;
+                      gyroscope;
+                      picture-in-picture" allowfullscreen>
+              </iframe>
+
+            </div>
+
+          </div>
+
+          <div class="dish-item-info">
+
+            <div class="dish-item-title">
+              {{dish.dishName}}
+            </div>
+
+            <div class="dish-item-author" *ngIf="!userRecipes">
+              <div class="author-title">Автор: </div>
+              <div class="author-img">
+                <img [src]="dish.avatar" alt="">
+              </div>
+              <span class="author-name">
+                    {{dish.username}}
+                  </span>
+            </div>
+
+            <div class="dish-item-description-wrapper">
+
+              <div class="dish-item-description">
+                {{dish.dishDesc}}
               </div>
 
-            </swiper>
-          </div>
-
-          <div class="dish-item-video" *ngIf="dishHeaderType">
-
-            <iframe width="752" height="480"
-                    [src]="appService.urlVideo(null, null, dish)"
-                    frameborder="0"
-                    allow="accelerometer;
-                    autoplay;
-                    clipboard-write;
-                    encrypted-media;
-                    gyroscope;
-                    picture-in-picture" allowfullscreen>
-            </iframe>
-
-          </div>
-
-        </div>
-
-        <div class="dish-item-info">
-
-          <div class="dish-item-title">
-            {{dish.dishName}}
-          </div>
-
-          <div class="dish-item-author" *ngIf="!userRecipes">
-            <div class="author-title">Автор: </div>
-            <div class="author-img">
-              <img [src]="dish.avatar" alt="">
-            </div>
-            <span class="author-name">
-                  {{dish.username}}
-                </span>
-          </div>
-
-          <div class="dish-item-description-wrapper">
-
-            <div class="dish-item-description">
-              {{dish.dishDesc}}
             </div>
 
           </div>
 
         </div>
-
       </div>
     </div>
   </div>
-</div>
 
+</ion-content>
