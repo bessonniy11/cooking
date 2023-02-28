@@ -1,0 +1,13 @@
+<button
+  (click)="click()"
+  (touchend)="onTouchEnd()"
+  (touchstart)="onTouchStart()"
+  [@bigtouch]="animatedType=='bigtouch'?state:''"
+  [@browntouch]="animatedType=='browntouch'?state:''"
+  [@whitetouch]="animatedType=='whitetouch'?state:''"
+  class="{{defaultClass}}"
+  name="{{name}}"
+  type="{{type}}"
+  [disabled]="disabled"
+
+><ng-content></ng-content></button>

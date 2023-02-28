@@ -63,11 +63,11 @@
 
         <div class="dish-item-info">
 
-          <div class="dish-item-title" (click)="goToThisItem(dish.dish_id, dish)">
+          <div class="dish-item-title" (click)="modalTest()">
             {{dish.dishName}}
           </div>
 
-          <div class="dish-item-author" (click)="goToThisItem(dish.dish_id, dish)">
+          <div class="dish-item-author" (click)="modalTest()">
             <div class="author-title">Автор: </div>
             <div class="author-img">
               <img [src]="dish.avatar" alt="">
@@ -78,7 +78,7 @@
           </div>
 
           <div class="dish-item-description-wrapper">
-            <div class="dish-item-description" [class.open]="openText === index" (click)="goToThisItem(dish.dish_id, dish)">
+            <div class="dish-item-description" [class.open]="openText === index" (click)="modalTest()">
               {{dish.dishDesc}}
             </div>
             <div class="dish-item-toggle"

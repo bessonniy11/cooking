@@ -1,0 +1,27 @@
+<div class="modal-confirm">
+  <div class="modal-confirm__icon" *ngIf="icon">
+    <img [src]="icon" alt="">
+  </div>
+  <h3 *ngIf="title" class="modal-confirm__title" [innerHTML]="title"></h3>
+  <p *ngIf="text" class="modal-confirm__text" [innerHTML]="text"></p>
+  <div class="modal-confirm__btn-container">
+
+    <button-animate
+      *ngIf="confirmButtonText"
+      [defaultClass]="confirmBtnClass"
+      [animatedType]="confirmBtnAnimatedType"
+      (onClick)="clickConfirm()"
+    >
+      {{confirmButtonText}}
+    </button-animate>
+    <button-animate
+      *ngIf="cancelButtonText"
+      [defaultClass]="cancelBtnClass"
+      [animatedType]="cancelBtnAnimatedType"
+      (onClick)="clickCancel()"
+    >
+      {{cancelButtonText}}
+    </button-animate>
+
+  </div>
+</div>

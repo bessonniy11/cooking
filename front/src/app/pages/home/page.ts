@@ -5,6 +5,7 @@ import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
 import {AppService} from "../../services/app.service";
 import {SearchService} from "../../services/search.service";
 import {DomSanitizer} from "@angular/platform-browser";
+import {modals, ModalService, modalType} from "../../services/modal.service";
 
 
 
@@ -41,7 +42,8 @@ export class HomePage implements OnInit {
     navigationService: NavigationService,
     appService: AppService,
     searchService: SearchService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private modalService: ModalService
   ) {
     this.appService = appService;
     this.userService = userService;
@@ -86,7 +88,6 @@ export class HomePage implements OnInit {
     // this.loadDishes(event);
   }
 
-
   goToThisItem(id: any, dish: any) {
     this.navigationService.goToUrl('dish/' + id, {}, {store: dish});
   }
@@ -116,7 +117,26 @@ export class HomePage implements OnInit {
       return this.sanitizer.bypassSecurityTrustResourceUrl(embedLink);
 
     } else {
-      return this.sanitizer.bypassSecurityTrustResourceUrl(this.dishes[index].dishVideo);
+      // если вместо видео с ютуба приходит некорректная ссылка
+      return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUQAAACbCAMAAAAtKxK6AAAAYFBMVEV2dnb///9ycnJvb294eHhoaGj8/PyXl5eurq6hoaFubm6kpKR7e3uysrJra2vX19fv7++8vLzExMSMjIzi4uKTk5PLy8ucnJyCgoLm5ub19fXT09Pt7e1gYGC+vr6Ojo7wLUsFAAADHklEQVR4nO3b626jMBCGYTw2JJhTCORQmnbv/y53DHR3k7S7obJEVnqfqhGI/LA+zdiYJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACWcOFFEuf0SF/EeutKWXtU/6UpytqfD0V1mE/xGDen5WwtZbcpqmZnTOUdIS4iPrSu3fQvuyEzo31NJf7FWGFunv/00Pqkyws9lnOTZZrhGGOfrj3O5xZSdG7MUsqkK9rjxZjChtN+yMYcjdmlTIpfCwlq//raOid1PzWv5nZ80+X47d1kc0N3ZPg1kTrpTu2xKcJE2DUaoP6p1jspy72ZKtFUNSFemW//xto6aPv2Q2jYvC4T/6MPZTgGV/hwvZlXlsauPernIhqhTTUy0Qau5pA0ufc0cV76sRbD+T7V2kzfp6s7KSnFPzlJima3e9VZz0k+zA1rMm3Z0nbHj1CzVt+YlMfdpTm2hWPHcq30Y31tndZi2k5Lh06DQ+WltOXRfFRnG/Z8vnS67asdd9tXnLPF2LRHCfu6ai48jW7jtTbTy7RC921RilarhMmzXHvQz0c2w1hur6kWY1llZr4d1Fp0Iufja7s9nMOkufZAn5Ymo7uRqWf3VoOqczNvTDRFq8tOmlqx8nsbjTvj5q6dG3ivx+5t7Ojd/jRvXFxYRYQM/yLcJsp2DFH7uBnPi+JwDrmN18M+Wkjw37ppNRkuLz9s6G97ewfjEsd2+R+8GYbX6lBKyurxbT4/Tw/8qbfvc9Z+THtsRb7Jhc1KkFh5yNoDfkr2tFnisDmd1x7y8/FmqYqHYbf8r6cMj9oS4q3aLEsxM1u/9pifTrqwDqnETxBiBIQYASFGQIgREGIEhBgBIUZAiBEQYgSEGAEhRkCIERBiBIQYASFGQIgREGIEhBgBIUZAiBGkSz/sI8R79cevfB5OcVuvPeans7CdNfGC7+Pc8gs/vKedP/H2sjDE/kwl3pLNZUmKmckpxDuuPvQL6nDY8ivTe1KKy/O8KH7/X50UV1dOnXXCj6ruOEke+46sspZvdgMAAAAAAAAAAAAAAAAAAAAAAAAA/l8/AQC/H56qQf3lAAAAAElFTkSuQmCC');
     }
+  }
+
+  modalTest() {
+    this.modalService.openModal(
+      modals.ConfirmModalComponent,
+      {
+        icon: '/assets/icons/success.svg',
+        title: 'Успешно!',
+        text: `Вы активировали тариф`,
+        cancelButtonText: 'Перейти на главную',
+        cancelBtnClass: 'mob-btn'
+      }, ((data: any) => {
+        console.log('data', data);
+        if (data.eventName === 'cancelClick') {
+          this.modalService.closeModal();
+          this.navigationService.goToUrl('/user');
+        }
+      }), modalType.bottomSwipe);
   }
 }

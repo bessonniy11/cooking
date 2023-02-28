@@ -1,0 +1,58 @@
+.modal-confirm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px 0 35px;
+
+  > *:first-child {
+    margin-top: 0;
+  }
+
+  &__title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 130%;
+    letter-spacing: -0.24px;
+    color: #C09957;
+    margin: 25px 0 0;
+    text-align: center;
+  }
+
+  &__text {
+    margin: 25px 0 0;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 130%;
+    color: #221F20;
+    text-align: center;
+  }
+
+  &__btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 25px;
+    align-self: stretch;
+  }
+
+}
+
+.btn-confirm {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: -0.24px;
+  color: #C09957;
+  background: transparent;
+}
+
+.btn-cancel {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: -0.24px;
+  color: #221F20;
+  background: transparent;
+}

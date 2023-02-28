@@ -1,0 +1,64 @@
+.modal-backdrop {
+  background: rgb(0 0 0 / 60%);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.modal-classic {
+  padding: 20px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+
+  .modal-container {
+    max-height: 100%;
+    position: relative;
+    z-index: 1100;
+    max-width: 640px;
+    margin: auto;
+    border-radius: 5px;
+    background: #FAF8F3;
+    box-shadow: 0 2px 2px rgba(151, 151, 151, 0.25);
+    width: 100%;
+
+    &::before{
+      content: '';
+      position: absolute;
+      height: 10px;
+      left: 0;
+      right: 0;
+      top: -1px;
+      background: linear-gradient(0deg, #FAF8F300 0%, #FAF8F3 50%, #FAF8F3 100%);
+      z-index: 1101;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      height: 10px;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      background: linear-gradient(0deg, #FAF8F300 0%, #FAF8F3 50%, #FAF8F3 100%);
+      z-index: 1101;
+    }
+
+    .scroll-container {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding: 15px;
+    }
+
+    .modal-button_close {
+      display: flex;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 5px;
+      z-index: 1102;
+    }
+  }
+}

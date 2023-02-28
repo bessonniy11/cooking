@@ -1,0 +1,104 @@
+:host{
+  width:100%;
+  margin-bottom: 10px;
+  text-align: center;
+  display: block;
+}
+.full-width{
+  width:100%;
+}
+
+.select-sub {
+  min-height: 35px !important;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.modal_button{
+  margin-bottom: 35px !important;
+}
+
+.mob-btn[disabled] {
+  background: #DADADA !important;
+  border: 1px solid #DADADA !important;
+}
+
+.btn-confirm {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: -0.24px;
+  color: #C09957;
+  background: transparent;
+}
+
+.btn-cancel {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: -0.24px;
+  color: #221F20;
+  background: transparent;
+}
+
+.ng-star-inserted {
+    background-color: #fff;
+    color: #221F20;
+    padding: 18px 16px;
+    border-radius: 10px;
+    font-family: Raleway, sans-serif;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: 0.38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    width: 100%;
+    font-weight: 600;
+    &.red {
+      color: #E3404B;
+      font-weight: 500;
+    }
+}
+
+.ng-star-group {
+  background-color: #fff;
+  color: #221F20;
+  padding: 18px 16px;
+  border-radius: 10px;
+  font-family: Raleway, sans-serif;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0.38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  width: 100%;
+  font-weight: 600;
+  &.red {
+    color: #FF2D55;
+    font-weight: 500;
+  }
+
+  &.first-btn {
+    border-radius: 13px 13px 0px 0px;
+    margin-bottom: -10px;
+    border-bottom: 0.5px solid #979797;
+  }
+
+  &.center-btn {
+    border-radius: 0px;
+    margin-bottom: -10px;
+    border-bottom: 0.5px solid #979797;
+  }
+
+  &.last-btn {
+    border-radius: 0px 0px 13px 13px;
+    margin-bottom: 10px;
+  }
+}

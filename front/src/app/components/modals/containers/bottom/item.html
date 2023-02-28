@@ -1,0 +1,8 @@
+<div class="modal-wrapper">
+  <div class="modal-backdrop" [@backdrop]="containerActive" (click)="close()"></div>
+  <div class="modal-bottom">
+    <div class="modal-container" [@container]="containerActive">
+      <ng-container #vc></ng-container>
+    </div>
+  </div>
+</div>

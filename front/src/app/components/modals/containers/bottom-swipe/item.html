@@ -1,0 +1,19 @@
+<div class="modal-wrapper">
+  <div class="modal-backdrop"
+       #backdrop
+       [@backdrop]="containerActive"
+       (click)="close()"
+  ></div>
+  <div class="modal-bottom"
+       #container
+       [@container]="containerActive"
+       (touchstart)="onTouchStart($event)"
+       (touchend)="onTouchEnd($event)"
+       (touchmove)="onTouchMove($event)"
+  >
+    <div class="swipe-line"></div>
+    <div class="modal-container">
+      <ng-container #vc></ng-container>
+    </div>
+  </div>
+</div>

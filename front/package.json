@@ -12,7 +12,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "run web dev": "ng run web:serve",
-    "run dev": "ng serve --port 3000",
+    "run dev": "ng serve --port 3300",
     "run web stage": "ng run web:serve:stage",
     "run web staging": "ng run web:serve:staging",
     "run web demo": "ng run web:serve:demo",

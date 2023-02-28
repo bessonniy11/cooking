@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {Router} from "@angular/router";
 import {NavigationService} from "./services/navigation.service";
 import {UserService} from "./services/user.service";
+import {ModalService} from "./services/modal.service";
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,11 @@ export class AppComponent implements OnInit {
     private router: Router,
     private navigationService: NavigationService,
     private userService: UserService,
-  ) {}
+    private modalService: ModalService,
+    private viewContainerRef: ViewContainerRef,
+  ) {
+    this.modalService.appViewContainerRef = viewContainerRef;
+  }
 
   ngOnInit() {
     Promise.all([

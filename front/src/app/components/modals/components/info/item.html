@@ -1,0 +1,8 @@
+<div class="modal-info">
+  <div class="modal-info__icon" *ngIf="icon">
+    <img [src]="icon" alt="">
+  </div>
+  <h3 *ngIf="title" class="modal-info__title">{{title}}</h3>
+  <p *ngIf="text" class="modal-info__text">{{text}}</p>
+  <button *ngIf="buttonText" class="mob-btn modal-info__btn" (click)="clickButton()">{{buttonText}}</button>
+</div>

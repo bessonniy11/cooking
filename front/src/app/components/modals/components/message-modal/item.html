@@ -1,0 +1,15 @@
+<ng-container *ngIf="modal">
+  <div class="modal-wrapper" [class.closing]="closing">
+    <div class="modal-backdrop" (click)="close()"></div>
+    <div class="modal-scroll-container modal-scroll-container--popup">
+      <div class="modal-container modal-container--popup">
+
+        <span class="modal-button_close" (click)="close()"></span>
+        <h3 class="modal-title">
+          {{massageModalText}}
+        </h3>
+
+      </div>
+    </div>
+  </div>
+</ng-container>

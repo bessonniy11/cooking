@@ -19,6 +19,7 @@ export class AppService {
   platform: Platform;
   actionSheetController: ActionSheetController;
   camera: Camera;
+  errorCode: number | null = null;
 
   constructor(
     platform: Platform,
@@ -57,5 +58,10 @@ export class AppService {
 
   getWindow() {
     return _window();
+  }
+
+  getToken() {
+    const token = localStorage.getItem('token');
+    return token !== 'null' && token !== 'undefined' && token ? token : null;
   }
 }

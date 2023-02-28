@@ -1,0 +1,46 @@
+.modal-context-menu {
+  button {
+    background-color: #fff;
+    color: #221F20;
+    padding: 18px 16px;
+    border-radius: 10px;
+    font-family: Raleway, sans-serif;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: 0.38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    width: 100%;
+    font-weight: 600;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &.red {
+      color: #FF2D55;
+      font-weight: 500;
+    }
+  }
+
+  .modal-context-menu-group {
+    button {
+      margin: 0px;
+      border-radius: 0px;
+      border-bottom: 0.5px solid #979797;
+
+      &:first-child {
+        border-radius: 13px 13px 0px 0px;
+      }
+      &:last-child {
+        border-radius: 0px 0px 13px 13px;
+        border-bottom: 0.5px solid transparent;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+

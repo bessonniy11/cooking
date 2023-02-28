@@ -1,0 +1,28 @@
+<div class="modal-context-menu">
+  <div class="modal-context-menu-group">
+    <ng-container *ngFor="let groupBtn of groupButtons">
+
+      <button-animate
+        [defaultClass]="groupBtn.className ? groupBtn.className : 'ng-star-inserted'"
+        [animatedType]="'bigtouch'"
+        (onClick)="clickButton(groupBtn.key)"
+      >
+        {{groupBtn.label || groupBtn.key}}
+      </button-animate>
+
+    </ng-container>
+  </div>
+  <ng-container *ngFor="let button of buttons">
+
+    <button-animate
+      [defaultClass]="button.className ? button.className : 'ng-star-inserted'"
+      [animatedType]="'bigtouch'"
+      (onClick)="clickButton(button.key)"
+    >
+      {{button.label || button.key}}
+    </button-animate>
+
+  </ng-container>
+</div>
+
+

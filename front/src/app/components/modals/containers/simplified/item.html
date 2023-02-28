@@ -1,0 +1,10 @@
+<div class="modal-wrapper" >
+  <div class="modal-backdrop blur" [@backdrop]="containerActive" (click)="close()"></div>
+  <div class="modal-simplified">
+    <div class="modal-container" [@container]="containerActive">
+<!--      <div class="scroll-container">-->
+        <ng-container #vc></ng-container>
+<!--      </div>-->
+    </div>
+  </div>
+</div>
